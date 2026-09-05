@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00e676">
 
-  <!-- ================= SEO / BROWSER TAB ================= -->
   <title>CEVIX BAZAR — Trusted Digital Marketplace</title>
   <meta name="description" content="CEVIX BAZAR — trusted digital marketplace with verified sellers, fast delivery and secure service.">
   <meta name="keywords" content="CEVIX BAZAR, digital marketplace, Discord shop, sellers">
@@ -14,6 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://i.imgur.com/REPLACE_WITH_YOUR_LOGO.png">
   <link rel="icon" href="https://i.imgur.com/REPLACE_WITH_YOUR_LOGO.png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root{
@@ -126,7 +127,8 @@
     .chip{
       border:1px solid rgba(0,230,118,.12);
       background:rgba(0,230,118,.035);
-      padding:8px 12px;border-radius:999px;font-size:12px;color:#b9ccc5
+      padding:8px 12px;border-radius:999px;font-size:12px;color:#b9ccc5;
+      display:inline-flex;align-items:center;gap:6px;
     }
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
 
@@ -144,9 +146,7 @@
     .info-row span:first-child{color:var(--muted)}
     .buy-card{padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
     .buy-icon{
-      width:88px;height:88px;border:2px solid var(--green);border-radius:50%;
-      display:grid;place-items:center;font-size:37px;color:var(--green);
-      box-shadow:0 0 30px rgba(0,230,118,.16);margin:4px 0 15px;
+      margin:4px 0 15px;
     }
     .buy-card p{font-size:12px;color:var(--muted);margin-bottom:20px}
 
@@ -168,7 +168,7 @@
     .server-buttons{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
     .stat{padding:16px;border:1px solid rgba(255,255,255,.055);border-radius:10px;background:rgba(255,255,255,.018)}
-    .stat-label{color:var(--muted);font-size:11px}
+    .stat-label{color:var(--muted);font-size:11px;display:flex;align-items:center;gap:6px;}
     .stat-number{font-size:22px;font-weight:900;margin-top:5px}
     .stat-number.green{color:var(--green)}
     .live-bar{
@@ -213,10 +213,10 @@
 
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .text-card{padding:22px}
-    .text-card h3{font-size:14px;margin-bottom:13px}
+    .text-card h3{font-size:14px;margin-bottom:13px;display:flex;align-items:center;gap:8px;}
     .list{list-style:none;color:#a8b9b4;font-size:12px}
     .list li{padding:6px 0}
-    .list li:before{content:"✓";color:var(--green);font-weight:900;margin-right:8px}
+    .list li:before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;color:var(--green);margin-right:8px}
     .notice{
       margin-top:12px;padding:12px;border-radius:8px;
       background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.1);
@@ -230,10 +230,10 @@
     .footer-grid{width:min(1180px,100%);margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
     .footer-brand p{color:var(--muted);font-size:12px;max-width:260px;margin-top:12px}
     footer h4{font-size:12px;margin-bottom:12px}
-    footer a{display:block;color:var(--muted);font-size:11px;padding:4px 0}
+    footer a{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;padding:4px 0;transition:0.2s;}
     footer a:hover{color:var(--green)}
     .socials{display:flex;gap:8px;margin-top:14px}
-    .socials a{border:1px solid rgba(255,255,255,.09);padding:7px 9px;border-radius:7px}
+    .socials a{border:1px solid rgba(255,255,255,.09);padding:7px 11px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
     .copyright{
       width:min(1180px,100%);margin:28px auto 0;padding-top:17px;
       border-top:1px solid rgba(255,255,255,.06);
@@ -248,6 +248,101 @@
       transition:.25s;z-index:9999
     }
     #toast.show{transform:translateY(0);opacity:1}
+
+
+    /* ================= CSS ICONS (Real Icons via FontAwesome) ================= */
+    .ico, .mini-icon, .chip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .ico { font-size: 14px; width: 14px; height: 14px; }
+    .mini-icon { font-size: 11px; width: 11px; height: 11px; }
+    .chip-icon { font-size: 14px; width: 14px; height: 14px; }
+
+    .ico::before, .mini-icon::before, .chip-icon::before, .css-bag::before {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Brand Icons (Discord, Instagram, YouTube, X/Twitter) */
+    .ico.discord::before, .ico.instagram::before, .ico.youtube::before, .ico.xicon::before {
+      font-family: "Font Awesome 6 Brands";
+      font-weight: 400;
+    }
+
+    /* Icon Mappings */
+    .ico.discord::before { content: "\f392"; }
+    .ico.cart::before { content: "\f07a"; } /* shopping-cart */
+    .ico.users::before { content: "\f0c0"; } /* users */
+    .ico.online::before { content: "\f111"; font-size: 9px; text-shadow: 0 0 7px currentColor; } /* circle */
+    .ico.spark::before { content: "\e2ca"; } /* wand-magic-sparkles */
+    .ico.message::before { content: "\f4ad"; } /* comment-dots */
+    .ico.instagram::before { content: "\f16d"; }
+    .ico.file::before { content: "\f15c"; } /* file-lines */
+    .ico.heart::before, .chip-icon.heart::before { content: "\f004"; }
+    .ico.mail::before { content: "\f0e0"; } /* envelope */
+    .ico.globe::before { content: "\f0ac"; }
+    .ico.clock::before { content: "\f017"; }
+    .ico.youtube::before { content: "\f167"; }
+    .ico.xicon::before { content: "\e61b"; } /* x-twitter */
+
+    .mini-icon.shield::before, .ico.shield::before, .chip-icon.shield::before { content: "\f3ed"; } /* shield-halved */
+    .mini-icon.bolt::before { content: "\f0e7"; }
+    .mini-icon.check::before { content: "\f00c"; }
+
+    .chip-icon.rocket::before { content: "\f135"; }
+    .chip-icon.cardico::before { content: "\f09d"; } /* credit-card */
+
+    /* The Large Buy Card Icon */
+    .css-bag {
+      width: 78px; height: 78px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      color: var(--green);
+      background: rgba(0, 230, 118, 0.05);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(0, 230, 118, 0.18);
+    }
+    .css-bag::before { content: "\f290"; } /* bag-shopping */
+
+
+    /* ================= ANIMATED GRID BACKGROUND ================= */
+    body:before{
+      content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(0,230,118,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,230,118,.035) 1px,transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom,black,rgba(0,0,0,.45),transparent 90%);
+      animation:gridMove 18s linear infinite;
+    }
+    body:after{
+      content:"";position:fixed;inset:-30%;z-index:-3;pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%,rgba(0,230,118,.09),transparent 17%),
+        radial-gradient(circle at 80% 45%,rgba(0,230,118,.055),transparent 19%),
+        radial-gradient(circle at 45% 85%,rgba(0,230,118,.045),transparent 16%);
+      animation:ambientMove 12s ease-in-out infinite alternate;
+    }
+    @keyframes gridMove{from{transform:translate3d(0,0,0)}to{transform:translate3d(42px,42px,0)}}
+    @keyframes ambientMove{from{transform:translate3d(-2%, -1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.05)}}
+
+    /* ================= DEVELOPER CREDIT ================= */
+    .developer-credit{
+      margin-top:9px;font-size:10px;color:#65756f
+    }
+    .developer-credit a{color:var(--green);font-weight:900}
 
     @media(max-width:900px){
       .navlinks{display:none}
@@ -275,7 +370,7 @@
 <body>
   <div class="announcement">
     <div class="announce-left"><i class="dot"></i><span id="announcementText">Welcome to CEVIX BAZAR — Your Trusted Digital Marketplace!</span></div>
-    <div class="announce-right">🛡️ Secure • ⚡ Fast • ✓ Trusted</div>
+    <div class="announce-right"><span class="mini-icon shield"></span> Secure • <span class="mini-icon bolt"></span> Fast • <span class="mini-icon check"></span> Trusted</div>
   </div>
 
   <nav>
@@ -291,7 +386,7 @@
       <a href="#tos">TOS</a>
       <a href="#contact">Contact</a>
     </div>
-    <a id="navDiscord" class="btn nav-cta" href="#" target="_blank" rel="noopener">💬 Join Discord</a>
+    <a id="navDiscord" class="btn nav-cta" href="#" target="_blank" rel="noopener"><span class="ico discord"></span> Join Discord</a>
   </nav>
 
   <main>
@@ -307,15 +402,15 @@
         <p id="heroDescription">Premium digital products and services from trusted sellers. Quality, fast delivery and customer-focused service.</p>
 
         <div class="chips">
-          <div class="chip">🚀 Fast Delivery</div>
-          <div class="chip">🛡️ Trusted Sellers</div>
-          <div class="chip">💳 Secure Payment</div>
-          <div class="chip">💚 Community Driven</div>
+          <div class="chip"><span class="chip-icon rocket"></span> Fast Delivery</div>
+          <div class="chip"><span class="chip-icon shield"></span> Trusted Sellers</div>
+          <div class="chip"><span class="chip-icon cardico"></span> Secure Payment</div>
+          <div class="chip"><span class="chip-icon heart"></span> Community Driven</div>
         </div>
 
         <div class="hero-actions">
-          <a id="shopButton" class="btn" href="#sellers">🛒 Shop Now</a>
-          <a id="heroDiscord" class="btn outline" href="#" target="_blank" rel="noopener">💬 Join Discord</a>
+          <a id="shopButton" class="btn" href="#sellers"><span class="ico cart"></span> Shop Now</a>
+          <a id="heroDiscord" class="btn outline" href="#" target="_blank" rel="noopener"><span class="ico discord"></span> Join Discord</a>
         </div>
       </div>
 
@@ -332,10 +427,10 @@
 
         <div class="card buy-card">
           <h3>Buy With Confidence</h3>
-          <div class="buy-icon">🛍</div>
+          <div class="buy-icon"><span class="css-bag"></span></div>
           <strong>100% Secure Service</strong>
           <p id="buyText">Instant delivery • Premium quality • Trusted sellers</p>
-          <a id="buyButton" class="btn" href="#" target="_blank" rel="noopener">🛒 Buy Online Now</a>
+          <a id="buyButton" class="btn" href="#" target="_blank" rel="noopener"><span class="ico cart"></span> Buy Online Now</a>
         </div>
       </div>
     </section>
@@ -368,21 +463,21 @@
         <div>
           <div class="stats">
             <div class="stat">
-              <div class="stat-label">👥 Total Members</div>
+              <div class="stat-label"><span class="ico users"></span> Total Members</div>
               <div class="stat-number" id="memberCount">—</div>
             </div>
             <div class="stat">
-              <div class="stat-label">🟢 Online Members</div>
+              <div class="stat-label"><span class="ico online"></span> Online Members</div>
               <div class="stat-number green" id="onlineCount">—</div>
             </div>
             <div class="stat">
-              <div class="stat-label">✨ Status</div>
+              <div class="stat-label"><span class="ico spark"></span> Status</div>
               <div class="stat-number" id="serverStatus" style="font-size:18px">LIVE</div>
             </div>
           </div>
           <div class="live-bar">
             <div class="bars" id="bars"></div>
-            <span>Live data • Updates every 10 seconds</span>
+            <span>Live data</span>
           </div>
         </div>
       </div>
@@ -392,7 +487,7 @@
       <div class="section-title">
         <div>
           <h2>OUR TRUSTED SELLERS</h2>
-          <p id="sellerSourceText">Seller cards can be loaded from Google Sheets or code.</p>
+          <p id="sellerSourceText">Seller cards are loaded only from the connected Google Sheet.</p>
         </div>
         <span id="sellerCount" style="font-size:11px;color:var(--muted)">0 Sellers</span>
       </div>
@@ -402,15 +497,15 @@
     <section id="tos">
       <div class="two-col">
         <div class="card text-card">
-          <h3>🛡️ SHOP TERMS OF SERVICE</h3>
+          <h3><span class="ico shield"></span> SHOP TERMS OF SERVICE</h3>
           <ul class="list" id="tosList"></ul>
           <div style="margin-top:12px">
-            <a id="fullTos" class="btn small outline" href="#" target="_blank" rel="noopener">📄 Read Full TOS</a>
+            <a id="fullTos" class="btn small outline" href="#" target="_blank" rel="noopener"><span class="ico file"></span> Read Full TOS</a>
           </div>
         </div>
 
         <div class="card text-card">
-          <h3>💚 WHY CHOOSE CEVIX BAZAR?</h3>
+          <h3><span class="ico heart"></span> WHY CHOOSE CEVIX BAZAR?</h3>
           <ul class="list" id="whyList"></ul>
           <div class="notice" id="shopNotice">Please read the shop TOS before purchasing.</div>
         </div>
@@ -426,11 +521,12 @@
           <span>CEVIX <span>BAZAR</span></span>
         </div>
         <p id="footerDescription">Your trusted digital marketplace for premium products and services.</p>
+        <div class="developer-credit">Developed by <a id="developerLink" href="#" target="_blank" rel="noopener">HASAN HRIDOY</a></div>
         <div class="socials">
-          <a id="footerDiscord" href="#" target="_blank">💬</a>
-          <a id="footerInstagram" href="#" target="_blank">◎</a>
-          <a id="footerYoutube" href="#" target="_blank">▶</a>
-          <a id="footerTwitter" href="#" target="_blank">𝕏</a>
+          <a id="footerDiscord" href="#" target="_blank"><span class="ico discord"></span></a>
+          <a id="footerInstagram" href="#" target="_blank"><span class="ico instagram"></span></a>
+          <a id="footerYoutube" href="#" target="_blank"><span class="ico youtube"></span></a>
+          <a id="footerTwitter" href="#" target="_blank"><span class="ico xicon"></span></a>
         </div>
       </div>
 
@@ -453,9 +549,9 @@
       <div>
         <h4>CONTACT US</h4>
         <a id="contactDiscord" href="#" target="_blank">💬 Discord: CEVIX BAZAR</a>
-        <a id="contactEmail" href="mailto:">✉️ Email: —</a>
-        <a id="contactWebsite" href="#" target="_blank">🌐 Website: —</a>
-        <a href="#discord">◷ Live Server Stats</a>
+        <a id="contactEmail" href="mailto:"><span class="ico mail"></span> Email: —</a>
+        <a id="contactWebsite" href="#" target="_blank"><span class="ico globe"></span> Website: —</a>
+        <a href="#discord"><span class="ico clock"></span> Live Server Stats</a>
       </div>
     </div>
 
@@ -479,7 +575,7 @@ const CONFIG = {
     tagline: "Your trusted digital marketplace.",
     description: "Premium digital products and services from trusted sellers. Quality, fast delivery and customer-focused service.",
     category: "Digital Marketplace",
-    founded: "2026",
+    founded: "2024",
     products: "500+",
     satisfaction: "99.8%",
     support: "24/7 Active",
@@ -503,10 +599,15 @@ const CONFIG = {
   },
 
   social: {
-    discord: "https://discord.gg/YOUR_INVITE_CODE",
+    discord: "https://discord.gg/cevixbazar",
     instagram: "https://instagram.com/YOUR_USERNAME",
     youtube: "https://youtube.com/@YOUR_CHANNEL",
     twitter: "https://x.com/YOUR_USERNAME"
+  },
+
+  developer: {
+    name: "HASAN HRIDOY",
+    link: "https://hasanhridoy.pages.dev"
   },
 
   /*
@@ -519,67 +620,13 @@ const CONFIG = {
     4. Paste the published CSV URL below.
     5. Leave it empty if you want to use the sellers written in code.
   */
-  googleSheetCSV: "",
+  googleSheetCSV: "https://docs.google.com/spreadsheets/d/1qPbQ7PoNh-mHBazka2PcYq-2Udfyvn616haAABPqNw8/edit?usp=drivesdk",
 
   /*
-    Sellers can ALWAYS be added directly here too.
-    Copy one object and change its values to add unlimited cards.
+    Seller cards are intentionally NOT stored in this HTML.
+    They come only from the Google Sheet.
   */
-  sellers: [
-    {
-      name:"ShadowX",
-      photo:"https://i.imgur.com/REPLACE_SELLER_1.png",
-      discord:"https://discord.com/users/USER_ID",
-      instagram:"https://instagram.com/USERNAME",
-      tag:"Top Seller",
-      tagColor:"green",
-      verified:"Trusted",
-      about:"Premium accounts & digital products seller.",
-      rating:"4.9",
-      reviews:"124",
-      sales:"238+"
-    },
-    {
-      name:"NovaStore",
-      photo:"https://i.imgur.com/REPLACE_SELLER_2.png",
-      discord:"https://discord.com/users/USER_ID",
-      instagram:"https://instagram.com/USERNAME",
-      tag:"Pro Seller",
-      tagColor:"purple",
-      verified:"Verified",
-      about:"Providing the best digital services.",
-      rating:"4.8",
-      reviews:"89",
-      sales:"156+"
-    },
-    {
-      name:"ZenixHub",
-      photo:"https://i.imgur.com/REPLACE_SELLER_3.png",
-      discord:"https://discord.com/users/USER_ID",
-      instagram:"https://instagram.com/USERNAME",
-      tag:"Expert",
-      tagColor:"gold",
-      verified:"Trusted",
-      about:"Fast delivery & quality service.",
-      rating:"4.9",
-      reviews:"203",
-      sales:"192+"
-    },
-    {
-      name:"ByteZone",
-      photo:"https://i.imgur.com/REPLACE_SELLER_4.png",
-      discord:"https://discord.com/users/USER_ID",
-      instagram:"https://instagram.com/USERNAME",
-      tag:"New Seller",
-      tagColor:"blue",
-      verified:"New",
-      about:"New seller with great services.",
-      rating:"4.7",
-      reviews:"45",
-      sales:"67+"
-    }
-  ],
-
+  sellers: [],
   tos: [
     "All sales are final and non-refundable unless the shop approves otherwise.",
     "No chargebacks or payment disputes are allowed.",
@@ -654,23 +701,29 @@ function setup(){
   setLink("fullTos",CONFIG.shop.fullTosLink);
 
   $("contactEmail").href="mailto:"+CONFIG.shop.email;
-  $("contactEmail").textContent="✉️ Email: "+CONFIG.shop.email;
+  $("contactEmail").innerHTML="<span class=\"ico mail\"></span> Email: "+CONFIG.shop.email;
   $("contactWebsite").href=CONFIG.shop.website;
-  $("contactWebsite").textContent="🌐 Website: "+CONFIG.shop.website.replace(/^https?:\/\//,"");
+  $("contactWebsite").innerHTML="<span class=\"ico globe\"></span> Website: "+CONFIG.shop.website.replace(/^https?:\/\//,"");
   $("footerDescription").textContent=CONFIG.shop.description;
   $("copyright").textContent="© "+new Date().getFullYear()+" "+CONFIG.shop.name+". All rights reserved.";
+  $("developerLink").textContent=CONFIG.developer.name;
+  $("developerLink").href=CONFIG.developer.link;
 
   Object.entries(CONFIG.links).forEach(([key,val])=>setLink(key+"Link",val));
 
   $("tosList").innerHTML=CONFIG.tos.map(x=>`<li>${escapeHTML(x)}</li>`).join("");
   $("whyList").innerHTML=CONFIG.whyChoose.map(x=>`<li>${escapeHTML(x)}</li>`).join("");
 
-  renderSellers(CONFIG.sellers);
   makeBars();
   updateDiscord();
   setInterval(updateDiscord,10000);
 
-  if(CONFIG.googleSheetCSV.trim()) loadGoogleSheet();
+  if(CONFIG.googleSheetCSV.trim()) {
+    loadGoogleSheet();
+  } else {
+    renderSellers([]);
+    $("sellerSourceText").textContent="Connect your Google Sheet to display seller cards.";
+  }
 }
 
 function escapeHTML(str){
@@ -699,8 +752,8 @@ function renderSellers(sellers){
       <div class="seller-about">${escapeHTML(s.about || "Trusted seller.")}</div>
       <div class="rating">★ ★ ★ ★ ★ <span>${escapeHTML(s.rating || "5.0")} (${escapeHTML(s.reviews || "0")})</span></div>
       <div class="seller-buttons">
-        <a class="btn small" href="${escapeHTML(s.discord || "#")}" target="_blank" rel="noopener">💬 Contact</a>
-        <a class="btn small outline" href="${escapeHTML(s.instagram || "#")}" target="_blank" rel="noopener">◎ Instagram</a>
+        <a class="btn small" href="${escapeHTML(s.discord || "#")}" target="_blank" rel="noopener"><span class="ico message"></span> Contact</a>
+        <a class="btn small outline" href="${escapeHTML(s.instagram || "#")}" target="_blank" rel="noopener"><span class="ico instagram"></span> Instagram</a>
       </div>
       <div style="font-size:10px;color:#70817b;margin-top:9px">${escapeHTML(s.sales || "0")} Sales</div>
     </article>
@@ -753,7 +806,7 @@ async function loadGoogleSheet(){
     showToast("Seller cards updated from Google Sheets.");
   }catch(err){
     console.warn(err);
-    $("sellerSourceText").textContent="Google Sheets unavailable — showing sellers from code.";
+    $("sellerSourceText").textContent="Google Sheets unavailable — no seller cards are displayed.";
   }
 }
 
@@ -844,4 +897,4 @@ function showToast(msg){
 setup();
 </script>
 </body>
-</html>
+        </html>
