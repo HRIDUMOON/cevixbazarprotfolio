@@ -1,4 +1,4 @@
-<!DOCTYPEPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,16 +51,6 @@
     .reveal.active {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    /* Seller Card Animation */
-    .seller {
-      animation: popUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    @keyframes popUp {
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .announcement{
@@ -166,6 +156,55 @@
     .section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:15px}
     .section-title h2{font-size:18px}
     .section-title p{font-size:12px;color:var(--muted)}
+    
+    /* PRODUCTS GRID */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    .product-card {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      transition: 0.2s;
+    }
+    .product-card:hover {
+      border-color: rgba(0,230,118,.4);
+      transform: translateY(-3px);
+    }
+    .product-photo {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .product-price {
+      font-weight: 900;
+      color: var(--green);
+      font-size: 14px;
+    }
+    .product-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .product-details {
+      font-size: 11px;
+      color: var(--muted);
+      flex-grow: 1;
+      margin-bottom: 14px;
+    }
+
     .server{
       padding:18px;
       display:grid;
@@ -208,9 +247,10 @@
       display:block;
     }
     .tag{
-      position:absolute;right:10px;top:10px;font-size:9px;font-weight:900;
+      font-size:9px;font-weight:900;
       padding:4px 7px;border-radius:999px;border:1px solid currentColor
     }
+    .tag.absolute { position:absolute; right:10px; top:10px; }
     .tag.green{color:var(--green);background:rgba(0,230,118,.07)}
     .tag.purple{color:var(--purple);background:rgba(184,108,255,.07)}
     .tag.blue{color:var(--blue);background:rgba(69,183,255,.07)}
@@ -305,8 +345,26 @@
     .developer-credit{margin-top:9px;font-size:10px;color:#65756f}
     .developer-credit a{color:var(--green);font-weight:900}
 
-    @media(max-width:900px){ .navlinks{display:none} .hero{grid-template-columns:1fr;padding-top:42px} .seller-grid{grid-template-columns:repeat(2,1fr)} .server{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr 1fr} }
-    @media(max-width:560px){ .announcement .announce-right{display:none} .brand span{font-size:16px} .nav-cta{padding:9px 11px!important;font-size:11px} .hero-logo{width:70px;height:70px} .hero h1{font-size:44px} .split-cards,.two-col,.stats{grid-template-columns:1fr} .seller-grid{grid-template-columns:1fr 1fr} .seller{padding:13px 8px} .seller-photo{width:65px;height:65px} .footer-grid{grid-template-columns:1fr 1fr} .copyright{flex-direction:column;gap:5px} }
+    @media(max-width:900px){ 
+      .navlinks{display:none} 
+      .hero{grid-template-columns:1fr;padding-top:42px} 
+      .seller-grid, .product-grid{grid-template-columns:repeat(2,1fr)} 
+      .server{grid-template-columns:1fr} 
+      .footer-grid{grid-template-columns:1fr 1fr} 
+    }
+    @media(max-width:560px){ 
+      .announcement .announce-right{display:none} 
+      .brand span{font-size:16px} 
+      .nav-cta{padding:9px 11px!important;font-size:11px} 
+      .hero-logo{width:70px;height:70px} 
+      .hero h1{font-size:44px} 
+      .split-cards,.two-col,.stats{grid-template-columns:1fr} 
+      .seller-grid, .product-grid{grid-template-columns:1fr} 
+      .seller{padding:13px 8px} 
+      .seller-photo{width:65px;height:65px} 
+      .footer-grid{grid-template-columns:1fr 1fr} 
+      .copyright{flex-direction:column;gap:5px} 
+    }
   </style>
 </head>
 
@@ -324,10 +382,10 @@
     <div class="navlinks">
       <a href="#home">Home</a>
       <a href="#shop">Shop</a>
+      <a href="#products">Products</a>
       <a href="#sellers">Sellers</a>
       <a href="#discord">Discord</a>
       <a href="#tos">TOS</a>
-      <a href="#contact">Contact</a>
     </div>
     <a id="navDiscord" class="btn nav-cta" href="#" target="_blank" rel="noopener"><span class="ico discord"></span> Join Discord</a>
   </nav>
@@ -352,7 +410,7 @@
         </div>
 
         <div class="hero-actions reveal" style="transition-delay: 0.2s;">
-          <a id="shopButton" class="btn" href="#sellers"><span class="ico cart"></span> Shop Now</a>
+          <a id="shopButton" class="btn" href="#products"><span class="ico cart"></span> View Products</a>
           <a id="heroDiscord" class="btn outline" href="#" target="_blank" rel="noopener"><span class="ico discord"></span> Join Discord</a>
         </div>
       </div>
@@ -363,7 +421,6 @@
           <div class="info-row"><span>Shop Name</span><b id="shopName">CEVIX BAZAR</b></div>
           <div class="info-row"><span>Category</span><b id="shopCategory">Digital Marketplace</b></div>
           <div class="info-row"><span>Founded</span><b id="shopFounded">2026</b></div>
-          <div class="info-row"><span>Products</span><b id="shopProducts">500+</b></div>
           <div class="info-row"><span>Satisfaction</span><b style="color:var(--green)" id="shopSatisfaction">99.8%</b></div>
           <div class="info-row"><span>Support</span><b id="shopSupport">24/7 Active</b></div>
         </div>
@@ -373,9 +430,32 @@
           <div class="buy-icon"><span class="css-bag"></span></div>
           <strong>100% Secure Service</strong>
           <p id="buyText">Instant delivery • Premium quality</p>
-          <a id="buyButton" class="btn" href="#" target="_blank" rel="noopener"><span class="ico cart"></span> Buy Online Now</a>
+          <a id="buyButton" class="btn outline" href="#discord"><span class="ico message"></span> Ask in Discord</a>
         </div>
       </div>
+    </section>
+
+    <!-- NEW PRODUCTS SECTION -->
+    <section id="products" class="reveal">
+      <div class="section-title">
+        <div>
+          <h2>FEATURED PRODUCTS</h2>
+          <p id="productSourceText">Loading awesome products...</p>
+        </div>
+        <span id="productCount" style="font-size:11px;color:var(--muted)">0 Products</span>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section id="sellers" class="reveal">
+      <div class="section-title">
+        <div>
+          <h2>OUR TRUSTED SELLERS</h2>
+          <p id="sellerSourceText">Loading awesome sellers...</p>
+        </div>
+        <span id="sellerCount" style="font-size:11px;color:var(--muted)">0 Sellers</span>
+      </div>
+      <div id="sellerGrid" class="seller-grid"></div>
     </section>
 
     <section id="discord" class="reveal">
@@ -426,17 +506,6 @@
       </div>
     </section>
 
-    <section id="sellers" class="reveal">
-      <div class="section-title">
-        <div>
-          <h2>OUR TRUSTED SELLERS</h2>
-          <p id="sellerSourceText">Loading awesome sellers...</p>
-        </div>
-        <span id="sellerCount" style="font-size:11px;color:var(--muted)">0 Sellers</span>
-      </div>
-      <div id="sellerGrid" class="seller-grid"></div>
-    </section>
-
     <section id="tos">
       <div class="two-col">
         <div class="card text-card reveal">
@@ -475,8 +544,8 @@
 
       <div>
         <h4>QUICK LINKS</h4>
-        <a href="#home">Home</a><a href="#shop">Shop</a><a href="#sellers">Sellers</a>
-        <a href="#discord">Discord</a><a href="#tos">TOS</a><a href="#contact">Contact</a>
+        <a href="#home">Home</a><a href="#shop">Shop</a><a href="#products">Products</a>
+        <a href="#sellers">Sellers</a><a href="#discord">Discord</a><a href="#tos">TOS</a>
       </div>
 
       <div>
@@ -514,13 +583,11 @@ const CONFIG = {
     description: "Premium digital products and services from trusted sellers. Quality, fast delivery and customer-focused service.",
     category: "Digital Marketplace",
     founded: "2024",
-    products: "100+",
     satisfaction: "99.8%",
     support: "24/7 Active",
     logo: "https://i.ibb.co.com/N2qbgtSt/file-00000000adc882119b4a1269a27bd37e.png",
     favicon: "https://i.ibb.co.com/N2qbgtSt/file-00000000adc882119b4a1269a27bd37e.png",
-    buyLink: "https://example.com/buy",
-    shopLink: "#sellers",
+    shopLink: "#products",
     fullTosLink: "#tos",
     email: "",
     website: "",
@@ -535,10 +602,20 @@ const CONFIG = {
   },
   developer: { name: "HASAN HRIDOY", link: "https://hasanhridoy.pages.dev" },
   
-  // Here is your converted direct CSV Link! No need to publish to web.
+  // Here is your converted direct CSV Link for Sellers!
   googleSheetCSV: "https://docs.google.com/spreadsheets/d/1qPbQ7PoNh-mHBazka2PcYq-2Udfyvn616haAABPqNw8/export?format=csv",
   
+  // ADD YOUR NEW PRODUCTS CSV LINK HERE (Keep empty if you don't have one right now)
+  productsCSV: "", 
+  
   sellers: [],
+  products: [
+    // Default placeholder products if CSV is empty
+    { name: "Premium Netflix", category: "Streaming", price: "$5.99", details: "UHD Premium 1 Month. Private Account.", photo: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500&q=80" },
+    { name: "Discord Nitro", category: "Subscription", price: "$2.50", details: "1 Month Discord Nitro + 2 Boosts.", photo: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=500&q=80" },
+    { name: "Spotify Premium", category: "Music", price: "$3.00", details: "3 Months Individual Premium.", photo: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&q=80" },
+    { name: "Valorant Points", category: "Gaming", price: "$10.00", details: "1250 VP code global redeem.", photo: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80" }
+  ],
   tos: [
     "All sales are final and non-refundable unless the shop approves otherwise.",
     "No chargebacks or payment disputes are allowed.",
@@ -586,7 +663,6 @@ function setup(){
   $("shopName").textContent=CONFIG.shop.name;
   $("shopCategory").textContent=CONFIG.shop.category;
   $("shopFounded").textContent=CONFIG.shop.founded;
-  $("shopProducts").textContent=CONFIG.shop.products;
   $("shopSatisfaction").textContent=CONFIG.shop.satisfaction;
   $("shopSupport").textContent=CONFIG.shop.support;
   $("buyText").textContent="Instant delivery • Premium quality • Trusted sellers";
@@ -606,7 +682,6 @@ function setup(){
   setLink("footerYoutube",CONFIG.social.youtube);
   setLink("footerTwitter",CONFIG.social.twitter);
   setLink("contactDiscord",CONFIG.discord.invite);
-  setLink("buyButton",CONFIG.shop.buyLink);
   setLink("shopButton",CONFIG.shop.shopLink);
   setLink("fullTos",CONFIG.shop.fullTosLink);
 
@@ -626,13 +701,22 @@ function setup(){
   makeBars();
   updateDiscord();
   setInterval(updateDiscord,10000);
-  initScrollAnimations(); // Trigger Scroll Animation
+  initScrollAnimations();
 
+  // Load Sellers
   if(CONFIG.googleSheetCSV.trim()) {
     loadGoogleSheet();
   } else {
     renderSellers([]);
-    $("sellerSourceText").textContent="No Google Sheet linked.";
+    $("sellerSourceText").textContent="No seller sheet linked.";
+  }
+
+  // Load Products
+  if(CONFIG.productsCSV.trim()) {
+    loadProductsSheet();
+  } else {
+    renderProducts(CONFIG.products);
+    $("productSourceText").textContent="Showing default products. Add CSV link in CONFIG.";
   }
 }
 
@@ -642,6 +726,7 @@ function escapeHTML(str){
   }[m]));
 }
 
+// ----------------- SELLERS LOGIC -----------------
 function renderSellers(sellers){
   const grid=$("sellerGrid");
   if(!sellers || !sellers.length){
@@ -650,10 +735,9 @@ function renderSellers(sellers){
     return;
   }
 
-  // Notice we added dynamic delays based on index for the popup effect!
   grid.innerHTML=sellers.map((s, index)=>`
     <div class="seller" style="animation-delay: ${index * 0.1}s">
-      <span class="tag ${escapeHTML(s.tagColor || "green")}">${escapeHTML(s.tag || "Seller")}</span>
+      <span class="tag absolute ${escapeHTML(s.tagColor || "green")}">${escapeHTML(s.tag || "Seller")}</span>
       <img class="seller-photo" src="${escapeHTML(s.photo || CONFIG.shop.logo)}" alt="${escapeHTML(s.name || "Seller")}" onerror="this.src='${escapeHTML(CONFIG.shop.logo)}'">
       <h3>${escapeHTML(s.name || "Seller")}</h3>
       <div class="verified">● ${escapeHTML(s.verified || "Verified")}</div>
@@ -670,10 +754,36 @@ function renderSellers(sellers){
   $("sellerCount").textContent=sellers.length+" Seller"+(sellers.length===1?"":"s");
 }
 
+// ----------------- PRODUCTS LOGIC -----------------
+function renderProducts(products){
+  const grid=$("productGrid");
+  if(!products || !products.length){
+    grid.innerHTML='<div class="empty">No products available at the moment.</div>';
+    $("productCount").textContent="0 Products";
+    return;
+  }
+
+  grid.innerHTML=products.map((p, index)=>`
+    <div class="card product-card" style="animation-delay: ${index * 0.05}s">
+      <img class="product-photo" src="${escapeHTML(p.photo || CONFIG.shop.logo)}" alt="${escapeHTML(p.name || "Product")}" onerror="this.src='${escapeHTML(CONFIG.shop.logo)}'">
+      <div class="product-header">
+        <span class="tag blue">${escapeHTML(p.category || "General")}</span>
+        <span class="product-price">${escapeHTML(p.price || "$0.00")}</span>
+      </div>
+      <h3 class="product-name">${escapeHTML(p.name || "Product Name")}</h3>
+      <p class="product-details">${escapeHTML(p.details || "No details provided.")}</p>
+      <a class="btn small" href="${CONFIG.discord.invite}" target="_blank" style="width:100%; margin-top:10px; font-size:13px;">
+        <span class="ico discord"></span> Ask in Discord
+      </a>
+    </div>
+  `).join("");
+
+  $("productCount").textContent=products.length+" Product"+(products.length===1?"":"s");
+}
+
 function csvParse(text){
   const rows=[];
   let row=[],cell="",quote=false;
-
   for(let i=0;i<text.length;i++){
     const c=text[i], n=text[i+1];
     if(c==='"'){
@@ -711,10 +821,32 @@ async function loadGoogleSheet(){
 
     renderSellers(sellers);
     $("sellerSourceText").textContent="Loaded live seller cards from Google Sheets.";
-    showToast("Seller cards updated!");
   }catch(err){
     console.warn(err);
     $("sellerSourceText").textContent="Could not load sheet. Is it shared as 'Anyone with the link'?";
+  }
+}
+
+async function loadProductsSheet(){
+  try{
+    const res=await fetch(CONFIG.productsCSV,{cache:"no-store"});
+    if(!res.ok) throw new Error("Products Sheet request failed");
+    const rows=csvParse(await res.text());
+    if(rows.length<2) return;
+
+    const headers=rows[0].map(x=>x.trim().toLowerCase());
+    const productsList=rows.slice(1).map(r=>{
+      const o={};
+      headers.forEach((h,i)=>o[h]=(r[i]||"").trim());
+      return o;
+    }).filter(x=>x.name);
+
+    renderProducts(productsList);
+    $("productSourceText").textContent="Loaded live products from Google Sheets.";
+  }catch(err){
+    console.warn(err);
+    $("productSourceText").textContent="Could not load products sheet. Showing defaults.";
+    renderProducts(CONFIG.products);
   }
 }
 
@@ -797,4 +929,4 @@ function showToast(msg){
 setup();
 </script>
 </body>
-          </html>
+    </html>
