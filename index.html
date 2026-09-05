@@ -4,16 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00e676">
-
   <title>CEVIX BAZAR — Trusted Digital Marketplace</title>
-  <meta name="description" content="CEVIX BAZAR — trusted digital marketplace with verified sellers, fast delivery and secure service.">
-  <meta name="keywords" content="CEVIX BAZAR, digital marketplace, Discord shop, sellers">
-  <meta property="og:title" content="CEVIX BAZAR">
-  <meta property="og:description" content="Trusted digital marketplace with verified sellers.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://i.imgur.com/REPLACE_WITH_YOUR_LOGO.png">
-  <link rel="icon" href="https://i.imgur.com/REPLACE_WITH_YOUR_LOGO.png">
 
+  <!-- Font Awesome for Real Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -48,6 +41,27 @@
     a{text-decoration:none;color:inherit}
     button{font:inherit}
     ::selection{background:var(--green);color:#001b0d}
+
+    /* ================= SCROLL ANIMATION ================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Seller Card Animation */
+    .seller {
+      animation: popUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    @keyframes popUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .announcement{
       height:36px;
@@ -145,9 +159,7 @@
     .info-row:last-child{border:0}
     .info-row span:first-child{color:var(--muted)}
     .buy-card{padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-    .buy-icon{
-      margin:4px 0 15px;
-    }
+    .buy-icon{margin:4px 0 15px;}
     .buy-card p{font-size:12px;color:var(--muted);margin-bottom:20px}
 
     section{padding:18px 0 25px}
@@ -187,7 +199,7 @@
       grid-template-columns:repeat(4,1fr);
       gap:12px;
     }
-    .seller{padding:18px;text-align:center;position:relative;overflow:hidden}
+    .seller{padding:18px;text-align:center;position:relative;overflow:hidden;border-color:var(--border);border-width:1px;border-style:solid;border-radius:12px;background:linear-gradient(145deg,rgba(9,23,26,.94),rgba(3,12,14,.92));}
     .seller:hover{border-color:rgba(0,230,118,.4);transform:translateY(-3px)}
     .seller{transition:.2s}
     .seller-photo{
@@ -241,7 +253,6 @@
     }
 
     .empty{grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);font-size:12px}
-    .loading{opacity:.6}
     #toast{
       position:fixed;right:18px;bottom:18px;background:#0b1a1d;border:1px solid var(--green);
       padding:12px 15px;border-radius:9px;font-size:12px;transform:translateY(100px);opacity:0;
@@ -249,133 +260,65 @@
     }
     #toast.show{transform:translateY(0);opacity:1}
 
-
-    /* ================= CSS ICONS (Real Icons via FontAwesome) ================= */
-    .ico, .mini-icon, .chip-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      flex: 0 0 auto;
-    }
+    /* CSS ICONS */
+    .ico, .mini-icon, .chip-icon { display: inline-flex; align-items: center; justify-content: center; position: relative; flex: 0 0 auto; }
     .ico { font-size: 14px; width: 14px; height: 14px; }
     .mini-icon { font-size: 11px; width: 11px; height: 11px; }
     .chip-icon { font-size: 14px; width: 14px; height: 14px; }
-
-    .ico::before, .mini-icon::before, .chip-icon::before, .css-bag::before {
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      display: inline-block;
-      font-style: normal;
-      font-variant: normal;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Brand Icons (Discord, Instagram, YouTube, X/Twitter) */
-    .ico.discord::before, .ico.instagram::before, .ico.youtube::before, .ico.xicon::before {
-      font-family: "Font Awesome 6 Brands";
-      font-weight: 400;
-    }
-
-    /* Icon Mappings */
+    .ico::before, .mini-icon::before, .chip-icon::before, .css-bag::before { font-family: "Font Awesome 6 Free"; font-weight: 900; display: inline-block; font-style: normal; font-variant: normal; text-rendering: auto; -webkit-font-smoothing: antialiased; }
+    .ico.discord::before, .ico.instagram::before, .ico.youtube::before, .ico.xicon::before { font-family: "Font Awesome 6 Brands"; font-weight: 400; }
     .ico.discord::before { content: "\f392"; }
-    .ico.cart::before { content: "\f07a"; } /* shopping-cart */
-    .ico.users::before { content: "\f0c0"; } /* users */
-    .ico.online::before { content: "\f111"; font-size: 9px; text-shadow: 0 0 7px currentColor; } /* circle */
-    .ico.spark::before { content: "\e2ca"; } /* wand-magic-sparkles */
-    .ico.message::before { content: "\f4ad"; } /* comment-dots */
+    .ico.cart::before { content: "\f07a"; }
+    .ico.users::before { content: "\f0c0"; }
+    .ico.online::before { content: "\f111"; font-size: 9px; text-shadow: 0 0 7px currentColor; }
+    .ico.spark::before { content: "\e2ca"; }
+    .ico.message::before { content: "\f4ad"; }
     .ico.instagram::before { content: "\f16d"; }
-    .ico.file::before { content: "\f15c"; } /* file-lines */
+    .ico.file::before { content: "\f15c"; }
     .ico.heart::before, .chip-icon.heart::before { content: "\f004"; }
-    .ico.mail::before { content: "\f0e0"; } /* envelope */
+    .ico.mail::before { content: "\f0e0"; }
     .ico.globe::before { content: "\f0ac"; }
     .ico.clock::before { content: "\f017"; }
     .ico.youtube::before { content: "\f167"; }
-    .ico.xicon::before { content: "\e61b"; } /* x-twitter */
-
-    .mini-icon.shield::before, .ico.shield::before, .chip-icon.shield::before { content: "\f3ed"; } /* shield-halved */
+    .ico.xicon::before { content: "\e61b"; }
+    .mini-icon.shield::before, .ico.shield::before, .chip-icon.shield::before { content: "\f3ed"; }
     .mini-icon.bolt::before { content: "\f0e7"; }
     .mini-icon.check::before { content: "\f00c"; }
-
     .chip-icon.rocket::before { content: "\f135"; }
-    .chip-icon.cardico::before { content: "\f09d"; } /* credit-card */
+    .chip-icon.cardico::before { content: "\f09d"; }
+    .css-bag { width: 78px; height: 78px; display: inline-flex; align-items: center; justify-content: center; font-size: 38px; color: var(--green); background: rgba(0, 230, 118, 0.05); border: 2px solid var(--green); border-radius: 50%; box-shadow: 0 0 25px rgba(0, 230, 118, 0.18); }
+    .css-bag::before { content: "\f290"; }
 
-    /* The Large Buy Card Icon */
-    .css-bag {
-      width: 78px; height: 78px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      color: var(--green);
-      background: rgba(0, 230, 118, 0.05);
-      border: 2px solid var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 25px rgba(0, 230, 118, 0.18);
-    }
-    .css-bag::before { content: "\f290"; } /* bag-shopping */
-
-
-    /* ================= ANIMATED GRID BACKGROUND ================= */
     body:before{
       content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
-      background-image:
-        linear-gradient(rgba(0,230,118,.035) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,230,118,.035) 1px,transparent 1px);
-      background-size:42px 42px;
-      mask-image:linear-gradient(to bottom,black,rgba(0,0,0,.45),transparent 90%);
+      background-image:linear-gradient(rgba(0,230,118,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,230,118,.035) 1px,transparent 1px);
+      background-size:42px 42px;mask-image:linear-gradient(to bottom,black,rgba(0,0,0,.45),transparent 90%);
       animation:gridMove 18s linear infinite;
     }
     body:after{
       content:"";position:fixed;inset:-30%;z-index:-3;pointer-events:none;
-      background:
-        radial-gradient(circle at 20% 20%,rgba(0,230,118,.09),transparent 17%),
-        radial-gradient(circle at 80% 45%,rgba(0,230,118,.055),transparent 19%),
-        radial-gradient(circle at 45% 85%,rgba(0,230,118,.045),transparent 16%);
+      background:radial-gradient(circle at 20% 20%,rgba(0,230,118,.09),transparent 17%),radial-gradient(circle at 80% 45%,rgba(0,230,118,.055),transparent 19%),radial-gradient(circle at 45% 85%,rgba(0,230,118,.045),transparent 16%);
       animation:ambientMove 12s ease-in-out infinite alternate;
     }
     @keyframes gridMove{from{transform:translate3d(0,0,0)}to{transform:translate3d(42px,42px,0)}}
     @keyframes ambientMove{from{transform:translate3d(-2%, -1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.05)}}
-
-    /* ================= DEVELOPER CREDIT ================= */
-    .developer-credit{
-      margin-top:9px;font-size:10px;color:#65756f
-    }
+    .developer-credit{margin-top:9px;font-size:10px;color:#65756f}
     .developer-credit a{color:var(--green);font-weight:900}
 
-    @media(max-width:900px){
-      .navlinks{display:none}
-      .hero{grid-template-columns:1fr;padding-top:42px}
-      .seller-grid{grid-template-columns:repeat(2,1fr)}
-      .server{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:560px){
-      .announcement .announce-right{display:none}
-      .brand span{font-size:16px}
-      .nav-cta{padding:9px 11px!important;font-size:11px}
-      .hero-logo{width:70px;height:70px}
-      .hero h1{font-size:44px}
-      .split-cards,.two-col,.stats{grid-template-columns:1fr}
-      .seller-grid{grid-template-columns:1fr 1fr}
-      .seller{padding:13px 8px}
-      .seller-photo{width:65px;height:65px}
-      .footer-grid{grid-template-columns:1fr 1fr}
-      .copyright{flex-direction:column;gap:5px}
-    }
+    @media(max-width:900px){ .navlinks{display:none} .hero{grid-template-columns:1fr;padding-top:42px} .seller-grid{grid-template-columns:repeat(2,1fr)} .server{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr 1fr} }
+    @media(max-width:560px){ .announcement .announce-right{display:none} .brand span{font-size:16px} .nav-cta{padding:9px 11px!important;font-size:11px} .hero-logo{width:70px;height:70px} .hero h1{font-size:44px} .split-cards,.two-col,.stats{grid-template-columns:1fr} .seller-grid{grid-template-columns:1fr 1fr} .seller{padding:13px 8px} .seller-photo{width:65px;height:65px} .footer-grid{grid-template-columns:1fr 1fr} .copyright{flex-direction:column;gap:5px} }
   </style>
 </head>
 
 <body>
   <div class="announcement">
-    <div class="announce-left"><i class="dot"></i><span id="announcementText">Welcome to CEVIX BAZAR — Your Trusted Digital Marketplace!</span></div>
+    <div class="announce-left"><i class="dot"></i><span id="announcementText">Welcome to CEVIX BAZAR</span></div>
     <div class="announce-right"><span class="mini-icon shield"></span> Secure • <span class="mini-icon bolt"></span> Fast • <span class="mini-icon check"></span> Trusted</div>
   </div>
 
   <nav>
     <a class="brand" href="#home">
-      <img id="navLogo" src="" alt="CEVIX BAZAR Logo">
+      <img id="navLogo" src="" alt="Logo">
       <span>CEVIX <span>BAZAR</span></span>
     </a>
     <div class="navlinks">
@@ -391,7 +334,7 @@
 
   <main>
     <section id="home" class="hero">
-      <div>
+      <div class="reveal">
         <div class="hero-brand">
           <img id="heroLogo" class="hero-logo" src="" alt="CEVIX BAZAR">
           <div>
@@ -399,23 +342,23 @@
             <div style="color:#8da49c;font-size:13px;margin-top:6px" id="heroTagline">Your trusted digital marketplace.</div>
           </div>
         </div>
-        <p id="heroDescription">Premium digital products and services from trusted sellers. Quality, fast delivery and customer-focused service.</p>
+        <p id="heroDescription">Premium digital products and services from trusted sellers.</p>
 
-        <div class="chips">
+        <div class="chips reveal" style="transition-delay: 0.1s;">
           <div class="chip"><span class="chip-icon rocket"></span> Fast Delivery</div>
           <div class="chip"><span class="chip-icon shield"></span> Trusted Sellers</div>
           <div class="chip"><span class="chip-icon cardico"></span> Secure Payment</div>
           <div class="chip"><span class="chip-icon heart"></span> Community Driven</div>
         </div>
 
-        <div class="hero-actions">
+        <div class="hero-actions reveal" style="transition-delay: 0.2s;">
           <a id="shopButton" class="btn" href="#sellers"><span class="ico cart"></span> Shop Now</a>
           <a id="heroDiscord" class="btn outline" href="#" target="_blank" rel="noopener"><span class="ico discord"></span> Join Discord</a>
         </div>
       </div>
 
       <div class="split-cards">
-        <div class="card shop-info" id="shop">
+        <div class="card shop-info reveal" id="shop" style="transition-delay: 0.3s;">
           <h3>Shop Details</h3>
           <div class="info-row"><span>Shop Name</span><b id="shopName">CEVIX BAZAR</b></div>
           <div class="info-row"><span>Category</span><b id="shopCategory">Digital Marketplace</b></div>
@@ -425,17 +368,17 @@
           <div class="info-row"><span>Support</span><b id="shopSupport">24/7 Active</b></div>
         </div>
 
-        <div class="card buy-card">
+        <div class="card buy-card reveal" style="transition-delay: 0.4s;">
           <h3>Buy With Confidence</h3>
           <div class="buy-icon"><span class="css-bag"></span></div>
           <strong>100% Secure Service</strong>
-          <p id="buyText">Instant delivery • Premium quality • Trusted sellers</p>
+          <p id="buyText">Instant delivery • Premium quality</p>
           <a id="buyButton" class="btn" href="#" target="_blank" rel="noopener"><span class="ico cart"></span> Buy Online Now</a>
         </div>
       </div>
     </section>
 
-    <section id="discord">
+    <section id="discord" class="reveal">
       <div class="section-title">
         <div>
           <h2>OUR DISCORD SERVER</h2>
@@ -477,17 +420,17 @@
           </div>
           <div class="live-bar">
             <div class="bars" id="bars"></div>
-            <span>Live data</span>
+            <span>Live data • Updates every 10 seconds</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="sellers">
+    <section id="sellers" class="reveal">
       <div class="section-title">
         <div>
           <h2>OUR TRUSTED SELLERS</h2>
-          <p id="sellerSourceText">Seller cards are loaded only from the connected Google Sheet.</p>
+          <p id="sellerSourceText">Loading awesome sellers...</p>
         </div>
         <span id="sellerCount" style="font-size:11px;color:var(--muted)">0 Sellers</span>
       </div>
@@ -496,7 +439,7 @@
 
     <section id="tos">
       <div class="two-col">
-        <div class="card text-card">
+        <div class="card text-card reveal">
           <h3><span class="ico shield"></span> SHOP TERMS OF SERVICE</h3>
           <ul class="list" id="tosList"></ul>
           <div style="margin-top:12px">
@@ -504,7 +447,7 @@
           </div>
         </div>
 
-        <div class="card text-card">
+        <div class="card text-card reveal" style="transition-delay: 0.2s;">
           <h3><span class="ico heart"></span> WHY CHOOSE CEVIX BAZAR?</h3>
           <ul class="list" id="whyList"></ul>
           <div class="notice" id="shopNotice">Please read the shop TOS before purchasing.</div>
@@ -513,14 +456,14 @@
     </section>
   </main>
 
-  <footer id="contact">
+  <footer id="contact" class="reveal">
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand">
           <img id="footerLogo" src="" alt="Logo">
           <span>CEVIX <span>BAZAR</span></span>
         </div>
-        <p id="footerDescription">Your trusted digital marketplace for premium products and services.</p>
+        <p id="footerDescription">Your trusted digital marketplace.</p>
         <div class="developer-credit">Developed by <a id="developerLink" href="#" target="_blank" rel="noopener">HASAN HRIDOY</a></div>
         <div class="socials">
           <a id="footerDiscord" href="#" target="_blank"><span class="ico discord"></span></a>
@@ -556,7 +499,7 @@
     </div>
 
     <div class="copyright">
-      <span id="copyright">© 2026 CEVIX BAZAR. All rights reserved.</span>
+      <span id="copyright">© 2026 CEVIX BAZAR.</span>
       <span>Made with HASAN HRIDOY</span>
     </div>
   </footer>
@@ -564,18 +507,13 @@
   <div id="toast"></div>
 
 <script>
-/* ============================================================
-   CEVIX BAZAR — ALL MAIN SETTINGS ARE HERE
-   Change the values below. No other file is required.
-   ============================================================ */
-
 const CONFIG = {
   shop: {
     name: "CEVIX BAZAR",
     tagline: "Your trusted digital marketplace.",
     description: "Premium digital products and services from trusted sellers. Quality, fast delivery and customer-focused service.",
     category: "Digital Marketplace",
-    founded: "2024",
+    founded: "2026",
     products: "500+",
     satisfaction: "99.8%",
     support: "24/7 Active",
@@ -588,44 +526,18 @@ const CONFIG = {
     website: "https://example.com",
     announcement: "Welcome to CEVIX BAZAR — Your Trusted Digital Marketplace!"
   },
-
-  discord: {
-    /*
-      Put your PERMANENT invite here.
-      Example: https://discord.gg/yourcode
-      The page reads Discord's public invite information and refreshes it every 10 seconds.
-    */
-    invite: "https://discord.gg/cevixbazar"
-  },
-
+  discord: { invite: "https://discord.gg/cevixbazar" },
   social: {
     discord: "https://discord.gg/cevixbazar",
     instagram: "https://instagram.com/YOUR_USERNAME",
     youtube: "https://youtube.com/@YOUR_CHANNEL",
     twitter: "https://x.com/YOUR_USERNAME"
   },
-
-  developer: {
-    name: "HASAN HRIDOY",
-    link: "https://hasanhridoy.pages.dev"
-  },
-
-  /*
-    GOOGLE SHEETS SELLERS
-    ------------------------------------------------------------
-    1. Make a Google Sheet.
-    2. Put the first row exactly like this:
-       name,photo,discord,instagram,tag,tagColor,verified,about,rating,reviews,sales
-    3. File > Share > Publish to web > CSV.
-    4. Paste the published CSV URL below.
-    5. Leave it empty if you want to use the sellers written in code.
-  */
-  googleSheetCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRhFgYsKqVYtBUBSo_xNrrK1NobWBNK_PYU5quEGYpE4hYmb_apxI3X4utUw6X7esL08VhfGWpLeyFJ/pubhtml",
-
-  /*
-    Seller cards are intentionally NOT stored in this HTML.
-    They come only from the Google Sheet.
-  */
+  developer: { name: "HASAN HRIDOY", link: "https://hasanhridoy.pages.dev" },
+  
+  // Here is your converted direct CSV Link! No need to publish to web.
+  googleSheetCSV: "https://docs.google.com/spreadsheets/d/1qPbQ7PoNh-mHBazka2PcYq-2Udfyvn616haAABPqNw8/export?format=csv",
+  
   sellers: [],
   tos: [
     "All sales are final and non-refundable unless the shop approves otherwise.",
@@ -634,7 +546,6 @@ const CONFIG = {
     "Respect sellers, customers and the community.",
     "We reserve the right to refuse service when necessary."
   ],
-
   whyChoose: [
     "Trusted & verified sellers",
     "Fast / instant delivery",
@@ -643,24 +554,29 @@ const CONFIG = {
     "High quality products",
     "Competitive prices"
   ],
-
-  links: {
-    about:"#",
-    howBuy:"#",
-    payment:"#",
-    refund:"#",
-    privacy:"#",
-    terms:"#"
-  }
+  links: { about:"#", howBuy:"#", payment:"#", refund:"#", privacy:"#", terms:"#" }
 };
-
-/* ===================== CORE WEBSITE ===================== */
 
 const $ = id => document.getElementById(id);
 
 function setLink(id,url){
   const el=$(id);
   if(el && url) el.href=url;
+}
+
+// SCROLL ANIMATION OBSERVER
+function initScrollAnimations() {
+  const elements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  elements.forEach(el => observer.observe(el));
 }
 
 function setup(){
@@ -681,12 +597,6 @@ function setup(){
   });
 
   document.title=CONFIG.shop.name+" — Trusted Digital Marketplace";
-  document.querySelector('meta[name="description"]').content=CONFIG.shop.description;
-  document.querySelector('meta[property="og:title"]').content=CONFIG.shop.name;
-  document.querySelector('meta[property="og:description"]').content=CONFIG.shop.description;
-  document.querySelector('meta[property="og:image"]').content=CONFIG.shop.logo;
-  document.querySelector('link[rel="icon"]').href=CONFIG.shop.favicon || CONFIG.shop.logo;
-
   setLink("navDiscord",CONFIG.discord.invite);
   setLink("heroDiscord",CONFIG.discord.invite);
   setLink("serverJoin",CONFIG.discord.invite);
@@ -710,19 +620,19 @@ function setup(){
   $("developerLink").href=CONFIG.developer.link;
 
   Object.entries(CONFIG.links).forEach(([key,val])=>setLink(key+"Link",val));
-
   $("tosList").innerHTML=CONFIG.tos.map(x=>`<li>${escapeHTML(x)}</li>`).join("");
   $("whyList").innerHTML=CONFIG.whyChoose.map(x=>`<li>${escapeHTML(x)}</li>`).join("");
 
   makeBars();
   updateDiscord();
   setInterval(updateDiscord,10000);
+  initScrollAnimations(); // Trigger Scroll Animation
 
   if(CONFIG.googleSheetCSV.trim()) {
     loadGoogleSheet();
   } else {
     renderSellers([]);
-    $("sellerSourceText").textContent="Connect your Google Sheet to display seller cards.";
+    $("sellerSourceText").textContent="No Google Sheet linked.";
   }
 }
 
@@ -740,13 +650,11 @@ function renderSellers(sellers){
     return;
   }
 
-  grid.innerHTML=sellers.map(s=>`
-    <article class="card seller">
+  // Notice we added dynamic delays based on index for the popup effect!
+  grid.innerHTML=sellers.map((s, index)=>`
+    <div class="seller" style="animation-delay: ${index * 0.1}s">
       <span class="tag ${escapeHTML(s.tagColor || "green")}">${escapeHTML(s.tag || "Seller")}</span>
-      <img class="seller-photo"
-           src="${escapeHTML(s.photo || CONFIG.shop.logo)}"
-           alt="${escapeHTML(s.name || "Seller")}"
-           onerror="this.src='${escapeHTML(CONFIG.shop.logo)}'">
+      <img class="seller-photo" src="${escapeHTML(s.photo || CONFIG.shop.logo)}" alt="${escapeHTML(s.name || "Seller")}" onerror="this.src='${escapeHTML(CONFIG.shop.logo)}'">
       <h3>${escapeHTML(s.name || "Seller")}</h3>
       <div class="verified">● ${escapeHTML(s.verified || "Verified")}</div>
       <div class="seller-about">${escapeHTML(s.about || "Trusted seller.")}</div>
@@ -756,7 +664,7 @@ function renderSellers(sellers){
         <a class="btn small outline" href="${escapeHTML(s.instagram || "#")}" target="_blank" rel="noopener"><span class="ico instagram"></span> Instagram</a>
       </div>
       <div style="font-size:10px;color:#70817b;margin-top:9px">${escapeHTML(s.sales || "0")} Sales</div>
-    </article>
+    </div>
   `).join("");
 
   $("sellerCount").textContent=sellers.length+" Seller"+(sellers.length===1?"":"s");
@@ -803,10 +711,10 @@ async function loadGoogleSheet(){
 
     renderSellers(sellers);
     $("sellerSourceText").textContent="Loaded live seller cards from Google Sheets.";
-    showToast("Seller cards updated from Google Sheets.");
+    showToast("Seller cards updated!");
   }catch(err){
     console.warn(err);
-    $("sellerSourceText").textContent="Google Sheets unavailable — no seller cards are displayed.";
+    $("sellerSourceText").textContent="Could not load sheet. Is it shared as 'Anyone with the link'?";
   }
 }
 
@@ -830,10 +738,7 @@ function animateNumber(el,newValue){
   const old=Number(el.dataset.value)||0;
   el.dataset.value=target;
 
-  if(old===target){
-    el.textContent=formatNumber(target);
-    return;
-  }
+  if(old===target){ el.textContent=formatNumber(target); return; }
 
   const start=performance.now();
   const duration=700;
@@ -853,7 +758,6 @@ async function updateDiscord(){
     $("lastUpdated").textContent="Add your invite in CONFIG";
     return;
   }
-
   try{
     const url="https://discord.com/api/v10/invites/"+encodeURIComponent(code)+"?with_counts=true&with_expiration=true";
     const res=await fetch(url,{cache:"no-store"});
@@ -861,9 +765,7 @@ async function updateDiscord(){
     const data=await res.json();
 
     const guild=data.guild || {};
-    const icon=guild.icon
-      ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`
-      : CONFIG.shop.logo;
+    const icon=guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128` : CONFIG.shop.logo;
 
     $("serverName").textContent=guild.name || CONFIG.shop.name;
     $("serverIcon").src=icon;
@@ -872,9 +774,7 @@ async function updateDiscord(){
     animateNumber($("onlineCount"),data.approximate_presence_count);
 
     $("serverStatus").textContent="LIVE";
-    $("lastUpdated").textContent="Updated "+new Date().toLocaleTimeString([],{
-      hour:"2-digit",minute:"2-digit",second:"2-digit"
-    });
+    $("lastUpdated").textContent="Updated "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"});
   }catch(err){
     console.warn(err);
     $("serverStatus").textContent="OFFLINE";
@@ -897,4 +797,4 @@ function showToast(msg){
 setup();
 </script>
 </body>
-        </html>
+          </html>
