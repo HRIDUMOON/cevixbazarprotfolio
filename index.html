@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b9f50">
+  <meta name="description" content="CEVIX BAZAR — Premium subscriptions from trusted sellers. Browse categories, products, stock and order links.">
+  <meta name="keywords" content="CEVIX BAZAR, OTT subscription, Netflix, Prime Video, Disney Plus, Spotify, YouTube Premium, subscriptions">
+  <meta name="author" content="CEVIX BAZAR">
+  <meta property="og:title" content="CEVIX BAZAR — Premium Subscriptions">
+  <meta property="og:description" content="Browse premium subscriptions, categories, stock and seller products at CEVIX BAZAR.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>CEVIX BAZAR — Premium Subscriptions</title>
+
+  <style>
+    :root{
+      --green:#08a64f;
+      --green2:#0bc968;
+      --dark:#071b13;
+      --text:#10251c;
+      --muted:#6d8177;
+      --line:#dceee5;
+      --soft:#effbf5;
+      --white:#fff;
+      --shadow:0 14px 45px rgba(10,80,42,.10);
+      --radius:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text); background:#fbfffd; overflow-x:hidden;
+    }
+    body:before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
+      background-image:linear-gradient(rgba(8,166,79,.055) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(8,166,79,.055) 1px,transparent 1px);
+      background-size:38px 38px;
+      mask-image:linear-gradient(to bottom,black 0%,transparent 82%);
+      animation:gridMove 18s linear infinite;
+    }
+    body:after{
+      content:"";position:fixed;width:520px;height:520px;border-radius:50%;
+      background:rgba(9,199,99,.09);filter:blur(80px);right:-220px;top:120px;
+      pointer-events:none;z-index:-1;
+    }
+    @keyframes gridMove{to{background-position:38px 38px}}
+    @keyframes float{50%{transform:translateY(-7px)}}
+    @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(8,166,79,.04)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{width:min(1180px,calc(100% - 32px));margin:auto}
+
+    header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);
+      backdrop-filter:blur(18px);border-bottom:1px solid rgba(220,238,229,.8)
+    }
+    .nav{height:74px;display:flex;align-items:center;gap:26px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:max-content}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;background:var(--green);
+      position:relative;box-shadow:0 7px 18px rgba(8,166,79,.22)
+    }
+    .brand-mark:before{
+      content:"";position:absolute;width:0;height:0;border-top:10px solid transparent;
+      border-bottom:10px solid transparent;border-left:17px solid white;left:11px;top:9px;transform:rotate(-17deg)
+    }
+    .brand strong{font-size:19px;letter-spacing:-.5px}.brand small{display:block;color:var(--muted);font-size:9px}
+    .search{flex:1;max-width:470px;margin:auto;position:relative}
+    .search input{
+      width:100%;height:44px;border:1px solid var(--line);border-radius:14px;padding:0 44px 0 17px;
+      outline:none;background:#f8fdfa;color:var(--text)
+    }
+    .search input:focus{border-color:#9adab9;box-shadow:0 0 0 4px rgba(8,166,79,.07)}
+    .search-icon{position:absolute;right:15px;top:13px;width:15px;height:15px;border:2px solid var(--green);border-radius:50%}
+    .search-icon:after{content:"";position:absolute;width:7px;height:2px;background:var(--green);right:-5px;bottom:-3px;transform:rotate(45deg)}
+    nav{display:flex;gap:6px}
+    nav a{font-size:13px;font-weight:700;color:#50665c;padding:11px 12px;border-radius:11px}
+    nav a:hover,nav a.active{background:var(--soft);color:var(--green)}
+    .mobile-menu{display:none}
+
+    .hero{padding:38px 0 24px}
+    .hero-box{
+      min-height:330px;border-radius:28px;overflow:hidden;position:relative;
+      background:linear-gradient(115deg,#f2fff8 0%,#e4faee 52%,#fafffc 100%);
+      border:1px solid var(--line);box-shadow:var(--shadow);display:flex;align-items:center
+    }
+    .hero-copy{padding:48px 50px;position:relative;z-index:2;width:52%}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:99px;background:#d5f7e4;color:#087a3c;font-size:12px;font-weight:800}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+    h1{font-size:clamp(34px,4vw,55px);line-height:1.02;letter-spacing:-2.5px;margin:18px 0 14px}
+    h1 span{color:var(--green)}
+    .hero-copy p{max-width:510px;color:#5f746a;line-height:1.7;font-size:14px}
+    .hero-actions{display:flex;gap:10px;margin-top:25px}
+    .btn{
+      border:0;border-radius:13px;padding:13px 18px;font-weight:800;cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--green),#06c45e);color:#fff;box-shadow:0 9px 22px rgba(8,166,79,.2)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-light{background:#fff;color:var(--green);border:1px solid var(--line)}
+    .hero-art{position:absolute;right:25px;width:48%;height:100%;display:flex;align-items:center;justify-content:center}
+    .banner-stack{width:min(520px,100%);height:240px;position:relative;transform:rotate(-2deg);animation:float 5s ease-in-out infinite}
+    .stream-tile{
+      position:absolute;width:46%;height:108px;border-radius:17px;display:flex;align-items:center;justify-content:center;
+      color:white;font-weight:900;font-size:25px;letter-spacing:-1px;border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 15px 30px rgba(0,0,0,.18);overflow:hidden
+    }
+    .stream-tile:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.13),transparent);transform:translateX(-100%);animation:shine 4s infinite}
+    @keyframes shine{45%,100%{transform:translateX(100%)}}
+    .netflix{background:linear-gradient(135deg,#070b10,#242b32);left:0;top:12px}.prime{background:linear-gradient(135deg,#05172b,#0b385e);right:0;top:0}
+    .disney{background:linear-gradient(135deg,#071326,#193a65);left:8%;bottom:0}.spotify{background:linear-gradient(135deg,#071d16,#0d5a38);right:6%;bottom:12px}
+    .stream-tile b{font-size:22px}.netflix b{color:#ff302f}.prime b{color:#43b5ff}.disney b{color:#d7e7ff}.spotify b{color:#32d76b}
+
+    .section{padding:25px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:15px}
+    .section-head h2{font-size:22px;letter-spacing:-.7px}.section-head p{font-size:12px;color:var(--muted);margin-top:4px}
+    .view-all{font-size:12px;font-weight:800;color:var(--green)}
+
+    /* BIG CATEGORY BANNERS */
+    .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .cat{
+      min-height:165px;border:1px solid var(--line);border-radius:20px;overflow:hidden;position:relative;
+      background:#fff;box-shadow:0 7px 25px rgba(10,80,42,.07);cursor:pointer;transition:.25s
+    }
+    .cat:hover{transform:translateY(-4px);box-shadow:0 15px 34px rgba(10,80,42,.13)}
+    .cat-bg{position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(8,166,79,.18),transparent 35%),linear-gradient(135deg,#06100d,#123b29)}
+    .cat-bg:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px}
+    .cat:nth-child(2) .cat-bg{background:linear-gradient(135deg,#06172a,#063f67)}
+    .cat:nth-child(3) .cat-bg{background:linear-gradient(135deg,#0b1125,#193d73)}
+    .cat:nth-child(4) .cat-bg{background:linear-gradient(135deg,#071c15,#087442)}
+    .cat-content{position:absolute;inset:0;padding:19px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
+    .cat-logo{font-size:27px;font-weight:950;letter-spacing:-1px;margin-bottom:auto}
+    .cat-content strong{font-size:16px}.cat-content span{font-size:11px;opacity:.8;margin-top:3px}
+    .cat-arrow{position:absolute;right:15px;bottom:15px;width:34px;height:34px;border-radius:50%;background:var(--green);display:grid;place-items:center}
+    .cat-arrow:before{content:"";width:8px;height:8px;border-top:2px solid white;border-right:2px solid white;transform:rotate(45deg);margin-left:-3px}
+
+    .filters{display:flex;gap:8px;overflow:auto;padding-bottom:3px;margin-bottom:17px}
+    .filter{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:800;color:#5a7065;cursor:pointer}
+    .filter.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+    /* COMPACT PRODUCT CARDS */
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .product{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 6px 22px rgba(10,80,42,.065);transition:.25s}
+    .product:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(10,80,42,.12)}
+    .product-img{height:135px;background:#edf7f1;position:relative;overflow:hidden}
+    .product-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .tag{position:absolute;left:9px;top:9px;padding:5px 8px;border-radius:7px;background:var(--green);color:white;font-size:9px;font-weight:900}
+    .product-body{padding:12px}
+    .product-title{font-size:14px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .desc{font-size:10px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .meta{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0}
+    .pill{font-size:9px;font-weight:800;color:#147747;background:#eaf9f1;padding:5px 7px;border-radius:7px}
+    .stock-out{color:#a44;background:#fff0f0}
+    .price-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+    .price{font-size:17px;font-weight:950;color:var(--green)}
+    .product-btn{width:100%;margin-top:10px;padding:9px 10px;border-radius:10px;font-size:11px}
+
+    .empty{padding:45px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;grid-column:1/-1;background:#fff}
+
+    .seller-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .seller{background:#fff;border:1px solid var(--line);padding:13px;border-radius:16px;display:flex;align-items:center;gap:10px}
+    .avatar{width:38px;height:38px;border-radius:50%;background:#dff7e9;display:grid;place-items:center;color:var(--green);font-weight:900;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .seller strong{font-size:12px}.seller small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+
+    footer{margin-top:35px;padding:38px 0 25px;background:#071b13;color:#cfe6da}
+    .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:25px}
+    footer .brand{color:white}footer .brand small{color:#8aa99a}
+    footer h3{font-size:12px;color:#fff;margin-bottom:12px}footer a,footer p{display:block;font-size:11px;color:#91ada0;margin:7px 0}
+    .copyright{border-top:1px solid rgba(255,255,255,.09);margin-top:25px;padding-top:16px;font-size:10px;color:#759489}
+
+    /* CSS ICONS */
+    .i{width:15px;height:15px;display:inline-block;position:relative;flex:none}
+    .i-home:before{content:"";position:absolute;left:3px;top:6px;width:9px;height:7px;border:2px solid currentColor;border-top:0;border-radius:1px}
+    .i-home:after{content:"";position:absolute;left:3px;top:2px;width:9px;height:9px;border-left:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg)}
+    .i-grid:before{content:"";position:absolute;inset:1px;background:linear-gradient(currentColor 0 0) 0 0/6px 6px,linear-gradient(currentColor 0 0) 100% 0/6px 6px,linear-gradient(currentColor 0 0) 0 100%/6px 6px,linear-gradient(currentColor 0 0) 100% 100%/6px 6px;background-repeat:no-repeat}
+    .i-user:before{content:"";position:absolute;width:6px;height:6px;border:1.7px solid currentColor;border-radius:50%;left:4px;top:1px}.i-user:after{content:"";position:absolute;width:11px;height:6px;border:1.7px solid currentColor;border-radius:8px 8px 3px 3px;left:2px;bottom:1px}
+    .i-arrow:before{content:"";position:absolute;width:8px;height:8px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);left:1px;top:3px}.i-arrow:after{content:"";position:absolute;width:12px;height:2px;background:currentColor;left:0;top:7px}
+    .i-discord:before{content:"";position:absolute;left:1px;top:3px;width:13px;height:9px;border:2px solid currentColor;border-radius:5px}
+    .i-discord:after{content:"••";position:absolute;letter-spacing:3px;left:3px;top:-2px;font-size:9px}
+    .i-close:before,.i-close:after{content:"";position:absolute;left:7px;top:1px;width:2px;height:14px;background:currentColor}.i-close:before{transform:rotate(45deg)}.i-close:after{transform:rotate(-45deg)}
+
+    /* DISCORD POPUP */
+    .discord-float{
+      position:fixed;right:20px;bottom:20px;z-index:80;border:0;border-radius:15px;background:#5865f2;color:#fff;
+      padding:12px 15px;display:flex;align-items:center;gap:9px;font-weight:900;font-size:12px;cursor:pointer;
+      box-shadow:0 12px 30px rgba(40,45,150,.3);animation:float 3.5s ease-in-out infinite
+    }
+    .modal{position:fixed;inset:0;background:rgba(2,18,11,.58);backdrop-filter:blur(7px);z-index:100;display:none;place-items:center;padding:20px}
+    .modal.show{display:grid}
+    .modal-card{width:min(440px,100%);background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,.3);position:relative}
+    .modal-top{padding:28px;text-align:center;background:linear-gradient(145deg,#071b13,#0a4c2b);color:#fff;position:relative}
+    .discord-logo{width:64px;height:64px;border-radius:20px;background:#5865f2;margin:0 auto 14px;display:grid;place-items:center}
+    .discord-logo .i{transform:scale(1.7)}
+    .modal-top h2{font-size:24px;letter-spacing:-1px}.modal-top p{font-size:12px;color:#b9d8ca;margin-top:7px}
+    .close{position:absolute;right:16px;top:16px;border:0;background:rgba(255,255,255,.12);color:#fff;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer}
+    .modal-body{padding:22px}.checks{display:grid;gap:10px;margin-bottom:18px}.check{display:flex;gap:10px;align-items:center;font-size:12px;font-weight:700;color:#456157}
+    .check b{width:20px;height:20px;border-radius:50%;background:#dcf8e8;color:var(--green);display:grid;place-items:center;font-size:12px}
+    .join{width:100%;background:#5865f2;color:white}
+
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#071b13;color:white;padding:11px 16px;border-radius:12px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;z-index:120}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .loader{width:28px;height:28px;border:3px solid #d9eee3;border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:25px auto}
+
+    @media(max-width:950px){
+      .hero-copy{width:58%;padding:38px}.hero-art{width:48%;right:-25px}
+      .products{grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(2,1fr)}
+      .seller-strip{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:720px){
+      .container{width:min(100% - 22px,560px)}
+      header{position:sticky}.nav{height:64px;gap:10px}.brand strong{font-size:16px}.brand-mark{width:34px;height:34px}.brand-mark:before{left:9px;top:8px}
+      nav{display:none}.search{order:3;position:absolute;left:11px;right:11px;top:70px;max-width:none}
+      .mobile-menu{display:block;border:1px solid var(--line);background:white;width:38px;height:38px;border-radius:11px;color:var(--green)}
+      .nav{position:relative;padding-bottom:0}
+      .hero{padding-top:58px}.hero-box{min-height:430px;display:block}
+      .hero-copy{width:100%;padding:32px 24px}.hero-copy p{font-size:12px}.hero-actions{margin-top:19px}
+      h1{font-size:36px;letter-spacing:-1.8px}.hero-art{width:100%;height:190px;right:0;bottom:0}
+      .banner-stack{height:165px;width:92%}.stream-tile{height:72px;font-size:17px;border-radius:12px}.stream-tile b{font-size:16px}
+      .section{padding:19px 0}.section-head h2{font-size:18px}.section-head p{font-size:10px}
+      .categories{grid-template-columns:repeat(2,1fr);gap:9px}.cat{min-height:140px;border-radius:16px}.cat-content{padding:13px}.cat-logo{font-size:20px}.cat-content strong{font-size:13px}.cat-arrow{width:28px;height:28px;right:10px;bottom:10px}
+      .products{grid-template-columns:repeat(2,1fr);gap:9px}.product{border-radius:14px}.product-img{height:108px}.product-body{padding:10px}.product-title{font-size:12px}.desc{font-size:9px}.pill{font-size:8px;padding:4px 5px}.price{font-size:14px}.product-btn{font-size:10px;padding:8px}
+      .seller-strip{grid-template-columns:1fr 1fr;gap:8px}.seller{padding:10px}.seller strong{font-size:10px}.seller small{font-size:8px}.avatar{width:31px;height:31px}
+      .footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}
+      .discord-float{right:12px;bottom:12px;padding:11px 13px}
+    }
+    @media(max-width:420px){.products{grid-template-columns:1fr 1fr}.product-img{height:100px}.cat{min-height:132px}.hero-box{min-height:425px}}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <span class="brand-mark"></span>
+      <span><strong>CEVIX BAZAR</strong><small>Premium Marketplace</small></span>
+    </a>
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search products, categories..." aria-label="Search">
+      <span class="search-icon"></span>
+    </div>
+    <nav>
+      <a class="active" href="#home"><span class="i i-home"></span> Home</a>
+      <a href="#categories"><span class="i i-grid"></span> Categories</a>
+      <a href="#products"><span class="i i-user"></span> Sellers</a>
+      <a href="#footer">FAQ</a>
+    </nav>
+    <button class="mobile-menu" onclick="document.querySelector('.search input').focus()" aria-label="Search">⌕</button>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-box">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="dot"></span> Premium Subscriptions</span>
+          <h1>Your Favorite Shows,<br><span>At Better Prices.</span></h1>
+          <p>Browse premium subscriptions from your favorite services. Products, stock, descriptions, photos and order buttons are controlled directly from your Google Sheet.</p>
+          <div class="hero-actions">
+            <a href="#categories" class="btn btn-primary">Explore Categories <span class="i i-arrow"></span></a>
+            <button class="btn btn-light" onclick="openDiscord()"><span class="i i-discord"></span> Join Discord</button>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="banner-stack">
+            <div class="stream-tile netflix"><b>NETFLIX</b></div>
+            <div class="stream-tile prime"><b>prime video</b></div>
+            <div class="stream-tile disney"><b>Disney+</b></div>
+            <div class="stream-tile spotify"><b>Spotify</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>Popular Categories</h2><p>Select a category to show only its products.</p></div>
+        <button class="view-all" onclick="setCategory('All')">View All →</button>
+      </div>
+      <div class="categories" id="categoryBanners"></div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section-head">
+        <div><h2 id="productHeading">Featured Subscriptions</h2><p id="productSub">Products loaded from Google Sheet</p></div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="products" id="productGrid"><div class="loader"></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="sellers">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>Top Sellers</h2><p>Seller information can also come from the sheet.</p></div>
+      </div>
+      <div class="seller-strip" id="sellerGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><a class="brand" href="#"><span class="brand-mark"></span><span><strong>CEVIX BAZAR</strong><small>Premium Marketplace</small></span></a><p style="margin-top:12px;max-width:260px">A clean marketplace for subscription products and trusted sellers.</p></div>
+      <div><h3>Quick Links</h3><a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#sellers">Sellers</a></div>
+      <div><h3>Categories</h3><a href="#products">Netflix</a><a href="#products">Prime Video</a><a href="#products">Disney+</a><a href="#products">Spotify</a></div>
+      <div><h3>Community</h3><a href="#" onclick="openDiscord();return false">Discord Server</a><a href="#">Support</a><a href="#">FAQ</a></div>
+    </div>
+    <div class="copyright">© 2026 CEVIX BAZAR. All rights reserved.</div>
+  </div>
+</footer>
+
+<button class="discord-float" onclick="openDiscord()"><span class="i i-discord"></span> Join Our Discord</button>
+
+<div class="modal" id="discordModal" onclick="if(event.target===this)closeDiscord()">
+  <div class="modal-card">
+    <div class="modal-top">
+      <button class="close" onclick="closeDiscord()" aria-label="Close"><span class="i i-close"></span></button>
+      <div class="discord-logo"><span class="i i-discord"></span></div>
+      <h2>Join CEVIX BAZAR</h2>
+      <p>Get updates, new products, support and exclusive deals in our Discord community.</p>
+    </div>
+    <div class="modal-body">
+      <div class="checks">
+        <div class="check"><b>✓</b> New products & deals</div>
+        <div class="check"><b>✓</b> Community support</div>
+        <div class="check"><b>✓</b> Seller updates</div>
+        <div class="check"><b>✓</b> Exclusive announcements</div>
+      </div>
+      <a id="discordLink" class="btn join" href="#" target="_blank" rel="noopener"><span class="i i-discord"></span> Join Server <span class="i i-arrow"></span></a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================
+   GOOGLE SHEET CONFIG
+   =========================
+   1) Publish your Google Sheet as CSV.
+   2) Paste the CSV URL below.
+   3) Product columns:
+      ID, Name, Photo, Description, Price, Stock, Category, Tag, ButtonName, Link, Seller, SellerPhoto
+   4) Optional seller columns:
+      Seller, SellerPhoto, Rating, Orders
+*/
+const CONFIG = {
+  SHEET_CSV_URL: "PASTE_YOUR_PUBLISHED_GOOGLE_SHEET_CSV_URL_HERE",
+  DISCORD_URL: "https://discord.gg/YOUR_INVITE"
+};
+
+/* Demo fallback is only used when the Sheet URL has not been configured.
+   Replace CONFIG.SHEET_CSV_URL to make the website show ONLY your Sheet data. */
+const fallbackProducts = [
+  {id:"1",name:"Netflix Premium",photo:"https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=900&q=80",description:"4K • Ultra HD • 1 Month",price:"$5.00",stock:"In Stock",category:"Netflix",tag:"Best Seller",buttonname:"Order Now",link:"#",seller:"CEVIX Seller"},
+  {id:"2",name:"Prime Video",photo:"https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?auto=format&fit=crop&w=900&q=80",description:"Premium • 1 Month",price:"$4.50",stock:"In Stock",category:"Prime Video",tag:"Popular",buttonname:"Order Now",link:"#",seller:"CEVIX Seller"},
+  {id:"3",name:"Disney+ Premium",photo:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=900&q=80",description:"Premium • 1 Month",price:"$4.00",stock:"In Stock",category:"Disney+",tag:"Hot",buttonname:"Order Now",link:"#",seller:"CEVIX Seller"},
+  {id:"4",name:"Spotify Premium",photo:"https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=900&q=80",description:"Music Premium • 1 Month",price:"$2.50",stock:"In Stock",category:"Spotify",tag:"Best Value",buttonname:"Order Now",link:"#",seller:"CEVIX Seller"}
+];
+
+let products = [];
+let activeCategory = "All";
+
+const categoryStyles = {
+  "Netflix": ["NETFLIX","12 Products","netflix"],
+  "Prime Video": ["prime video","10 Products","prime"],
+  "Disney+": ["Disney+","8 Products","disney"],
+  "Spotify": ["Spotify","5 Products","spotify"]
+};
+
+function clean(v){ return (v ?? "").toString().trim(); }
+
+function parseCSV(text){
+  const rows=[]; let row=[], cell="", quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i], n=text[i+1];
+    if(c === '"' && quoted && n === '"'){cell+='"';i++;continue}
+    if(c === '"'){quoted=!quoted;continue}
+    if(c === ',' && !quoted){row.push(cell);cell="";continue}
+    if((c === '\n' || c === '\r') && !quoted){
+      if(c === '\r' && n === '\n') i++;
+      row.push(cell);cell="";
+      if(row.some(x=>x.trim()!=="")) rows.push(row);
+      row=[];continue
+    }
+    cell+=c;
+  }
+  if(cell || row.length){row.push(cell);if(row.some(x=>x.trim()!==""))rows.push(row)}
+  if(!rows.length)return [];
+  const headers=rows[0].map(h=>h.trim().toLowerCase().replace(/[\s_-]+/g,""));
+  return rows.slice(1).map(r=>{
+    const o={};
+    headers.forEach((h,i)=>o[h]=clean(r[i]));
+    return {
+      id:o.id||crypto.randomUUID?.()||String(Math.random()),
+      name:o.name||o.productname||"Untitled Product",
+      photo:o.photo||o.image||"",
+      description:o.description||o.desc||"",
+      price:o.price||"",
+      stock:o.stock||"In Stock",
+      category:o.category||"Other",
+      tag:o.tag||"",
+      buttonname:o.buttonname||o.button||"Order Now",
+      link:o.link||o.url||"#",
+      seller:o.seller||"",
+      sellerPhoto:o.sellerphoto||"",
+      rating:o.rating||"",
+      orders:o.orders||""
+    };
+  }).filter(p=>p.name);
+}
+
+async function loadProducts(){
+  const grid=document.getElementById("productGrid");
+  const configured=CONFIG.SHEET_CSV_URL && !CONFIG.SHEET_CSV_URL.includes("PASTE_YOUR");
+  if(configured){
+    try{
+      const res=await fetch(CONFIG.SHEET_CSV_URL,{cache:"no-store"});
+      if(!res.ok)throw new Error("Sheet request failed");
+      const text=await res.text();
+      products=parseCSV(text);
+      if(!products.length)throw new Error("No products found");
+      showToast("Products loaded from Google Sheet");
+    }catch(e){
+      products=[];
+      grid.innerHTML='<div class="empty">Could not load the Google Sheet. Check that the Sheet is published as CSV and the URL is correct.</div>';
+      renderCategories();
+      renderFilters();
+      renderSellers();
+      return;
+    }
+  }else{
+    products=fallbackProducts;
+  }
+  renderCategories();
+  renderFilters();
+  renderProducts();
+  renderSellers();
+}
+
+function getCategories(){
+  return ["All",...new Set(products.map(p=>p.category).filter(Boolean))];
+}
+
+function renderCategories(){
+  const wrap=document.getElementById("categoryBanners");
+  const cats=getCategories().filter(c=>c!=="All");
+  if(!cats.length){wrap.innerHTML="";return}
+  wrap.innerHTML=cats.slice(0,8).map((cat,i)=>{
+    const s=categoryStyles[cat] || [cat.toUpperCase(),`${products.filter(p=>p.category===cat).length} Products`,"other"];
+    return `<div class="cat" onclick="setCategory(${JSON.stringify(cat)})">
+      <div class="cat-bg" style="${s[2]==="prime"?"background:linear-gradient(135deg,#06172a,#063f67)":s[2]==="disney"?"background:linear-gradient(135deg,#0b1125,#193d73)":s[2]==="spotify"?"background:linear-gradient(135deg,#071c15,#087442)":""}"></div>
+      <div class="cat-content">
+        <div class="cat-logo">${escapeHTML(s[0])}</div>
+        <strong>${escapeHTML(cat)}</strong><span>${products.filter(p=>p.category===cat).length} Products</span>
+        <span class="cat-arrow"></span>
+      </div>
+    </div>`
+  }).join("");
+}
+
+function renderFilters(){
+  const wrap=document.getElementById("filters");
+  wrap.innerHTML=getCategories().map(c=>`<button class="filter ${c===activeCategory?"active":""}" onclick="setCategory(${JSON.stringify(c)})">${escapeHTML(c)}</button>`).join("");
+}
+
+function setCategory(cat){
+  activeCategory=cat;
+  renderFilters();
+  renderProducts();
+  document.getElementById("products").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function renderProducts(){
+  const query=clean(document.getElementById("searchInput").value).toLowerCase();
+  const filtered=products.filter(p=>{
+    const catOk=activeCategory==="All" || p.category===activeCategory;
+    const qOk=!query || [p.name,p.description,p.category,p.tag,p.seller].join(" ").toLowerCase().includes(query);
+    return catOk && qOk;
+  });
+  document.getElementById("productHeading").textContent=activeCategory==="All"?"Featured Subscriptions":activeCategory;
+  document.getElementById("productSub").textContent=`${filtered.length} product${filtered.length===1?"":"s"} available`;
+  const grid=document.getElementById("productGrid");
+  if(!filtered.length){grid.innerHTML='<div class="empty">No matching products found.</div>';return}
+  grid.innerHTML=filtered.map(p=>{
+    const stock=clean(p.stock).toLowerCase();
+    const out=stock.includes("out") || stock==="0" || stock.includes("sold");
+    return `<article class="product">
+      <div class="product-img">
+        <img src="${safeUrl(p.photo)}" alt="${escapeHTML(p.name)}" loading="lazy" onerror="this.style.display='none'">
+        ${p.tag?`<span class="tag">${escapeHTML(p.tag)}</span>`:""}
+      </div>
+      <div class="product-body">
+        <div class="product-title" title="${escapeHTML(p.name)}">${escapeHTML(p.name)}</div>
+        <div class="desc" title="${escapeHTML(p.description)}">${escapeHTML(p.description)}</div>
+        <div class="meta">
+          <span class="pill">${out?"Out of Stock":"In Stock"}</span>
+          ${p.category?`<span class="pill">${escapeHTML(p.category)}</span>`:""}
+        </div>
+        <div class="price-row"><span class="price">${escapeHTML(p.price)}</span></div>
+        <a class="btn btn-primary product-btn" href="${safeUrl(p.link)}" target="_blank" rel="noopener">${escapeHTML(p.buttonname||"Order Now")} <span class="i i-arrow"></span></a>
+      </div>
+    </article>`
+  }).join("");
+}
+
+function renderSellers(){
+  const map=new Map();
+  products.forEach(p=>{
+    if(p.seller && !map.has(p.seller))map.set(p.seller,p)
+  });
+  const sellers=[...map.values()].slice(0,8);
+  const wrap=document.getElementById("sellerGrid");
+  wrap.innerHTML=sellers.length?sellers.map(p=>`
+    <div class="seller">
+      <div class="avatar">${p.sellerPhoto?`<img src="${safeUrl(p.sellerPhoto)}" alt="">`:escapeHTML((p.seller||"S").charAt(0).toUpperCase())}</div>
+      <div><strong>${escapeHTML(p.seller)}</strong><small>${p.rating?`★ ${escapeHTML(p.rating)}`:"Trusted Seller"}${p.orders?` • ${escapeHTML(p.orders)} orders`:""}</small></div>
+    </div>`).join(""):"<div class='empty'>Add a Seller value in your Sheet to show seller cards.</div>";
+}
+
+function escapeHTML(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function safeUrl(v){
+  const s=clean(v);
+  if(!s)return "#";
+  try{
+    const u=new URL(s,location.href);
+    if(["http:","https:","mailto:","tel:"].includes(u.protocol))return u.href;
+  }catch(e){}
+  return "#";
+}
+function openDiscord(){
+  document.getElementById("discordLink").href=safeUrl(CONFIG.DISCORD_URL);
+  document.getElementById("discordModal").classList.add("show");
+}
+function closeDiscord(){document.getElementById("discordModal").classList.remove("show")}
+function showToast(msg){
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2300);
+}
+document.getElementById("searchInput").addEventListener("input",renderProducts);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDiscord()});
+loadProducts();
+</script>
+</body>
+</html>
