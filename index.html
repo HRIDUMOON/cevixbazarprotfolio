@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cevix Bazar | Official Digital Store</title>
+    <title>CEVIX BAZAR | Official Digital Store</title>
     
-    <meta name="description" content="Cevix Bazar - Your premier platform for Discord, OTT, Software & Game Topups. Founder: RENOX, Creator: HASAN HRIDOY.">
+    <meta name="description" content="Cevix Bazar - Your premier platform for Discord, OTT, Software & Game Topups.">
     <meta property="og:image" content="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif">
     
     <!-- Fonts & Icons -->
@@ -16,7 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <style>
-        /* --- GREEN THEME & STORE VARIABLES --- */
+        /* =========================================================
+           1. E-COMMERCE STORE CSS (GREEN THEME)
+        ========================================================= */
         :root {
             --primary: #059669;
             --primary-hover: #047857;
@@ -27,151 +29,233 @@
             --border: #e5e7eb;
             --discord: #5865F2;
             --transition: all 0.3s ease;
-            --usd-rate: 120; /* 1 USD = 120 BDT */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 75px; overflow-x: hidden; }
 
-        /* Store CSS */
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
+        .reveal { opacity: 0; transform: translateY(25px); transition: 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* HEADER */
         header { background: var(--card-bg); padding: 12px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
         .top-header { display: flex; justify-content: center; padding-bottom: 12px; }
-        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
         .logo-img-wrapper { width: 44px; height: 44px; border-radius: 10px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border); }
         .logo-area img { width: 100%; height: 100%; object-fit: contain; }
         .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); }
 
         .search-container { display: flex; gap: 10px; align-items: center; max-width: 800px; margin: 0 auto; }
-        .menu-btn, .action-icon { background: var(--primary); color: white; border: none; width: 44px; height: 44px; border-radius: 10px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition); flex-shrink: 0; text-decoration: none; }
-        .action-icon { background: #f3f4f6; color: var(--primary); }
-        
+        .menu-btn { background: var(--primary); color: white; border: none; width: 44px; height: 44px; border-radius: 10px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition); flex-shrink: 0; }
         .search-box { flex-grow: 1; position: relative; }
         .search-box input { width: 100%; padding: 12px 42px 12px 15px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; outline: none; }
         .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
 
+        /* SIDEBAR */
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .sidebar { position: fixed; top: 0; left: -290px; width: 290px; height: 100%; background: var(--card-bg); z-index: 1001; transition: 0.35s ease; display: flex; flex-direction: column; }
+        .sidebar.active { left: 0; }
+        .sidebar-header { padding: 20px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 18px; }
+        .sidebar-header i { cursor: pointer; }
+        .sidebar-links { list-style: none; padding: 15px 0; }
+        .sidebar-links li { padding: 14px 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: var(--transition); }
+        .sidebar-links li:hover { background: #ecfdf5; color: var(--primary); }
+
+        /* HERO & LAYOUT */
         .hero-banner { background: linear-gradient(135deg, var(--primary), #10b981); color: white; padding: 35px 20px; text-align: center; margin-bottom: 25px; }
         .hero-banner h1 { font-size: 25px; font-weight: 800; margin-bottom: 8px; }
         .hero-banner p { font-size: 14px; opacity: 0.95; max-width: 600px; margin: 0 auto; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; min-height: 50vh; }
         .section-title { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
         .section-title::before { content: ''; display: block; width: 4px; height: 22px; background: var(--primary); border-radius: 2px; }
 
+        /* CARDS (Category, Products, Sellers) */
         .category-grid { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 12px; margin-bottom: 30px; scrollbar-width: none; }
         .category-grid::-webkit-scrollbar { display: none; }
-        .cat-card { min-width: 110px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; }
-        .cat-card.active { border-color: var(--primary); background: var(--primary-light); }
-        .cat-img-box { width: 46px; height: 46px; margin: 0 auto 8px; }
-        .cat-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .cat-card { min-width: 110px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; transition: var(--transition); }
+        .cat-card.active { border-color: var(--primary); background: #ecfdf5; }
+        .cat-card img { width: 46px; height: 46px; object-fit: contain; margin-bottom: 8px; }
         .cat-card h4 { font-size: 13px; font-weight: 600; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 45px; }
-        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+        .product-grid, .seller-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 45px; }
+        @media(min-width: 768px) { .product-grid, .seller-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
         
-        .custom-card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); }
+        .custom-card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
         .custom-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .card-badge { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; z-index: 2; }
+        
         .card-img-wrapper { width: 100%; aspect-ratio: 1/1; background: #fafafa; padding: 12px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f3f4f6; }
         .card-img-wrapper img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-body { padding: 14px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-title { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }
+        .rating-stars { color: #f59e0b; font-size: 11px; margin-bottom: 8px; }
+        .rating-stars span { color: var(--text-muted); font-size: 12px; margin-left: 4px; font-weight: 600; }
         .price-area { margin-bottom: 12px; margin-top: auto; }
         .price { font-size: 17px; font-weight: 800; color: var(--primary); }
-        .btn-card { background: var(--primary); color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; }
+        .btn-card { background: var(--primary); color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; }
 
-        /* --- OVERLAY / MODAL --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        /* FOOTER & TERMS */
+        .discord-box { background: linear-gradient(135deg, #5865F2, #404eed); color: white; padding: 25px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; }
+        .terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 45px; }
+        .term-box { background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+        .term-icon { width: 38px; height: 38px; background: #ecfdf5; color: var(--primary); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 18px; margin-bottom: 12px; }
+        footer { background: var(--card-bg); padding: 45px 15px 20px; font-size: 13px; color: var(--text-muted); }
+
+        /* =========================================================
+           2. PAYMENT GATEWAY CSS (EXACT USER DESIGN + DYNAMIC)
+        ========================================================= */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: #f5f7fb; width: 95%; max-width: 500px; border-radius: 20px; max-height: 95vh; overflow-y: auto; position: relative; }
-        .close-modal { position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 16px; z-index: 10; color: #333; }
-
-        /* ==================================================
-           PAYMENT GATEWAY CSS (INTEGRATED)
-        ================================================== */
-        .payment-wrapper { padding: 25px 20px; color: #1c2638; }
         
-        .pay-header { text-align: center; margin-bottom: 20px; }
-        .pay-header .pay-logo { width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 12px; background: white; border: 1px solid #e5e7eb; display: flex; justify-content: center; align-items: center; padding: 5px; }
-        .pay-header .pay-logo img { width: 100%; height: 100%; object-fit: contain; }
-        .pay-header h3 { font-size: 18px; font-weight: 800; color: #111827; }
-        
-        .amount-box { text-align: center; padding: 20px; border-radius: 16px; background: #fff; border: 1px solid #edf1f7; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .amount-box small { color: #8b95a6; font-size: 13px; font-weight: 600; }
-        .amount-box h1 { margin-top: 5px; font-size: 32px; color: #25324a; font-weight: 900; }
-        .amount-box .fee-note { font-size: 11px; color: #ef4444; margin-top: 5px; font-weight: 500; }
+        .pay-container { width: 100%; max-width: 500px; background: #f5f7fb; border-radius: 24px; padding: 18px; position: relative; max-height: 95vh; overflow-y: auto; color: #1c2638; box-shadow: 0 20px 60px #23395d18; }
+        .close-pay { position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 16px; font-weight: bold; }
 
-        .methods-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #333; }
-        .methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .method { cursor: pointer; background: #fff; border: 2px solid #e4e9f1; border-radius: 12px; padding: 12px 5px; text-align: center; transition: 0.2s; }
-        .method.active { border-color: var(--primary); background: #f0fdf4; box-shadow: 0 4px 10px rgba(5,150,105,0.1); }
-        
-        .icon { width: 38px; height: 38px; border-radius: 10px; margin: auto; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; }
-        .icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        /* Using image links for real icons */
-        .crypto-icon { background: #f59e0b; color: white; }
-        .ltc-icon { background: #345d9d; color: white; }
-        .method b { display: block; margin-top: 8px; font-size: 11px; font-weight: 700; }
+        /* Brand Header */
+        .pay-brand { text-align: center; margin-bottom: 16px; }
+        .pay-logo { width: 55px; height: 55px; margin: auto; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: 900; background: linear-gradient(135deg, #075cff, #00a7ff); box-shadow: 0 12px 30px #075cff30; }
+        .pay-brand h2 { margin-top: 9px; font-size: 21px; }
+        .pay-brand p { color: #8a94a6; font-size: 12px; margin-top: 4px; }
 
-        .panel { display: none; margin-top: 20px; border-radius: 16px; padding: 20px; color: white; }
+        .pay-card { background: white; border-radius: 24px; padding: 18px; box-shadow: 0 20px 60px #23395d18; }
+        
+        /* Selected Product Info inside Payment */
+        .pay-product-info { display: flex; align-items: center; gap: 12px; background: #f8faff; padding: 10px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #edf1f7; }
+        .pay-product-info img { width: 45px; height: 45px; object-fit: contain; border-radius: 8px; background: white; padding: 2px; }
+        .pay-product-info span { font-size: 14px; font-weight: 700; color: #1c2638; }
+
+        /* Amount */
+        .amount { text-align: center; padding: 20px; border-radius: 17px; background: #f8faff; border: 1px solid #edf1f7; margin-bottom: 16px; }
+        .amount small { color: #8b95a6; font-size: 12px; font-weight: bold; }
+        .amount h1 { margin-top: 4px; font-size: 34px; color: #25324a; }
+        .fee-note { font-size: 11px; color: #e2136e; font-weight: bold; margin-top: 5px; }
+
+        /* Methods */
+        .methods-title { font-size: 13px; font-weight: bold; margin-bottom: 9px; }
+        .methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .method { cursor: pointer; background: #fff; border: 1.5px solid #e4e9f1; border-radius: 14px; padding: 11px 5px; text-align: center; transition: .2s; }
+        .method.active { border-color: #075cff; background: #f2f6ff; box-shadow: 0 7px 20px #075cff12; }
+        .icon { width: 40px; height: 40px; border-radius: 11px; margin: auto; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 12px; }
+        
+        .bkash-icon { background: #e2136e; }
+        .nagad-icon { background: #f58220; }
+        .crypto-icon { background: #263246; }
+        .ltc-icon { background: #345d9d; }
+        
+        .method b { display: block; margin-top: 7px; font-size: 11px; }
+
+        /* Panels */
+        .panel { display: none; margin-top: 16px; border-radius: 19px; padding: 18px; color: white; }
         .panel.active { display: block; }
-        .panel.bkash { background: #e2136e; }
+        .panel.bkash { background: #d12272; }
         .panel.nagad { background: #f58220; }
         .panel.crypto { background: #202b3e; }
         .panel.ltc { background: #345d9d; }
 
-        .panel-head { text-align: center; margin-bottom: 18px; }
-        .panel-head h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-        .panel-head p { font-size: 12px; opacity: 0.9; }
+        .panel-head { text-align: center; margin-bottom: 15px; }
+        .panel-head .big-icon { width: 52px; height: 52px; background: #ffffff20; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: auto; font-weight: 900; font-size: 16px; }
+        .panel-head h3 { margin-top: 9px; font-size: 19px; }
+        .panel-head p { opacity: .8; font-size: 11px; margin-top: 3px; }
 
-        .receive-label { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
-        .address-row { display: flex; gap: 8px; }
-        .address { flex: 1; background: white; color: #222; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700; word-break: break-all; }
-        .copy { border: 0; background: #f3f4f6; color: #111; border-radius: 10px; padding: 0 15px; cursor: pointer; font-weight: 700; font-size: 12px; }
+        .receive-label { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+        .address-row { display: flex; gap: 7px; }
+        .address { flex: 1; background: white; color: #263246; border-radius: 11px; padding: 13px 11px; font-size: 13px; font-weight: bold; word-break: break-all; min-width: 0; }
+        .copy { border: 0; background: #ffffff; color: #333; border-radius: 11px; padding: 0 13px; cursor: pointer; font-weight: bold; font-size: 11px; }
 
         .steps { margin-top: 15px; }
-        .step { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.2); font-size: 13px; line-height: 1.4; align-items: center; }
+        .step { display: flex; gap: 9px; padding: 11px 0; border-bottom: 1px solid #ffffff20; font-size: 12px; line-height: 1.5; }
         .step:last-child { border-bottom: 0; }
-        .number { flex: none; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 12px; }
+        .number { flex: none; width: 22px; height: 22px; border-radius: 50%; background: #ffffff28; display: flex; justify-content: center; align-items: center; font-weight: bold; }
 
-        .field { margin-top: 18px; }
-        .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
-        .field input, .field select { width: 100%; padding: 14px; border: 0; border-radius: 10px; font-size: 14px; background: white; color: #222; outline: none; font-weight: 500; }
+        .field { margin-top: 14px; }
+        .field label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+        .field input, .field select { width: 100%; padding: 13px; border: 0; outline: 0; border-radius: 11px; font-size: 13px; background: white; color: #222; }
+        .verify { width: 100%; border: 0; margin-top: 15px; padding: 14px; border-radius: 11px; background: white; color: #1e293b; font-size: 13px; font-weight: 900; cursor: pointer; }
+
+        /* Success Screen */
+        .success { display: none; text-align: center; padding: 20px 10px; }
+        .success-icon { width: 65px; height: 65px; margin: auto; border-radius: 50%; background: #e8fff1; color: #13a052; display: flex; align-items: center; justify-content: center; font-size: 31px; }
+        .success h2 { margin-top: 13px; color: #1c2638; }
         
-        .verify { width: 100%; border: 0; margin-top: 20px; padding: 15px; border-radius: 10px; background: #fff; color: #111; font-size: 14px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-        .verify:hover { transform: scale(1.02); }
+        .success-details { background: #f8faff; border: 1px solid #edf1f7; border-radius: 15px; padding: 15px; margin: 15px 0; text-align: left; }
+        .success-details .sp-row { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e4e9f1; padding-bottom: 10px; margin-bottom: 10px; }
+        .success-details .sp-row img { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: white; padding: 2px; }
+        .success-details .sp-row b { font-size: 14px; color: #1c2638; }
+        .success-details p { font-size: 12px; color: #555; margin-bottom: 5px; }
+        .success-details p b { color: #1c2638; }
 
-        .success { display: none; text-align: center; padding: 30px 20px; }
-        .success-icon { width: 70px; height: 70px; margin: 0 auto 15px; border-radius: 50%; background: #d1fae5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 30px; }
-        .success h2 { font-size: 22px; color: #111; margin-bottom: 10px; }
-        .success p { color: #6b7280; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
-        .contact-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--discord); color: white; padding: 14px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; }
+        .contact-seller-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--discord); color: white; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 13px; width: 100%; margin-top: 10px; }
+        
+        .secure { text-align: center; color: #9aa3b2; font-size: 10px; margin-top: 14px; }
+
+        /* Announcement Modal Config */
+        #announceModal .modal-content { background: var(--card-bg); width: 90%; max-width: 450px; border-radius: 15px; overflow: hidden; text-align: center; position: relative; }
+        .popup-header-img img { width: 100%; max-height: 200px; object-fit: cover; }
+        .popup-body { padding: 25px; }
+        .countdown-container { display: flex; justify-content: center; gap: 8px; margin: 15px 0; }
+        .time-box { background: #111827; color: white; padding: 6px 10px; border-radius: 6px; font-weight: 800; }
+        .time-box span { display: block; font-size: 9px; font-weight: 500; color: #9ca3af; text-transform: uppercase; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        @media(min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #9ca3af; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; }
+        .nav-item i { font-size: 20px; margin-bottom: 3px; }
+        .nav-item.active { color: var(--primary); }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header & Search -->
     <header>
         <div class="top-header">
             <a href="#" class="logo-area" onclick="window.scrollTo(0,0)">
                 <div class="logo-img-wrapper">
-                    <img src="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif" alt="Logo">
+                    <img src="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif" id="siteLogo" alt="Logo">
                 </div>
                 <span class="logo-text">Cevix Bazar</span>
             </a>
         </div>
         <div class="search-container">
+            <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Search for products...">
                 <i class="fas fa-search"></i>
             </div>
-            <a href="https://discord.gg/cevixbazar" target="_blank" class="action-icon">
-                <i class="fab fa-discord"></i>
-            </a>
         </div>
     </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>Navigation</span>
+            <i class="fas fa-times" onclick="toggleSidebar()"></i>
+        </div>
+        <ul class="sidebar-links">
+            <li onclick="goHome(); toggleSidebar()"><i class="fas fa-house"></i> Home Store</li>
+            <li onclick="window.open('https://discord.gg/cevixbazar','_blank')"><i class="fab fa-discord"></i> Discord Server</li>
+        </ul>
+    </div>
+
+    <!-- Announcement Popup Modal -->
+    <div class="modal-overlay" id="announceModal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="closeModal('announceModal')" style="position:absolute; top:10px; right:10px; background:white; border-radius:50%; padding:5px; cursor:pointer; color:black; z-index:10;"></i>
+            <div class="popup-header-img"><img id="popupImg" src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=600&auto=format&fit=crop" alt="Offer"></div>
+            <div class="popup-body">
+                <h2 id="popupTitle" style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Flash Sale is Live!</h2>
+                <p id="popupDesc" style="color: var(--text-muted); font-size: 13px;">Get up to 30% OFF on all digital products today!</p>
+                <div class="countdown-container">
+                    <div class="time-box"><span id="cdHours">02</span><span>Hours</span></div>
+                    <div class="time-box"><span id="cdMinutes">45</span><span>Mins</span></div>
+                    <div class="time-box"><span id="cdSeconds">18</span><span>Secs</span></div>
+                </div>
+                <button class="btn-card" onclick="closeModal('announceModal')">Explore Now</button>
+            </div>
+        </div>
+    </div>
 
     <div class="hero-banner">
         <h1>All Digital Services In One Place</h1>
@@ -179,50 +263,82 @@
     </div>
 
     <div class="container">
-        <div class="category-grid" id="categoryGrid"></div>
-        <h2 class="section-title" id="viewTitle">Trending Products</h2>
-        <div class="product-grid" id="productGrid"></div>
+        
+        <!-- Category Grid -->
+        <div class="category-grid reveal" id="categoryGrid"></div>
+        
+        <!-- Products Grid -->
+        <h2 class="section-title reveal" id="viewTitle">Trending Products</h2>
+        <div class="product-grid reveal" id="productGrid"></div>
+
+        <!-- Dynamic Sellers -->
+        <h2 class="section-title reveal" style="margin-top: 30px;">Meet Our Verified Sellers</h2>
+        <div class="seller-grid reveal" id="sellerGrid"></div>
+
+        <!-- Discord & Guarantees -->
+        <div class="discord-box reveal">
+            <div>
+                <h3 style="font-size:20px; font-weight:800;"><i class="fab fa-discord"></i> Cevix Community Hub</h3>
+                <p style="font-size:13px; margin-top:5px;">Join 8,500+ members! Get live updates & instant support.</p>
+            </div>
+            <a href="https://discord.gg/cevixbazar" target="_blank" class="btn-card" style="background:white; color:var(--discord); width:auto; padding:10px 20px;">Join Discord</a>
+        </div>
     </div>
 
+    <footer style="text-align:center;">
+        <img src="IMG_20260907_153800.png" alt="Payment Methods" style="max-width:100%; border-radius:10px; margin-bottom:15px;">
+        <p>&copy; 2024-2026 CEVIX BAZAR. All rights reserved.</p>
+    </footer>
 
-    <!-- ==============================================
-         PAYMENT / CHECKOUT MODAL 
-    =============================================== -->
+    <div class="bottom-nav">
+        <a class="nav-item active" onclick="goHome()"><i class="fas fa-store"></i><span>Shop</span></a>
+        <a class="nav-item" onclick="document.getElementById('searchInput').focus(); window.scrollTo(0,0);"><i class="fas fa-search"></i><span>Search</span></a>
+        <a class="nav-item" onclick="toggleSidebar()"><i class="fas fa-bars"></i><span>Menu</span></a>
+    </div>
+
+    <!-- =========================================================
+         ADVANCED PAYMENT GATEWAY MODAL (EXACT USER DESIGN)
+    ========================================================= -->
     <div class="modal-overlay" id="payModal">
-        <div class="modal-content">
-            <div class="close-modal" onclick="closePayModal()"><i class="fas fa-times"></i></div>
-            
-            <div class="payment-wrapper">
+        
+        <div class="pay-container">
+            <div class="close-pay" onclick="closePayModal()"><i class="fas fa-times"></i></div>
+
+            <!-- Header as requested -->
+            <div class="pay-brand">
+                <div class="pay-logo">CB</div>
+                <h2>CEVIX BAZAR</h2>
+                <p>Secure Payment Gateway</p>
+            </div>
+
+            <div class="pay-card">
                 
-                <!-- PAYMENT CONTENT -->
                 <div id="paymentContent">
                     
-                    <div class="pay-header">
-                        <div class="pay-logo"><img id="payProdImg" src="" alt=""></div>
-                        <h3 id="payProdName">Product Name</h3>
+                    <!-- Selected Product Display inside Payment -->
+                    <div class="pay-product-info">
+                        <img id="payProdImg" src="" alt="Product">
+                        <span id="payProdName">Product Name</span>
                     </div>
 
-                    <div class="amount-box">
-                        <small>Total Amount to Pay</small>
+                    <div class="amount">
+                        <small>Amount to Pay</small>
                         <h1 id="payAmount">৳ 0</h1>
-                        <div class="fee-note" id="feeNote">Includes 2% Cashout Charge</div>
+                        <div class="fee-note" id="feeNote">Includes Cashout Charge</div>
                     </div>
 
                     <div class="methods-title">Select Payment Method</div>
-                    
                     <div class="methods">
                         <div class="method active" onclick="selectPayment('bkash', this)">
-                            <!-- Real bKash Logo -->
-                            <div class="icon"><img src="https://freelogopng.com/images/all_img/1656234782bkash-app-logo-png.png" alt="bKash"></div>
+                            <div class="icon bkash-icon">bKash</div>
                             <b>bKash</b>
                         </div>
                         <div class="method" onclick="selectPayment('nagad', this)">
-                            <!-- Real Nagad Logo -->
-                            <div class="icon"><img src="https://freelogopng.com/images/all_img/1679248787Nagad-Logo.png" alt="Nagad"></div>
+                            <div class="icon nagad-icon">N</div>
                             <b>Nagad</b>
                         </div>
                         <div class="method" onclick="selectPayment('crypto', this)">
-                            <div class="icon crypto-icon"><i class="fab fa-bitcoin"></i></div>
+                            <div class="icon crypto-icon">₿</div>
                             <b>Crypto</b>
                         </div>
                         <div class="method" onclick="selectPayment('ltc', this)">
@@ -231,9 +347,10 @@
                         </div>
                     </div>
 
-                    <!-- BKASH PANEL -->
+                    <!-- BKASH -->
                     <div class="panel bkash active" id="bkashPanel">
                         <div class="panel-head">
+                            <div class="big-icon">bKash</div>
                             <h3>bKash Payment</h3>
                             <p>Cash Out (Agent)</p>
                         </div>
@@ -244,18 +361,20 @@
                         </div>
                         <div class="steps">
                             <div class="step"><span class="number">1</span><span>Open bKash App and select <b>Cash Out</b>.</span></div>
-                            <div class="step"><span class="number">2</span><span>Send the exact total amount shown above.</span></div>
+                            <div class="step"><span class="number">2</span><span>Send the exact amount shown above.</span></div>
+                            <div class="step"><span class="number">3</span><span>Enter your transaction ID below.</span></div>
                         </div>
                         <div class="field">
                             <label>Transaction ID</label>
-                            <input id="bkashTrx" placeholder="Enter TrxID">
+                            <input id="bkashTrx" placeholder="Enter Transaction ID">
                         </div>
-                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                        <button class="verify" onclick="submitPayment()">VERIFY PAYMENT</button>
                     </div>
 
-                    <!-- NAGAD PANEL -->
+                    <!-- NAGAD -->
                     <div class="panel nagad" id="nagadPanel">
                         <div class="panel-head">
+                            <div class="big-icon">N</div>
                             <h3>Nagad Payment</h3>
                             <p>Cash Out (Uddokta)</p>
                         </div>
@@ -266,66 +385,91 @@
                         </div>
                         <div class="steps">
                             <div class="step"><span class="number">1</span><span>Open Nagad App and select <b>Cash Out</b>.</span></div>
-                            <div class="step"><span class="number">2</span><span>Send the exact total amount shown above.</span></div>
+                            <div class="step"><span class="number">2</span><span>Send the exact amount shown above.</span></div>
+                            <div class="step"><span class="number">3</span><span>Enter your transaction ID below.</span></div>
                         </div>
                         <div class="field">
                             <label>Transaction ID</label>
-                            <input id="nagadTrx" placeholder="Enter TrxID">
+                            <input id="nagadTrx" placeholder="Enter Transaction ID">
                         </div>
-                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                        <button class="verify" onclick="submitPayment()">VERIFY PAYMENT</button>
                     </div>
 
-                    <!-- CRYPTO PANEL -->
+                    <!-- CRYPTO -->
                     <div class="panel crypto" id="cryptoPanel">
                         <div class="panel-head">
+                            <div class="big-icon">₿</div>
                             <h3>Crypto Payment</h3>
-                            <p>No extra fees applied</p>
+                            <p>USDT / BTC / ETH</p>
                         </div>
                         <div class="field" style="margin-top:0">
-                            <label>Select Network / Coin</label>
+                            <label>Network / Coin</label>
                             <select id="cryptoNetwork" onchange="updateCryptoAddress()">
-                                <option value="usdttrc">USDT (TRC20)</option>
-                                <option value="usdtbep">USDT (BEP20)</option>
-                                <option value="btc">Bitcoin (BTC)</option>
+                                <option value="usdttrc">USDT — TRC20</option>
+                                <option value="usdtbep">USDT — BEP20</option>
+                                <option value="btc">Bitcoin — BTC</option>
                             </select>
                         </div>
-                        <div class="receive-label" style="margin-top:15px">Deposit Address</div>
+                        <div class="receive-label" style="margin-top:14px">Wallet Address</div>
                         <div class="address-row">
                             <div class="address" id="cryptoAddress"></div>
                             <button class="copy" onclick="copyText('cryptoAddress', this)">COPY</button>
+                        </div>
+                        <div class="steps">
+                            <div class="step"><span class="number">1</span><span>Select correct coin and network.</span></div>
+                            <div class="step"><span class="number">2</span><span>Send exact required amount.</span></div>
+                            <div class="step"><span class="number">3</span><span>Copy your transaction hash.</span></div>
                         </div>
                         <div class="field">
                             <label>Transaction Hash / TXID</label>
                             <input id="cryptoTrx" placeholder="Enter TXID">
                         </div>
-                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                        <button class="verify" onclick="submitPayment()">VERIFY PAYMENT</button>
                     </div>
 
-                    <!-- LTC PANEL -->
+                    <!-- LTC -->
                     <div class="panel ltc" id="ltcPanel">
                         <div class="panel-head">
-                            <h3>Litecoin (LTC) Payment</h3>
+                            <div class="big-icon">Ł</div>
+                            <h3>Litecoin Payment</h3>
+                            <p>LTC Network</p>
                         </div>
-                        <div class="receive-label">LTC Address</div>
+                        <div class="receive-label">Litecoin Address</div>
                         <div class="address-row">
                             <div class="address" id="ltcAddress">LTC_ADDRESS_HERE</div>
                             <button class="copy" onclick="copyText('ltcAddress', this)">COPY</button>
                         </div>
-                        <div class="field">
-                            <label>Transaction ID</label>
-                            <input id="ltcTrx" placeholder="Enter TXID">
+                        <div class="steps">
+                            <div class="step"><span class="number">1</span><span>Send required LTC amount.</span></div>
+                            <div class="step"><span class="number">2</span><span>Copy your transaction ID.</span></div>
                         </div>
-                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                        <div class="field">
+                            <label>Transaction ID / TXID</label>
+                            <input id="ltcTrx" placeholder="Enter LTC TXID">
+                        </div>
+                        <button class="verify" onclick="submitPayment()">VERIFY PAYMENT</button>
                     </div>
+
+                    <div class="secure">Secure payment interface</div>
                 </div>
 
-                <!-- SUCCESS SCREEN -->
+                <!-- SUCCESS SCREEN (Includes Transaction & Product Details) -->
                 <div class="success" id="successContent">
-                    <div class="success-icon"><i class="fas fa-check"></i></div>
+                    <div class="success-icon">✓</div>
                     <h2>Payment Verified!</h2>
-                    <p>Your payment submission is successful. Please take a screenshot of this page and contact the seller with your Transaction ID to receive your product instantly.</p>
-                    <a href="https://discord.gg/cevixbazar" target="_blank" class="contact-btn">
-                        <i class="fab fa-discord"></i> Contact Seller on Discord
+                    
+                    <div class="success-details">
+                        <div class="sp-row">
+                            <img id="successProdImg" src="" alt="">
+                            <b id="successProdName">Product Name</b>
+                        </div>
+                        <p>Total Paid: <b id="successAmount">৳ 0</b></p>
+                        <p>Transaction ID: <b id="successTrxId">XXXXXXX</b></p>
+                        <p style="margin-top: 10px; color: #059669; font-weight: bold;">Please take a screenshot of this page.</p>
+                    </div>
+
+                    <a href="https://discord.gg/cevixbazar" target="_blank" class="contact-seller-btn">
+                        <i class="fab fa-discord"></i> Contact Seller to Claim Product
                     </a>
                 </div>
 
@@ -336,19 +480,19 @@
 
     <script>
         // ==========================================
-        // 1. STORE & PAYMENT CONFIGURATION
+        // 1. CONFIGURATION & REAL SHEET LOGIC
         // ==========================================
         const CONFIG = {
             usdRate: 120, // 1 USD = 120 Taka
-            cashoutFee: 0.02, // 2% charge (20tk per thousand) for bKash/Nagad
+            cashoutFee: 0.02, // 2% charge (20tk per thousand)
             
-            // Your payment numbers
+            // Put your actual receiving addresses here
             bkashNumber: "017XXXXXXXX",
             nagadNumber: "018XXXXXXXX",
             crypto: {
-                usdttrc: "TYXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                usdtbep: "0xXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                btc: "bc1XXXXXXXXXXXXXXXXXXXXXXXXXX"
+                usdttrc: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                usdtbep: "0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                btc: "bc1XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             },
             ltcAddress: "ltc1XXXXXXXXXXXXXXXXXXXXXXXXX"
         };
@@ -356,6 +500,7 @@
         const GOOGLE_SHEET_CSV_URL = ""; 
 
         const localData = {
+            settings: { popupTitle: "Flash Sale is Live!", popupDesc: "Get up to 30% OFF today!" },
             categories: [
                 { id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' },
                 { id: 'discord', name: 'Discord', img: 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png' },
@@ -363,40 +508,40 @@
             ],
             products: [
                 { id: 'p1', catId: 'discord', name: 'Discord Nitro (1 Month Boost)', price: 450, img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=400&auto=format&fit=crop' },
-                { id: 'p2', catId: 'game', name: 'Free Fire 1000 Diamonds', price: 650, img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop' },
-                { id: 'p3', catId: 'game', name: 'PUBG 600 UC', price: 950, img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400&auto=format&fit=crop' }
+                { id: 'p2', catId: 'game', name: 'Free Fire 1000 Diamonds', price: 650, img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop' }
+            ],
+            sellers: [
+                { name: 'RENOX', tag: 'Founder', rating: '5.0', desc: 'Handles server admin & corporate deals.', img: 'https://ui-avatars.com/api/?name=Renox&background=059669&color=fff' },
+                { name: 'HASAN HRIDOY', tag: 'Creator', rating: '5.0', desc: 'Lead Developer & Payment Verifier.', img: 'https://ui-avatars.com/api/?name=Hasan+Hridoy&background=10b981&color=fff' }
             ]
         };
 
-        let appData = { categories: [], products: [] };
+        let appData = { categories: [], products: [], sellers: [] };
         let currentProduct = null;
-        let currentMethod = 'bkash'; // Default
+        let currentMethod = 'bkash';
 
-        // INIT
+        // Initialize Store
         window.onload = () => {
             if (GOOGLE_SHEET_CSV_URL !== "") {
                 Papa.parse(GOOGLE_SHEET_CSV_URL, {
                     download: true, header: true, skipEmptyLines: true,
-                    complete: function(results) {
-                        appData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }];
-                        appData.products = [];
-                        results.data.forEach(row => {
-                            if(row.Type === 'Category') appData.categories.push({ id: row.ID, name: row.Name, img: row.Image });
-                            else if(row.Type === 'Product') appData.products.push({ id: row.ID, catId: row.CategoryID, name: row.Name, price: parseInt(row.TagOrPrice), img: row.Image });
-                        });
-                        renderUI();
-                    },
+                    complete: function(results) { parseSheet(results.data); },
                     error: function() { loadDefault(); }
                 });
-            } else {
-                loadDefault();
-            }
+            } else { loadDefault(); }
 
-            // Setup Payment Details
+            // Payment Config setup
             document.getElementById("bkashNumber").innerText = CONFIG.bkashNumber;
             document.getElementById("nagadNumber").innerText = CONFIG.nagadNumber;
             document.getElementById("ltcAddress").innerText = CONFIG.ltcAddress;
             updateCryptoAddress();
+
+            // Set Countdown Timer
+            startTimer(120);
+            setTimeout(() => { document.getElementById('announceModal').classList.add('active'); }, 1500);
+            
+            // Search Listener
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
         };
 
         function loadDefault() {
@@ -404,8 +549,20 @@
             renderUI();
         }
 
+        function parseSheet(data) {
+            appData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }];
+            appData.products = []; appData.sellers = [];
+            data.forEach(row => {
+                if(row.Type === 'Category') appData.categories.push({ id: row.ID, name: row.Name, img: row.Image });
+                else if(row.Type === 'Product') appData.products.push({ id: row.ID, catId: row.CategoryID, name: row.Name, price: parseInt(row.TagOrPrice), img: row.Image });
+                else if(row.Type === 'Seller') appData.sellers.push({ name: row.Name, tag: row.TagOrPrice, rating: row.OldPrice, desc: row.Desc, img: row.Image });
+            });
+            renderUI();
+        }
+
         // STORE RENDERING
         function renderUI() {
+            // Categories
             const catGrid = document.getElementById('categoryGrid');
             catGrid.innerHTML = '';
             appData.categories.forEach(cat => {
@@ -415,58 +572,80 @@
                         <h4>${cat.name}</h4>
                     </div>`;
             });
+
+            // Sellers
+            const selGrid = document.getElementById('sellerGrid');
+            selGrid.innerHTML = '';
+            appData.sellers.forEach(s => {
+                selGrid.innerHTML += `
+                    <div class="custom-card" style="text-align:center;">
+                        <div class="card-badge">${s.tag}</div>
+                        <div class="card-img-wrapper" style="padding:20px;"><img src="${s.img}" style="border-radius:50%;"></div>
+                        <div class="card-body">
+                            <h4 style="font-size:16px;">${s.name}</h4>
+                            <div class="rating-stars" style="margin:8px 0;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> <span>(${s.rating})</span></div>
+                            <p style="font-size:12px; color:var(--text-muted);">${s.desc}</p>
+                        </div>
+                    </div>`;
+            });
+
             filterCategory('all');
+            setupScrollObserver();
         }
 
         function filterCategory(catId, el = null) {
-            if(el) {
-                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                el.classList.add('active');
-            }
+            if(el) { document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
             const prods = catId === 'all' ? appData.products : appData.products.filter(p => p.catId === catId);
-            
+            renderProducts(prods);
+        }
+
+        function handleSearch(e) {
+            const term = e.target.value.toLowerCase();
+            const prods = appData.products.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(prods);
+        }
+
+        function renderProducts(prods) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             prods.forEach(p => {
                 let pStr = encodeURIComponent(JSON.stringify(p));
                 grid.innerHTML += `
                     <div class="custom-card" onclick="openCheckout('${pStr}')">
+                        <div class="card-badge">SALE</div>
                         <div class="card-img-wrapper"><img src="${p.img}" alt="${p.name}"></div>
                         <div class="card-body">
                             <div class="card-title">${p.name}</div>
                             <div class="price-area"><span class="price">৳${p.price}</span></div>
-                            <button class="btn-card">Buy Now</button>
+                            <button class="btn-card"><i class="fas fa-shopping-cart"></i> Buy Now</button>
                         </div>
                     </div>`;
             });
+            setupScrollObserver();
         }
 
         // ==========================================
-        // PAYMENT GATEWAY LOGIC
+        // PAYMENT GATEWAY & SUCCESS LOGIC
         // ==========================================
         function openCheckout(pStr) {
             currentProduct = JSON.parse(decodeURIComponent(pStr));
             
-            // Set Product info in Modal
+            // Set Product info in Modal Header
             document.getElementById('payProdName').innerText = currentProduct.name;
             document.getElementById('payProdImg').src = currentProduct.img;
             
             // Reset state
             document.getElementById('paymentContent').style.display = 'block';
             document.getElementById('successContent').style.display = 'none';
-            document.getElementById('bkashTrx').value = '';
-            document.getElementById('nagadTrx').value = '';
-            document.getElementById('cryptoTrx').value = '';
-            document.getElementById('ltcTrx').value = '';
+            ['bkashTrx', 'nagadTrx', 'cryptoTrx', 'ltcTrx'].forEach(id => document.getElementById(id).value = '');
 
-            // Default to bKash selection
+            // Force select bKash on open
             document.querySelector('.method').click(); 
             document.getElementById('payModal').classList.add('active');
         }
 
-        function closePayModal() {
-            document.getElementById('payModal').classList.remove('active');
-        }
+        function closePayModal() { document.getElementById('payModal').classList.remove('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
         function selectPayment(method, element) {
             currentMethod = method;
@@ -489,12 +668,12 @@
                 const total = Math.ceil(basePrice + (basePrice * CONFIG.cashoutFee));
                 amountEl.innerText = `৳ ${total}`;
                 noteEl.innerText = `Includes 2% Cashout Charge (৳${total - basePrice})`;
-                noteEl.style.color = '#ef4444';
+                noteEl.style.color = '#e2136e';
             } else {
-                // Convert to USD (No extra fee)
+                // Convert to USD
                 const usdTotal = (basePrice / CONFIG.usdRate).toFixed(2);
                 amountEl.innerText = `$ ${usdTotal}`;
-                noteEl.innerText = `Converted at 1 USD = ${CONFIG.usdRate} BDT (No extra fee)`;
+                noteEl.innerText = `Converted at 1 USD = ${CONFIG.usdRate} BDT`;
                 noteEl.style.color = '#059669';
             }
         }
@@ -508,29 +687,56 @@
             const text = document.getElementById(id).innerText.trim();
             navigator.clipboard.writeText(text).then(() => {
                 const old = btn.innerText;
-                btn.innerText = "COPIED!";
-                btn.style.background = "#d1fae5";
-                setTimeout(() => {
-                    btn.innerText = old;
-                    btn.style.background = "#f3f4f6";
-                }, 1500);
+                btn.innerText = "COPIED";
+                btn.style.color = "#059669";
+                setTimeout(() => { btn.innerText = old; btn.style.color = "#333"; }, 1500);
             });
         }
 
+        // Final Payment Submission & Success Screen Update
         function submitPayment() {
             let inputId = `${currentMethod}Trx`;
             let inputVal = document.getElementById(inputId).value.trim();
 
             if(!inputVal) {
-                alert("Please enter the Transaction ID / TXID to confirm.");
+                alert("Please enter the Transaction ID / TXID to verify.");
                 return;
             }
 
-            // Show Success Screen
+            // Populate Success Screen Details
+            document.getElementById('successProdImg').src = currentProduct.img;
+            document.getElementById('successProdName').innerText = currentProduct.name;
+            document.getElementById('successAmount').innerText = document.getElementById('payAmount').innerText;
+            document.getElementById('successTrxId').innerText = inputVal;
+
+            // Switch to Success Screen
             document.getElementById('paymentContent').style.display = 'none';
             document.getElementById('successContent').style.display = 'block';
         }
 
+        // Utilities
+        function startTimer(mins) {
+            let time = mins * 60;
+            setInterval(() => {
+                if(time <= 0) return;
+                time--;
+                document.getElementById('cdHours').innerText = String(Math.floor(time/3600)).padStart(2,'0');
+                document.getElementById('cdMinutes').innerText = String(Math.floor((time%3600)/60)).padStart(2,'0');
+                document.getElementById('cdSeconds').innerText = String(time%60).padStart(2,'0');
+            }, 1000);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        function goHome() { filterCategory('all'); window.scrollTo(0,0); }
+
+        function setupScrollObserver() {
+            const obs = new IntersectionObserver(e => e.forEach(en => { if(en.isIntersecting) en.target.classList.add('active'); }), { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        }
     </script>
 </body>
-    </html>
+                                    </html>
