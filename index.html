@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cevix Bazar | Digital Store</title>
+    <title>Cevix Bazar | Trusted Digital Store</title>
     
     <!-- Meta Tags -->
     <meta name="description" content="Cevix Bazar - Your trusted platform for digital products. Founded by RENOX, Created by HASAN HRIDOY.">
@@ -16,215 +16,307 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <style>
-        /* --- VARIABLES (Purple Theme based on screenshot) --- */
+        /* --- GREEN THEME VARIABLES --- */
         :root {
-            --primary: #5c238b; /* Purple from screenshot */
-            --primary-hover: #4a1c70;
-            --bg-color: #f5f5f5;
+            --primary: #059669; /* Emerald Green */
+            --primary-hover: #047857;
+            --bg-color: #f3f4f6;
             --card-bg: #ffffff;
-            --text-dark: #222222;
-            --text-muted: #666666;
-            --border: #eaeaea;
-            --yellow: #f5b301; /* For stars */
-            --transition: all 0.2s ease;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --yellow: #f59e0b; /* Stars */
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 70px; /* Space for bottom nav */ }
+        body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 70px; overflow-x: hidden; }
 
-        /* --- HEADER & SEARCH BAR --- */
-        header { background: var(--card-bg); padding: 10px 15px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        /* --- SCROLL ANIMATION --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HEADER & SEARCH --- */
+        header { background: var(--card-bg); padding: 10px 15px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .top-header { display: flex; justify-content: center; padding-bottom: 15px; }
-        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; transition: var(--transition); }
+        .logo-area:hover { transform: scale(1.05); }
         .logo-area img { width: 35px; height: 35px; border-radius: 5px; }
-        .logo-area span { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo-area span { font-size: 22px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
         
         .search-container { display: flex; gap: 10px; align-items: center; max-width: 800px; margin: 0 auto; }
-        .menu-btn { background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .menu-btn { background: var(--primary); color: white; border: none; width: 42px; height: 42px; border-radius: 8px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition); }
+        .menu-btn:hover { background: var(--primary-hover); transform: rotate(90deg); }
+        
         .search-box { flex-grow: 1; position: relative; }
-        .search-box input { width: 100%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; outline: none; }
-        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #888; }
-        .user-icon { width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #555; cursor: pointer; }
+        .search-box input { width: 100%; padding: 12px 40px 12px 15px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; transition: var(--transition); }
+        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); }
+        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
+        
+        .user-icon { width: 42px; height: 42px; background: #f3f4f6; border-radius: 8px; display: flex; justify-content: center; align-items: center; color: var(--primary); cursor: pointer; transition: var(--transition); }
+        .user-icon:hover { background: var(--primary); color: white; }
+
+        /* --- SIDEBAR MENU --- */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); backdrop-filter: blur(2px); }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: var(--card-bg); z-index: 1001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 4px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .sidebar.active { left: 0; }
+        
+        .sidebar-header { padding: 20px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; }
+        .sidebar-header i { cursor: pointer; font-size: 24px; }
+        .sidebar-links { list-style: none; padding: 15px 0; flex-grow: 1; }
+        .sidebar-links li { padding: 12px 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 15px; color: var(--text-dark); transition: var(--transition); border-left: 3px solid transparent; }
+        .sidebar-links li:hover { background: #f0fdf4; color: var(--primary); border-left-color: var(--primary); }
+        .sidebar-links li i { width: 20px; text-align: center; color: var(--text-muted); }
+        .sidebar-links li:hover i { color: var(--primary); }
 
         /* --- HERO BANNER --- */
-        .hero-banner { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; }
-        .hero-banner h1 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
-        .hero-banner p { font-size: 14px; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .hero-banner { background: linear-gradient(135deg, var(--primary), #10b981); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.2); }
+        .hero-banner h1 { font-size: 26px; font-weight: 700; margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .hero-banner p { font-size: 14px; opacity: 0.95; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
         /* --- MAIN CONTAINER --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        .section-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); }
-
-        /* --- PRODUCT CARDS (EXACT MATCH) --- */
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
-        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-        
-        .prod-card {
-            background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border);
-            overflow: hidden; display: flex; flex-direction: column; position: relative;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: var(--transition);
-        }
-        .prod-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
-        .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--primary); color: white; font-size: 10px; font-weight: 600; padding: 4px 8px; border-radius: 4px; z-index: 2; text-transform: uppercase; }
-        
-        .prod-img-wrapper { padding: 10px; border-bottom: 1px solid #f0f0f0; background: #fff; }
-        .prod-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 8px; }
-        
-        .prod-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
-        .prod-title { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 5px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px; }
-        
-        .stars { color: var(--yellow); font-size: 10px; margin-bottom: 8px; }
-        .stars span { color: #888; font-size: 11px; margin-left: 3px; }
-        
-        .price-area { margin-bottom: 12px; margin-top: auto; }
-        .price { font-size: 15px; font-weight: 700; color: var(--primary); }
-        .old-price { font-size: 12px; text-decoration: line-through; color: #999; margin-left: 5px; }
-        
-        .btn-select { background: var(--primary); color: white; border: none; width: 100%; padding: 10px; border-radius: 5px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; transition: var(--transition); }
-        .btn-select:hover { background: var(--primary-hover); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; min-height: 50vh; }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; display: block; width: 4px; height: 24px; background: var(--primary); border-radius: 2px; }
 
         /* --- CATEGORY CARDS --- */
-        .category-grid { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; margin-bottom: 30px; scrollbar-width: none; }
+        .category-grid { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; margin-bottom: 30px; scrollbar-width: none; }
         .category-grid::-webkit-scrollbar { display: none; }
-        .cat-card { min-width: 120px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; }
-        .cat-card img { width: 40px; height: 40px; margin-bottom: 8px; object-fit: contain; }
-        .cat-card h4 { font-size: 12px; font-weight: 600; }
+        .cat-card { min-width: 110px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; transition: var(--transition); }
+        .cat-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(5,150,105,0.1); }
+        .cat-card img { width: 45px; height: 45px; margin-bottom: 8px; object-fit: contain; }
+        .cat-card h4 { font-size: 13px; font-weight: 600; color: var(--text-dark); }
 
-        /* --- TRUST BANNER (Purple Strip) --- */
-        .trust-banner { background: var(--primary); color: white; padding: 25px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        /* --- PRODUCT CARDS --- */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 50px; }
+        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+        
+        .prod-card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: var(--transition); }
+        .prod-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08); transform: translateY(-5px); border-color: #a7f3d0; }
+        
+        .sale-badge { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; z-index: 2; box-shadow: 0 2px 5px rgba(239,68,68,0.3); }
+        
+        .prod-img-wrapper { padding: 15px; background: #fff; text-align: center; position: relative; overflow: hidden; }
+        .prod-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; transition: 0.5s ease; }
+        .prod-card:hover .prod-img { transform: scale(1.08); }
+        
+        .prod-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; border-top: 1px solid #f3f4f6; }
+        .prod-title { font-size: 14px; font-weight: 600; line-height: 1.5; margin-bottom: 8px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; }
+        
+        .stars { color: var(--yellow); font-size: 11px; margin-bottom: 10px; }
+        .stars span { color: var(--text-muted); font-size: 12px; margin-left: 5px; font-weight: 500; }
+        
+        .price-area { margin-bottom: 15px; margin-top: auto; display: flex; align-items: center; gap: 8px; }
+        .price { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .old-price { font-size: 13px; text-decoration: line-through; color: #9ca3af; }
+        
+        .btn-select { background: var(--primary); color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-select:hover { background: var(--primary-hover); }
+
+        /* --- SELLER CARD --- */
+        .seller-card { background: var(--card-bg); border-radius: 12px; padding: 25px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 40px; border-left: 5px solid var(--primary); }
+        .seller-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid #e5e7eb; }
+        .seller-info h3 { font-size: 18px; margin-bottom: 4px; color: var(--text-dark); }
+        .seller-info p { color: var(--text-muted); font-size: 14px; margin-bottom: 5px; }
+        .verified-tag { background: #d1fae5; color: var(--primary); padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block; }
+
+        /* --- TERMS SECTION --- */
+        .terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .term-box { background: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid var(--border); transition: var(--transition); }
+        .term-box:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); transform: translateY(-3px); }
+        .term-icon { width: 40px; height: 40px; background: #ecfdf5; color: var(--primary); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 20px; margin-bottom: 15px; }
+        .term-box h4 { font-size: 16px; margin-bottom: 10px; }
+        .term-box p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+        /* --- TRUST BANNER (Footer Top) --- */
+        .trust-banner { background: #1f2937; color: white; padding: 30px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         @media(min-width: 768px) { .trust-banner { grid-template-columns: repeat(4, 1fr); padding: 30px 10%; } }
-        .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; }
-        .trust-item i { font-size: 20px; opacity: 0.8; }
+        .trust-item { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
+        .trust-item i { font-size: 24px; color: var(--primary); }
 
-        /* --- FOOTER (Exact Match) --- */
-        footer { background: #fff; padding: 40px 15px 20px; font-size: 13px; color: #555; }
-        .footer-top { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; border-bottom: 1px solid var(--border); padding-bottom: 30px; }
+        /* --- FOOTER --- */
+        footer { background: var(--card-bg); padding: 50px 15px 20px; font-size: 14px; color: var(--text-muted); }
+        .footer-top { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; border-bottom: 1px solid var(--border); padding-bottom: 40px; }
         @media(min-width: 768px) { .footer-top { grid-template-columns: 2fr 1fr 1fr; } }
         
-        .footer-about .f-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--primary); }
-        .footer-about img { width: 30px; border-radius: 4px; }
-        .footer-about p { line-height: 1.6; margin-bottom: 15px; }
-        .footer-about strong { color: #333; }
+        .f-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 20px; font-weight: 700; color: var(--primary); }
+        .f-logo img { width: 35px; border-radius: 5px; }
+        .footer-about p { line-height: 1.6; margin-bottom: 10px; }
         
-        .footer-links h4 { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 15px; text-transform: uppercase; }
+        .footer-links h4 { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; }
         .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 10px; }
-        .footer-links ul li a { color: #555; text-decoration: none; cursor: pointer; }
-        .footer-links ul li a:hover { color: var(--primary); }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; cursor: pointer; transition: var(--transition); }
+        .footer-links ul li a:hover { color: var(--primary); padding-left: 5px; }
         
-        .footer-bottom { text-align: center; padding-top: 20px; max-width: 1200px; margin: 0 auto; }
-        .payment-methods { width: 100%; max-width: 800px; margin: 0 auto 15px; display: block; }
-        .copyright { font-size: 12px; color: #888; }
+        .footer-bottom { text-align: center; padding-top: 25px; max-width: 1200px; margin: 0 auto; }
+        .payment-methods { width: 100%; max-width: 700px; margin: 0 auto 20px; display: block; border-radius: 8px; }
+        .copyright { font-size: 13px; }
 
-        /* --- BOTTOM NAVIGATION BAR (Mobile Fixed) --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #fff; border-top: 1px solid var(--border);
-            display: flex; justify-content: space-around; padding: 10px 0;
-            z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
+        /* --- BOTTOM NAVIGATION (Mobile) --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 12px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
         @media(min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
         
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #666; text-decoration: none; font-size: 10px; cursor: pointer; position: relative; }
-        .nav-item i { font-size: 20px; margin-bottom: 4px; }
-        .nav-item.active { color: var(--primary); }
-        .cart-count { position: absolute; top: -5px; right: 5px; background: var(--primary); color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #9ca3af; text-decoration: none; font-size: 11px; font-weight: 500; cursor: pointer; transition: var(--transition); }
+        .nav-item i { font-size: 22px; margin-bottom: 5px; }
+        .nav-item.active, .nav-item:hover { color: var(--primary); }
 
-        /* --- MODALS (Popup & Product Details) --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .modal-overlay.active { display: flex; }
-        .modal-content { background: #fff; width: 90%; max-width: 500px; border-radius: 10px; position: relative; max-height: 90vh; overflow-y: auto; }
+        /* --- MODALS --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); backdrop-filter: blur(3px); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
         
-        /* Specific Product Details Modal style */
-        .prod-modal-body { padding: 0; }
-        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #333; z-index: 10; background: rgba(255,255,255,0.8); border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; }
-        .pm-img { width: 100%; height: 250px; object-fit: contain; background: #f9f9f9; border-bottom: 1px solid #eee; }
-        .pm-info { padding: 20px; }
-        .pm-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 500px; border-radius: 12px; position: relative; transform: scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 20px; cursor: pointer; color: var(--text-muted); width: 32px; height: 32px; background: #f3f4f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: var(--transition); z-index: 10; }
+        .close-modal:hover { background: #fee2e2; color: #ef4444; transform: rotate(90deg); }
+        
+        /* Product Details Modal */
+        .pm-img { width: 100%; height: 250px; object-fit: contain; background: #f9fafb; padding: 20px; border-bottom: 1px solid var(--border); }
+        .pm-info { padding: 25px; }
+        .pm-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--text-dark); }
         .pm-price-area { margin-bottom: 15px; }
-        .pm-price { font-size: 22px; font-weight: 700; color: var(--primary); }
-        .pm-old { text-decoration: line-through; color: #999; margin-left: 10px; font-size: 14px; }
-        .pm-desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 20px; }
-        .pm-btn { display: block; width: 100%; background: #5865F2; color: white; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 600; }
+        .pm-price { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .pm-old { text-decoration: line-through; color: #9ca3af; margin-left: 10px; font-size: 15px; }
+        .pm-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
+        .pm-btn { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; background: #5865F2; color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; transition: var(--transition); }
+        .pm-btn:hover { background: #4752C4; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3); }
 
         /* Announcement Modal */
-        #announceModal .modal-content { padding: 30px; text-align: center; border-top: 4px solid var(--primary); }
-        #announceModal h2 { color: var(--primary); margin-bottom: 10px; }
-
-        /* Simple Info Modal (About/Support) */
-        .info-modal { padding: 25px; }
-        .info-modal h2 { margin-bottom: 15px; color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .info-modal p { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 10px; }
+        #announceModal .modal-content { padding: 40px 30px; text-align: center; border-top: 5px solid var(--primary); }
+        #announceModal h2 { color: var(--primary); margin-bottom: 15px; font-size: 24px; }
+        
+        /* General Modal Padding */
+        .info-modal { padding: 30px; }
+        .info-modal h2 { margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; }
+        .info-modal p { font-size: 14px; line-height: 1.7; color: var(--text-muted); margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- Header & Search (Top) -->
+    <!-- Header & Search -->
     <header>
         <div class="top-header">
             <a href="#" class="logo-area" onclick="goHome()">
-                <!-- Logo can be changed here -->
-                <img src="https://ui-avatars.com/api/?name=CB&background=5c238b&color=fff" id="siteLogo" alt="Logo">
+                <!-- Code theke logo change korte parben -->
+                <img src="https://ui-avatars.com/api/?name=CB&background=059669&color=fff" id="siteLogo" alt="Logo">
                 <span>Cevix Bazar</span>
             </a>
         </div>
         <div class="search-container">
-            <button class="menu-btn" onclick="openModal('aboutModal')"><i class="fas fa-bars"></i></button>
+            <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
             <div class="search-box">
-                <input type="text" placeholder="Search for products...">
+                <!-- Live Search Input -->
+                <input type="text" id="searchInput" placeholder="Search for products, subscriptions...">
                 <i class="fas fa-search"></i>
             </div>
             <div class="user-icon" onclick="openModal('supportModal')">
-                <i class="far fa-user"></i>
+                <i class="fas fa-headset"></i>
             </div>
         </div>
     </header>
 
-    <!-- Global Popup (Sheet Configurable) -->
+    <!-- Sidebar Menu (Real Slide) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span><i class="fas fa-compass"></i> Menu</span>
+            <i class="fas fa-times" onclick="toggleSidebar()"></i>
+        </div>
+        <ul class="sidebar-links">
+            <li onclick="goHome(); toggleSidebar()"><i class="fas fa-home"></i> Home</li>
+            <li onclick="openModal('aboutModal'); toggleSidebar()"><i class="fas fa-info-circle"></i> About Us</li>
+            <li onclick="openModal('termsModal'); toggleSidebar()"><i class="fas fa-shield-alt"></i> Terms & Policy</li>
+            <li onclick="openModal('supportModal'); toggleSidebar()"><i class="fas fa-headset"></i> Contact Support</li>
+            <li onclick="window.open('https://discord.gg/yourlink','_blank')"><i class="fab fa-discord"></i> Join Discord</li>
+        </ul>
+    </div>
+
+    <!-- Announcement Popup -->
     <div class="modal-overlay" id="announceModal">
         <div class="modal-content">
-            <i class="fas fa-times close-modal" style="background:none;" onclick="closeModal('announceModal')"></i>
-            <i class="fas fa-gift" style="font-size: 40px; color: var(--primary); margin-bottom: 15px;"></i>
-            <h2 id="popupTitle">Special Offer!</h2>
-            <p id="popupDesc" style="color:#666; margin-bottom: 20px;">Buy any digital product and get instant delivery. Join our Discord for more.</p>
-            <button class="btn-select" onclick="closeModal('announceModal')">Continue Shopping</button>
+            <i class="fas fa-times close-modal" onclick="closeModal('announceModal')"></i>
+            <i class="fas fa-bell" style="font-size: 50px; color: var(--primary); margin-bottom: 20px; animation: bounce 2s infinite;"></i>
+            <h2 id="popupTitle">Welcome to Cevix Bazar!</h2>
+            <p id="popupDesc" style="color:var(--text-muted); margin-bottom: 25px; font-size:15px;">Buy any digital product and get instant delivery. Join our Discord for exclusive promo codes!</p>
+            <button class="btn-select" onclick="closeModal('announceModal')">Explore Products</button>
         </div>
     </div>
 
     <!-- MAIN VIEW -->
     <div id="mainView">
         
-        <!-- Hero Banner (Like "All Your Digital Tools...") -->
         <div class="hero-banner">
-            <h1>Welcome to Cevix Bazar</h1>
-            <p>Your Trusted Digital Product Shop in Bangladesh. Discord, OTT, Software & Game Topups in One Place.</p>
+            <h1>All Your Digital Needs in One Place</h1>
+            <p>100% Authentic AI Tools, Discord Products, OTT Subscriptions & Game Topups with Fast Delivery.</p>
         </div>
 
         <div class="container">
             
-            <!-- Category Scroll -->
-            <div class="category-grid" id="categoryGrid">
-                <!-- Categories JS injected -->
+            <!-- Category Cards -->
+            <div class="reveal">
+                <div class="category-grid" id="categoryGrid">
+                    <!-- Categories injected by JS -->
+                </div>
             </div>
 
-            <!-- Best Offers Title -->
-            <h2 class="section-title" id="viewTitle">The Best Offers</h2>
+            <!-- Products Section Title -->
+            <h2 class="section-title reveal" id="viewTitle">Trending Offers</h2>
 
             <!-- Products Grid -->
-            <div class="product-grid" id="productGrid">
-                <!-- Products JS injected -->
+            <div class="product-grid reveal" id="productGrid">
+                <!-- Products injected by JS -->
+            </div>
+            
+            <!-- No Results Message -->
+            <div id="noResults" style="display:none; text-align:center; padding: 40px; color: var(--text-muted); width: 100%;">
+                <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px; color: #d1d5db;"></i>
+                <h3>No products found</h3>
+                <p>Try searching with different keywords.</p>
+            </div>
+
+            <!-- Seller Card (Founder details) -->
+            <h2 class="section-title reveal" style="margin-top: 20px;">Meet The Team</h2>
+            <div class="seller-card reveal">
+                <img src="https://ui-avatars.com/api/?name=R+H&background=059669&color=fff&size=150" alt="Seller" class="seller-img">
+                <div class="seller-info">
+                    <h3>RENOX & HASAN HRIDOY</h3>
+                    <p>Founder & Official Creator of Cevix Bazar</p>
+                    <span class="verified-tag"><i class="fas fa-check-circle"></i> Verified Merchant</span>
+                </div>
+            </div>
+
+            <!-- Terms on Page -->
+            <h2 class="section-title reveal">Why Choose Us?</h2>
+            <div class="terms-grid reveal">
+                <div class="term-box">
+                    <div class="term-icon"><i class="fas fa-bolt"></i></div>
+                    <h4>Fast Delivery</h4>
+                    <p>Get your digital products and game topups delivered manually within 5 to 30 minutes securely.</p>
+                </div>
+                <div class="term-box">
+                    <div class="term-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>100% Secure</h4>
+                    <p>All our products are legally sourced. We provide a full replacement guarantee if anything goes wrong.</p>
+                </div>
+                <div class="term-box">
+                    <div class="term-icon"><i class="fas fa-headset"></i></div>
+                    <h4>24/7 Support</h4>
+                    <p>Our dedicated admin team is always active on Discord, WhatsApp, and Telegram to assist you.</p>
+                </div>
             </div>
 
         </div>
     </div>
 
-    <!-- Purple Trust Banner (Footer Top) -->
+    <!-- Trust Banner -->
     <div class="trust-banner">
         <div class="trust-item"><i class="fas fa-certificate"></i> Govt Registered</div>
-        <div class="trust-item"><i class="fas fa-thumbs-up"></i> 10,000+ Customer</div>
+        <div class="trust-item"><i class="fas fa-users"></i> 25,000+ Customer</div>
         <div class="trust-item"><i class="fas fa-star"></i> Satisfaction Guarantee</div>
-        <div class="trust-item"><i class="fas fa-bolt"></i> Fast Delivery</div>
+        <div class="trust-item"><i class="fas fa-truck-fast"></i> Instant Delivery</div>
     </div>
 
     <!-- Footer -->
@@ -232,41 +324,41 @@
         <div class="footer-top">
             <div class="footer-about">
                 <div class="f-logo">
-                    <img src="https://ui-avatars.com/api/?name=CB&background=5c238b&color=fff" alt="Logo">
+                    <img src="https://ui-avatars.com/api/?name=CB&background=059669&color=fff" alt="Logo">
                     <span>Cevix Bazar</span>
                 </div>
-                <p>Cevix Bazar – Your Trusted Digital Store.<br>We offer premium digital subscriptions, software, and game top-ups with secure payment methods.</p>
-                <p>
+                <p>Your Trusted Digital Subscription Store in Bangladesh. We offer premium digital services locally and globally with secure payment methods.</p>
+                <p style="margin-top: 15px;">
                     <strong>Email:</strong> support@cevixbazar.com<br>
                     <strong>Support:</strong> +8801XXXXXXXXX<br>
-                    <strong>Office Hours:</strong> 10:00 AM - 11:30 PM
+                    <strong>Time Zone:</strong> GMT+6
                 </p>
             </div>
             
             <div class="footer-links">
-                <h4>Cevix Bazar</h4>
+                <h4>Important Links</h4>
                 <ul>
                     <li><a onclick="openModal('aboutModal')">About Us</a></li>
                     <li><a onclick="openModal('termsModal')">Terms & Conditions</a></li>
                     <li><a onclick="openModal('termsModal')">Refund Policy</a></li>
-                    <li><a href="https://discord.gg/yourlink" target="_blank">Join Discord</a></li>
+                    <li><a href="https://discord.gg/yourlink" target="_blank">Join Discord Server</a></li>
                 </ul>
             </div>
             
             <div class="footer-links">
-                <h4>Follow Us</h4>
+                <h4>Connect With Us</h4>
                 <ul>
-                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
-                    <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook" style="width:20px;"></i> Facebook</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-telegram" style="width:20px;"></i> Telegram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-whatsapp" style="width:20px;"></i> WhatsApp</a></li>
                 </ul>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <!-- Payment Image exact from prompt -->
+            <!-- Payment Image -->
             <img src="IMG_20260907_153800.png" alt="Payment Methods" class="payment-methods">
-            <p class="copyright">Copyright © All rights reserved Cevix Bazar. Founded by RENOX. Created by HASAN HRIDOY.</p>
+            <p class="copyright">Copyright © 2024-2026 Cevix Bazar. All rights reserved.<br>Platform engineered by HASAN HRIDOY.</p>
         </div>
     </footer>
 
@@ -276,18 +368,17 @@
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a class="nav-item" onclick="goHome()">
-            <i class="fas fa-store"></i>
-            <span>Shop</span>
+        <a class="nav-item" onclick="document.getElementById('searchInput').focus(); window.scrollTo(0,0);">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
         </a>
         <a class="nav-item" onclick="openModal('supportModal')">
             <i class="far fa-user"></i>
             <span>Account</span>
         </a>
-        <a class="nav-item" onclick="openModal('announceModal')">
-            <div class="cart-count">0</div>
-            <i class="fas fa-shopping-cart"></i>
-            <span>Cart</span>
+        <a class="nav-item" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+            <span>Menu</span>
         </a>
     </div>
 
@@ -295,22 +386,22 @@
 
     <!-- Product Detail Modal -->
     <div class="modal-overlay" id="productModal">
-        <div class="modal-content prod-modal-body">
+        <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeModal('productModal')"></i>
             <img id="pmImg" src="" alt="Product" class="pm-img">
             <div class="pm-info">
                 <h2 id="pmTitle" class="pm-title">Product Name</h2>
                 <div class="stars">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    <span>(5)</span>
+                    <span>(5.0 Verified)</span>
                 </div>
                 <div class="pm-price-area">
                     <span id="pmPrice" class="pm-price">৳0</span>
                     <span id="pmOld" class="pm-old"></span>
                 </div>
                 <p id="pmDesc" class="pm-desc">Description here...</p>
-                <!-- Buy Button links to Discord -->
-                <a href="https://discord.gg/yourlink" target="_blank" class="pm-btn"><i class="fab fa-discord"></i> Buy on Discord</a>
+                <!-- REAL SERVER LINK: This href is dynamically updated by JS when clicked -->
+                <a href="#" id="pmBuyBtn" target="_blank" class="pm-btn"><i class="fab fa-discord fa-lg"></i> Purchase via Server</a>
             </div>
         </div>
     </div>
@@ -320,10 +411,10 @@
         <div class="modal-content info-modal">
             <i class="fas fa-times close-modal" onclick="closeModal('aboutModal')"></i>
             <h2>About Cevix Bazar</h2>
-            <p>Welcome to <strong>Cevix Bazar</strong>, established in 2024. We are your trusted platform for Discord Services, OTT Subscriptions, and Software.</p>
-            <p><strong>Founder:</strong> RENOX</p>
-            <p><strong>Creator:</strong> HASAN HRIDOY</p>
-            <p>We prioritize 100% transparent communication and build trust with every transaction. Join our community today!</p>
+            <p>Welcome to <strong>Cevix Bazar</strong>, established in 2024. We are Bangladesh's most trusted platform for Discord Services, OTT Subscriptions, AI Tools, and Software.</p>
+            <p><i class="fas fa-user-tie" style="color:var(--primary); width: 20px;"></i> <strong>Founder:</strong> RENOX</p>
+            <p><i class="fas fa-code" style="color:var(--primary); width: 20px;"></i> <strong>Creator:</strong> HASAN HRIDOY</p>
+            <p style="margin-top: 15px;">We prioritize 100% transparent communication and build trust with every transaction. Our mission is to make premium digital subscriptions accessible to everyone locally.</p>
         </div>
     </div>
 
@@ -331,11 +422,11 @@
     <div class="modal-overlay" id="supportModal">
         <div class="modal-content info-modal">
             <i class="fas fa-times close-modal" onclick="closeModal('supportModal')"></i>
-            <h2>24/7 Support</h2>
-            <p>Need help? Contact our support team on any platform below:</p>
-            <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                <a href="https://wa.me/your_number" class="btn-select" style="background:#25D366; text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="https://t.me/your_username" class="btn-select" style="background:#0088cc; text-decoration:none;"><i class="fab fa-telegram"></i> Telegram</a>
+            <h2>24/7 Live Support</h2>
+            <p>Have a question or facing an issue with your order? Our support team is online 24/7. Choose your preferred platform below:</p>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+                <a href="https://wa.me/your_number" class="btn-select" style="background:#25D366; text-decoration:none;"><i class="fab fa-whatsapp fa-lg"></i> Chat on WhatsApp</a>
+                <a href="https://t.me/your_username" class="btn-select" style="background:#0088cc; text-decoration:none;"><i class="fab fa-telegram fa-lg"></i> Message on Telegram</a>
             </div>
         </div>
     </div>
@@ -344,43 +435,47 @@
     <div class="modal-overlay" id="termsModal">
         <div class="modal-content info-modal">
             <i class="fas fa-times close-modal" onclick="closeModal('termsModal')"></i>
-            <h2>Terms & Refunds</h2>
-            <p><strong>Delivery:</strong> Orders are processed manually within 5-30 minutes.</p>
-            <p><strong>Refunds:</strong> Valid only if we fail to deliver the product. Defective products are replaced within 24 hours.</p>
-            <p><strong>Security:</strong> All transactions and digital goods provided are 100% legal and secure.</p>
+            <h2>Terms & Refund Policy</h2>
+            <p><strong><i class="fas fa-clock" style="color:var(--primary);"></i> Delivery:</strong> Most orders are processed instantly. Manual processing for specific game topups takes 5-30 minutes.</p>
+            <p><strong><i class="fas fa-undo" style="color:var(--primary);"></i> Refunds:</strong> We offer a 100% money-back guarantee ONLY if we fail to deliver the promised product. Change of mind is not applicable for refunds.</p>
+            <p><strong><i class="fas fa-sync" style="color:var(--primary);"></i> Replacement:</strong> If an account or key stops working within the warranty period, we will provide a free replacement within 24 hours.</p>
         </div>
     </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
-        // === GOOGLE SHEET CONFIGURATION ===
-        // To control from Sheet, paste CSV link here. Format: Type, ID, Name, TagOrPrice, OldPrice, Desc, Image, CategoryID
+        // === GOOGLE SHEET CSV LINK ===
+        // To use real sheet data, publish your sheet to web as CSV and paste link here.
+        // Columns needed: Type, ID, Name, TagOrPrice, OldPrice, Desc, Image, CategoryID, BuyLink
         const GOOGLE_SHEET_CSV_URL = ""; 
 
-        // === FALLBACK DATA ===
+        // === REAL DEMO DATA (Fallback if no sheet link provided) ===
         const localData = {
             settings: {
                 popupTitle: "Welcome to Cevix Bazar!",
-                popupDesc: "Enjoy exclusive discounts on Discord Nitro. Buy with trust!",
-                logoUrl: "https://ui-avatars.com/api/?name=CB&background=5c238b&color=fff"
+                popupDesc: "Enjoy exclusive discounts on Discord Nitro & AI Tools today. Buy with confidence!",
+                logoUrl: "https://ui-avatars.com/api/?name=CB&background=059669&color=fff"
             },
             categories: [
                 { id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' },
                 { id: 'discord', name: 'Discord', img: 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png' },
                 { id: 'ai', name: 'AI Tools', img: 'https://cdn-icons-png.flaticon.com/512/2083/2083213.png' },
-                { id: 'ott', name: 'Netflix / OTT', img: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png' }
+                { id: 'ott', name: 'Netflix / OTT', img: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png' },
+                { id: 'game', name: 'Game Topup', img: 'https://cdn-icons-png.flaticon.com/512/686/686589.png' }
             ],
             products: [
-                { id: 'p1', catId: 'ai', name: 'Claude AI Pro Subscription in Bangladesh', price: '2990', oldPrice: '3500', desc: 'Premium AI assistant. Shared or private accounts available.', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=400&auto=format&fit=crop' },
-                { id: 'p2', catId: 'discord', name: 'Discord Nitro (1 Month)', price: '450', oldPrice: '550', desc: 'Full Nitro with 2 Server Boosts.', img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=400&auto=format&fit=crop' },
-                { id: 'p3', catId: 'ott', name: 'Netflix Premium 1 Screen', price: '250', oldPrice: '350', desc: '4K Ultra HD profile. Shared screen but private pin.', img: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400&auto=format&fit=crop' },
-                { id: 'p4', catId: 'ai', name: 'CapCut Pro Price in Bangladesh', price: '650', oldPrice: '900', desc: 'Premium video editing tool subscription.', img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400&auto=format&fit=crop' }
+                { id: 'p1', catId: 'ai', name: 'Claude AI Pro Subscription in Bangladesh', price: '2990', oldPrice: '3500', desc: 'Premium AI assistant. Shared or private accounts available.', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/your_real_server_link' },
+                { id: 'p2', catId: 'discord', name: 'Discord Nitro (1 Month)', price: '450', oldPrice: '550', desc: 'Full Nitro with 2 Server Boosts. 100% legal regional pricing.', img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/your_real_server_link' },
+                { id: 'p3', catId: 'ott', name: 'Netflix Premium 1 Screen', price: '250', oldPrice: '350', desc: '4K Ultra HD profile. Shared screen but private pin.', img: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/your_real_server_link' },
+                { id: 'p4', catId: 'ai', name: 'CapCut Pro Price in Bangladesh', price: '650', oldPrice: '900', desc: 'Premium video editing tool subscription.', img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/your_real_server_link' },
+                { id: 'p5', catId: 'game', name: 'Free Fire 100 Diamonds', price: '75', oldPrice: '85', desc: 'UID Topup. Delivery within 5 minutes. 100% safe.', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/your_real_server_link' }
             ]
         };
 
         let finalData = { categories: [], products: [] };
+        let currentFilterId = 'all';
 
-        // INITIALIZE APP
+        // === INITIALIZE APP ===
         window.onload = () => {
             if (GOOGLE_SHEET_CSV_URL !== "") {
                 Papa.parse(GOOGLE_SHEET_CSV_URL, {
@@ -392,10 +487,33 @@
                 loadLocal();
             }
             
-            // Show Announce Modal on load
-            setTimeout(() => { openModal('announceModal'); }, 1500);
+            // Scroll Animation Setup
+            setupScrollAnimations();
+            
+            // Search Input Event
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+            // Show Announce Modal on load after 1s
+            setTimeout(() => { openModal('announceModal'); }, 1000);
         };
 
+        // Scroll Animation Logic (Intersection Observer)
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Re-query reveals
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }, 500);
+        }
+
+        // Data Loaders
         function loadLocal() {
             finalData = JSON.parse(JSON.stringify(localData));
             applySettings(finalData.settings);
@@ -404,11 +522,11 @@
 
         function processCSV(data) {
             let settings = { popupTitle: "Notice", popupDesc: "", logoUrl: "" };
-            finalData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }]; // Default 'All' cat
+            finalData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }];
             
             data.forEach(row => {
                 if(row.Type === 'Category') finalData.categories.push({ id: row.ID, name: row.Name, img: row.Image });
-                else if(row.Type === 'Product') finalData.products.push({ id: row.ID, catId: row.CategoryID, name: row.Name, price: row.TagOrPrice, oldPrice: row.OldPrice, desc: row.Desc, img: row.Image });
+                else if(row.Type === 'Product') finalData.products.push({ id: row.ID, catId: row.CategoryID, name: row.Name, price: row.TagOrPrice, oldPrice: row.OldPrice, desc: row.Desc, img: row.Image, link: row.BuyLink || 'https://discord.gg/your_real_server_link' });
                 else if(row.Type === 'Settings') {
                     if(row.ID === 'PopupTitle') settings.popupTitle = row.Desc;
                     if(row.ID === 'PopupDesc') settings.popupDesc = row.Desc;
@@ -425,6 +543,7 @@
             if(settings.logoUrl) document.getElementById('siteLogo').src = settings.logoUrl;
         }
 
+        // --- RENDER UI ---
         function renderUI() {
             // Render Categories
             const catGrid = document.getElementById('categoryGrid');
@@ -437,23 +556,43 @@
                     </div>
                 `;
             });
-            // Initial Render all products
-            filterProducts('all', 'The Best Offers');
+            filterProducts('all', 'Trending Offers');
         }
 
         function filterProducts(catId, title) {
-            document.getElementById('viewTitle').innerText = title;
+            currentFilterId = catId;
+            document.getElementById('viewTitle').innerHTML = `<i class="fas fa-fire" style="color:var(--yellow);"></i> ${title}`;
+            document.getElementById('searchInput').value = ''; // Clear search on category click
+            
+            const productsToShow = catId === 'all' ? finalData.products : finalData.products.filter(p => p.catId === catId);
+            renderProductCards(productsToShow);
+        }
+
+        // --- LIVE SEARCH FUNCTIONALITY ---
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.getElementById('viewTitle').innerHTML = `<i class="fas fa-search"></i> Search Results`;
+            
+            // Search across all products
+            const productsToShow = finalData.products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.desc.toLowerCase().includes(searchTerm));
+            renderProductCards(productsToShow);
+        }
+
+        function renderProductCards(products) {
             const grid = document.getElementById('productGrid');
+            const noResults = document.getElementById('noResults');
             grid.innerHTML = '';
 
-            let productsToShow = catId === 'all' ? finalData.products : finalData.products.filter(p => p.catId === catId);
-            
-            if(productsToShow.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:20px; color:#888;">No products found.</p>';
+            if(products.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
                 return;
             }
 
-            productsToShow.forEach(prod => {
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            products.forEach(prod => {
                 let pStr = encodeURIComponent(JSON.stringify(prod));
                 grid.innerHTML += `
                     <div class="prod-card" onclick="openProdModal('${pStr}')">
@@ -465,19 +604,21 @@
                             <div class="prod-title">${prod.name}</div>
                             <div class="stars">
                                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span>(5)</span>
+                                <span>(5.0)</span>
                             </div>
                             <div class="price-area">
                                 <span class="price">৳${prod.price}</span>
                                 ${prod.oldPrice ? `<span class="old-price">৳${prod.oldPrice}</span>` : ''}
                             </div>
-                            <button class="btn-select">Select Options</button>
+                            <button class="btn-select"><i class="fas fa-shopping-cart"></i> View Options</button>
                         </div>
                     </div>
                 `;
             });
+            setupScrollAnimations();
         }
 
+        // --- INTERACTIVITY ---
         function openProdModal(pStr) {
             const prod = JSON.parse(decodeURIComponent(pStr));
             document.getElementById('pmImg').src = prod.img;
@@ -485,14 +626,33 @@
             document.getElementById('pmPrice').innerText = '৳' + prod.price;
             document.getElementById('pmOld').innerText = prod.oldPrice ? '৳' + prod.oldPrice : '';
             document.getElementById('pmDesc').innerText = prod.desc;
+            
+            // Set dynamic real server link for purchase
+            const buyBtn = document.getElementById('pmBuyBtn');
+            buyBtn.href = prod.link || 'https://discord.gg/your_real_server_link';
+            
             openModal('productModal');
         }
 
-        // Modal Controls
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function goHome() { filterProducts('all', 'The Best Offers'); window.scrollTo(0,0); }
+        
+        function goHome() { 
+            filterProducts('all', 'Trending Offers'); 
+            window.scrollTo({top: 0, behavior: 'smooth'}); 
+            // Update active nav
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelector('.nav-item').classList.add('active');
+        }
 
+        // Close Modals on outside click
         window.onclick = function(e) {
             if(e.target.classList.contains('modal-overlay')) {
                 e.target.classList.remove('active');
@@ -500,4 +660,4 @@
         }
     </script>
 </body>
-                </html>
+    </html>
