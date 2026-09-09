@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>CEVIX BAZAR — Gaming Marketplace</title>
+<meta name="description" content="CEVIX BAZAR — Gaming & Digital Marketplace">
+<meta name="theme-color" content="#080b10">
+
+<style>
+:root{
+  --bg:#07090d;
+  --bg2:#0b0f15;
+  --card:#10151d;
+  --card2:#131a23;
+  --line:#202934;
+  --blue:#1687ff;
+  --blue2:#0067dc;
+  --cyan:#27b7ff;
+  --white:#f4f7fb;
+  --muted:#8793a3;
+  --green:#29d98b;
+  --red:#ff4966;
+  --yellow:#ffc94d;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.25;
+  background-image:
+  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:45px 45px;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1240px,calc(100% - 28px));
+  margin:auto;
+}
+
+/* SVG ICON */
+
+.icon{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  vertical-align:middle;
+}
+
+.icon-fill{
+  fill:currentColor;
+  stroke:none;
+}
+
+/* TOP BAR */
+
+.topbar{
+  height:34px;
+  background:#0b0f15;
+  border-bottom:1px solid var(--line);
+  color:#8f9baa;
+  font-size:11px;
+}
+
+.topbar-inner{
+  height:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.top-left,
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.top-item{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* HEADER */
+
+.header{
+  background:#0b0e13;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.main-nav{
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:max-content;
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+
+.logo img{
+  width:38px;
+  height:38px;
+  object-fit:cover;
+  border-radius:9px;
+  border:1px solid #293746;
+}
+
+.logo span{
+  color:white;
+}
+
+.logo b{
+  color:var(--blue);
+}
+
+/* SEARCH */
+
+.search-box{
+  flex:1;
+  position:relative;
+}
+
+.search-box .icon{
+  position:absolute;
+  left:14px;
+  top:13px;
+  color:#677486;
+}
+
+.search-box input{
+  width:100%;
+  height:43px;
+  border:1px solid #222b36;
+  background:#11161e;
+  border-radius:7px;
+  outline:none;
+  color:white;
+  padding:0 15px 0 42px;
+  font-size:13px;
+}
+
+.search-box input:focus{
+  border-color:#176fbd;
+  box-shadow:0 0 0 2px rgba(22,135,255,.08);
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.nav-btn{
+  height:42px;
+  min-width:42px;
+  padding:0 13px;
+  border:1px solid #222b36;
+  background:#11161e;
+  color:#c5cfda;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.nav-btn:hover{
+  border-color:#287fc2;
+  color:white;
+}
+
+.discord-btn{
+  background:#5865f2;
+  border-color:#5865f2;
+  color:white;
+}
+
+/* CATEGORY BAR */
+
+.category-bar{
+  background:#0b0e13;
+  border-bottom:1px solid var(--line);
+}
+
+.categories{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.cat{
+  height:35px;
+  padding:0 13px;
+  border:0;
+  background:transparent;
+  color:#8995a5;
+  border-radius:5px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  white-space:nowrap;
+  font-size:12px;
+  font-weight:700;
+}
+
+.cat:hover,
+.cat.active{
+  background:#151c25;
+  color:white;
+}
+
+.cat.active{
+  box-shadow:inset 0 -2px 0 var(--blue);
+}
+
+/* HERO */
+
+.hero{
+  padding:25px 0 15px;
+}
+
+.hero-box{
+  min-height:315px;
+  border:1px solid #202b37;
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(circle at 80% 45%,rgba(0,123,255,.19),transparent 32%),
+    linear-gradient(105deg,#0d1722,#0b1018 55%,#07121d);
+}
+
+.hero-box:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(90deg,rgba(5,8,12,.95),rgba(5,8,12,.55),rgba(5,8,12,.15));
+  pointer-events:none;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  padding:50px;
+  max-width:700px;
+}
+
+.hero-label{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:800;
+  color:#57b8ff;
+  margin-bottom:13px;
+}
+
+.hero-label span{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#2bdf91;
+  box-shadow:0 0 10px #2bdf91;
+}
+
+.hero h1{
+  font-size:clamp(34px,5vw,58px);
+  line-height:1.02;
+  letter-spacing:-2.4px;
+  max-width:620px;
+}
+
+.hero h1 strong{
+  color:var(--blue);
+}
+
+.hero p{
+  color:#8997a8;
+  max-width:560px;
+  font-size:13px;
+  line-height:1.7;
+  margin:15px 0 23px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.primary{
+  background:var(--blue);
+  border:1px solid var(--blue);
+  color:white;
+}
+
+.primary:hover{
+  background:#0878ed;
+}
+
+.hero-btn{
+  height:40px;
+  padding:0 17px;
+  border-radius:6px;
+  font-weight:800;
+  font-size:12px;
+}
+
+/* TRUST STRIP */
+
+.trust-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:15px 0;
+}
+
+.trust-box{
+  background:#0d1219;
+  border:1px solid #1e2731;
+  border-radius:6px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.trust-box .trust-icon{
+  width:34px;
+  height:34px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#101d2b;
+  color:#2ba4ff;
+}
+
+.trust-box strong{
+  display:block;
+  font-size:12px;
+}
+
+.trust-box small{
+  display:block;
+  color:#748294;
+  font-size:10px;
+  margin-top:3px;
+}
+
+/* SECTION */
+
+.section{
+  padding:17px 0;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:17px;
+  font-weight:900;
+}
+
+.section-title:before{
+  content:"";
+  width:3px;
+  height:18px;
+  border-radius:3px;
+  background:var(--blue);
+}
+
+.section-desc{
+  color:#707d8d;
+  font-size:11px;
+  margin-top:4px;
+  margin-left:11px;
+}
+
+.view-all{
+  color:#4caeff;
+  font-size:11px;
+  font-weight:800;
+}
+
+/* PRODUCT GRID */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
+}
+
+.product{
+  background:var(--card);
+  border:1px solid #1e2731;
+  border-radius:6px;
+  overflow:hidden;
+  transition:.18s ease;
+  min-width:0;
+}
+
+.product:hover{
+  transform:translateY(-3px);
+  border-color:#285272;
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+.product-image{
+  aspect-ratio:1.25;
+  background:#080d13;
+  position:relative;
+  overflow:hidden;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.25s;
+}
+
+.product:hover .product-image img{
+  transform:scale(1.04);
+}
+
+.discount{
+  position:absolute;
+  left:7px;
+  top:7px;
+  background:var(--red);
+  color:white;
+  border-radius:3px;
+  padding:4px 6px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.stock{
+  position:absolute;
+  right:7px;
+  top:7px;
+  border-radius:3px;
+  padding:4px 6px;
+  background:rgba(4,7,10,.82);
+  font-size:8px;
+  font-weight:800;
+}
+
+.stock.in{
+  color:#37dc91;
+}
+
+.stock.out{
+  color:#ff5c75;
+}
+
+.product-info{
+  padding:10px;
+}
+
+.product-category{
+  font-size:8px;
+  color:#429fff;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+.product-name{
+  font-size:12px;
+  font-weight:800;
+  margin:5px 0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.product-seller{
+  color:#6f7d8e;
+  font-size:9px;
+}
+
+.product-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-top:9px;
+}
+
+.product-price{
+  color:#fff;
+  font-size:14px;
+  font-weight:900;
+}
+
+.old-price{
+  color:#596575;
+  font-size:9px;
+  text-decoration:line-through;
+  margin-left:3px;
+}
+
+.rating{
+  color:var(--yellow);
+  font-size:9px;
+}
+
+/* CATEGORIES */
+
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:9px;
+}
+
+.game-card{
+  background:#0e141c;
+  border:1px solid #1d2731;
+  border-radius:6px;
+  padding:15px 8px;
+  text-align:center;
+  transition:.18s;
+}
+
+.game-card:hover{
+  border-color:#28658e;
+  transform:translateY(-2px);
+}
+
+.game-icon{
+  width:44px;
+  height:44px;
+  border-radius:8px;
+  object-fit:cover;
+  margin-bottom:8px;
+}
+
+.game-name{
+  font-size:10px;
+  font-weight:800;
+}
+
+/* SELLERS */
+
+.sellers{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.seller-card{
+  background:#0e141c;
+  border:1px solid #1d2731;
+  border-radius:6px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.seller-photo{
+  width:48px;
+  height:48px;
+  border-radius:6px;
+  object-fit:cover;
+  flex:none;
+}
+
+.seller-name{
+  font-size:12px;
+  font-weight:900;
+}
+
+.seller-desc{
+  color:#707d8d;
+  font-size:9px;
+  margin:4px 0;
+}
+
+.tag{
+  display:inline-block;
+  color:#4db0ff;
+  background:#0c1c2b;
+  padding:3px 5px;
+  border-radius:3px;
+  font-size:8px;
+  font-weight:800;
+}
+
+/* DISCORD */
+
+.discord{
+  border:1px solid #28364c;
+  border-radius:7px;
+  background:
+    linear-gradient(100deg,#101a2a,#111724);
+  padding:21px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.discord-left{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.discord-logo{
+  width:58px;
+  height:58px;
+  border-radius:9px;
+  object-fit:cover;
+}
+
+.discord h2{
+  font-size:17px;
+}
+
+.discord p{
+  color:#768396;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.discord-stats{
+  display:flex;
+  gap:15px;
+  margin-top:7px;
+}
+
+.discord-stat strong{
+  font-size:12px;
+}
+
+.discord-stat span{
+  color:#687588;
+  font-size:8px;
+  margin-left:3px;
+}
+
+/* SUPPORT */
+
+.support{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.support-card{
+  background:#0e141c;
+  border:1px solid #1d2731;
+  border-radius:6px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.support-photo{
+  width:45px;
+  height:45px;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+.support-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.support-desc{
+  color:#6f7c8c;
+  font-size:9px;
+  margin:4px 0;
+}
+
+/* PAYMENT */
+
+.payment{
+  background:#0d1219;
+  border:1px solid #1d2731;
+  padding:5px;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.payment img{
+  width:100%;
+  height:65px;
+  object-fit:cover;
+  border-radius:4px;
+  display:block;
+}
+
+/* FOOTER */
+
+.footer{
+  border-top:1px solid #1b232d;
+  background:#090c11;
+  margin-top:20px;
+  padding:30px 0 18px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  gap:30px;
+}
+
+.footer-brand{
+  font-size:16px;
+  font-weight:900;
+}
+
+.footer p{
+  color:#687585;
+  font-size:10px;
+  line-height:1.7;
+  max-width:400px;
+  margin-top:8px;
+}
+
+.footer h4{
+  font-size:11px;
+  margin-bottom:9px;
+}
+
+.footer a{
+  display:block;
+  color:#6e7b8b;
+  font-size:10px;
+  margin:6px 0;
+}
+
+.copyright{
+  border-top:1px solid #19212b;
+  margin-top:25px;
+  padding-top:15px;
+  color:#4e5a68;
+  font-size:9px;
+  text-align:center;
+}
+
+/* EMPTY */
+
+.empty{
+  grid-column:1/-1;
+  padding:40px 15px;
+  text-align:center;
+  color:#687587;
+  border:1px dashed #202b36;
+  border-radius:6px;
+  font-size:11px;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .game-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .trust-strip{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:760px){
+
+  .container{
+    width:calc(100% - 18px);
+  }
+
+  .top-left{
+    display:none;
+  }
+
+  .topbar-inner{
+    justify-content:center;
+  }
+
+  .main-nav{
+    min-height:62px;
+    gap:8px;
+    flex-wrap:wrap;
+    padding:8px 0;
+  }
+
+  .logo{
+    flex:1;
+  }
+
+  .logo img{
+    width:34px;
+    height:34px;
+  }
+
+  .search-box{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .nav-actions .nav-btn span{
+    display:none;
+  }
+
+  .nav-btn{
+    width:40px;
+    padding:0;
+  }
+
+  .category-bar{
+    overflow:hidden;
+  }
+
+  .categories{
+    min-height:43px;
+  }
+
+  .cat{
+    padding:0 9px;
+    font-size:10px;
+  }
+
+  .hero-box{
+    min-height:300px;
+  }
+
+  .hero-content{
+    padding:35px 23px;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .trust-strip{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .trust-box{
+    padding:11px 8px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+  }
+
+  .game-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .sellers{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .support{
+    grid-template-columns:1fr;
+  }
+
+  .discord{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-grid > div:first-child{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:420px){
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .trust-box strong{
+    font-size:10px;
+  }
+
+  .trust-box small{
+    font-size:8px;
+  }
+
+  .game-card{
+    padding:11px 5px;
+  }
+
+  .game-icon{
+    width:38px;
+    height:38px;
+  }
+
+  .product-info{
+    padding:8px;
+  }
+
+  .product-name{
+    font-size:11px;
+  }
+
+  .product-price{
+    font-size:12px;
+  }
+
+  .old-price{
+    display:block;
+    margin:2px 0 0;
+  }
+
+  .sellers{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .seller-card{
+    padding:10px 7px;
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SVG ICON DEFINITIONS -->
+<svg style="display:none">
+  <symbol id="search" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </symbol>
+
+  <symbol id="game" viewBox="0 0 24 24">
+    <path d="M7 8h10c3 0 5 2.5 5 6v2c0 2-1.5 3-3 3-2 0-2.5-3-4-3H9c-1.5 0-2 3-4 3-1.5 0-3-1-3-3v-2c0-3.5 2-6 5-6z"></path>
+    <path d="M7 12v4M5 14h4"></path>
+    <circle cx="16.5" cy="13" r=".7"></circle>
+    <circle cx="19" cy="15" r=".7"></circle>
+  </symbol>
+
+  <symbol id="shield" viewBox="0 0 24 24">
+    <path d="M12 3 20 6v5c0 5-3.3 8.4-8 10-4.7-1.6-8-5-8-10V6l8-3z"></path>
+    <path d="m8 12 2.5 2.5L16 9"></path>
+  </symbol>
+
+  <symbol id="bolt" viewBox="0 0 24 24">
+    <path d="m13 2-9 12h7l-1 8 9-12h-7l1-8z"></path>
+  </symbol>
+
+  <symbol id="users" viewBox="0 0 24 24">
+    <circle cx="9" cy="8" r="3"></circle>
+    <path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"></path>
+    <path d="M16 5a3 3 0 0 1 0 6"></path>
+    <path d="M18 15c2 .5 3 2 3 4"></path>
+  </symbol>
+
+  <symbol id="headset" viewBox="0 0 24 24">
+    <path d="M4 13v-2a8 8 0 0 1 16 0v2"></path>
+    <path d="M4 13h3v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 1-2z"></path>
+    <path d="M20 13h-3v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-1-2z"></path>
+  </symbol>
+
+  <symbol id="cart" viewBox="0 0 24 24">
+    <path d="M3 4h2l2 11h10l3-8H6"></path>
+    <circle cx="9" cy="19" r="1"></circle>
+    <circle cx="17" cy="19" r="1"></circle>
+  </symbol>
+
+  <symbol id="user" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="4"></circle>
+    <path d="M4 21c.8-4 3.3-6 8-6s7.2 2 8 6"></path>
+  </symbol>
+</svg>
+
+<script>
+/* =====================================================
+   CEVIX BAZAR CONFIG
+===================================================== */
+
+const CONFIG = {
+
+  shopName:"CEVIX BAZAR",
+
+  logo:"https://your-image-url.com/logo.png",
+
+  paymentVerified:
+    "https://your-image-url.com/payment-verified.png",
+
+  /* Google Sheet CSV URLs */
+
+  productSheet:
+    "https://docs.google.com/spreadsheets/d/YOUR_PRODUCT_SHEET_ID/export?format=csv&gid=0",
+
+  sellerSheet:
+    "https://docs.google.com/spreadsheets/d/YOUR_SELLER_SHEET_ID/export?format=csv&gid=0",
+
+  supportSheet:
+    "https://docs.google.com/spreadsheets/d/YOUR_SUPPORT_SHEET_ID/export?format=csv&gid=0",
+
+  discord:{
+    invite:"https://discord.gg/YOURINVITE",
+    name:"CEVIX BAZAR",
+    logo:"https://your-image-url.com/discord-logo.png",
+    total:"10K+",
+    online:"1K+"
+  },
+
+  fallbackProducts:[
+    {
+      name:"PUBG UC 60",
+      image:"https://placehold.co/800x600/101923/ffffff?text=PUBG+UC",
+      seller:"CEVIX",
+      price:"85",
+      oldprice:"100",
+      rating:"4.9",
+      discount:"15%",
+      stock:"In Stock",
+      category:"PUBG"
+    },
+    {
+      name:"Free Fire 100 Diamonds",
+      image:"https://placehold.co/800x600/101923/ffffff?text=FREE+FIRE",
+      seller:"CEVIX",
+      price:"95",
+      oldprice:"110",
+      rating:"4.9",
+      discount:"14%",
+      stock:"In Stock",
+      category:"Free Fire"
+    },
+    {
+      name:"100 Robux",
+      image:"https://placehold.co/800x600/101923/ffffff?text=ROBUX",
+      seller:"CEVIX",
+      price:"115",
+      oldprice:"130",
+      rating:"4.8",
+      discount:"12%",
+      stock:"In Stock",
+      category:"Roblox"
+    },
+    {
+      name:"Discord Nitro",
+      image:"https://placehold.co/800x600/101923/ffffff?text=DISCORD+NITRO",
+      seller:"CEVIX",
+      price:"499",
+      oldprice:"550",
+      rating:"5.0",
+      discount:"10%",
+      stock:"In Stock",
+      category:"Discord"
+    },
+    {
+      name:"Steam Gift Card",
+      image:"https://placehold.co/800x600/101923/ffffff?text=STEAM",
+      seller:"CEVIX",
+      price:"999",
+      oldprice:"1100",
+      rating:"4.9",
+      discount:"9%",
+      stock:"In Stock",
+      category:"Gift Card"
+    }
+  ],
+
+  fallbackSellers:[
+    {
+      name:"CEVIX",
+      description:"Verified gaming seller",
+      photo:"https://placehold.co/200x200/101923/ffffff?text=C",
+      rating:"5.0",
+      tag:"Verified"
+    }
+  ],
+
+  fallbackSupport:[
+    {
+      name:"CEVIX Support",
+      description:"Customer Support",
+      photo:"https://placehold.co/200x200/101923/ffffff?text=S",
+      rating:"5.0",
+      tag:"Online",
+      role:"Support"
+    }
+  ]
+};
+
+let products=[];
+let sellers=[];
+let support=[];
+let activeCategory="all";
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function icon(id){
+  return `
+    <svg class="icon">
+      <use href="#${id}"></use>
+    </svg>
+  `;
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function fallbackImage(img){
+  img.onerror=null;
+  img.src="https://placehold.co/800x600/101923/ffffff?text=CEVIX+BAZAR";
+}
+
+/* =====================================================
+   CSV
+===================================================== */
+
+function parseCSV(text){
+
+  const rows=[];
+  let row=[];
+  let value="";
+  let quote=false;
+
+  for(let i=0;i<text.length;i++){
+
+    const c=text[i];
+    const n=text[i+1];
+
+    if(c==='"' && quote && n==='"'){
+      value+='"';
+      i++;
+      continue;
+    }
+
+    if(c==='"'){
+      quote=!quote;
+      continue;
+    }
+
+    if(c===',' && !quote){
+      row.push(value.trim());
+      value="";
+      continue;
+    }
+
+    if((c==='\n'||c==='\r')&&!quote){
+
+      if(c==='\r'&&n==='\n')i++;
+
+      row.push(value.trim());
+      value="";
+
+      if(row.some(v=>v!==""))rows.push(row);
+
+      row=[];
+      continue;
+    }
+
+    value+=c;
+  }
+
+  if(value||row.length){
+    row.push(value.trim());
+    if(row.some(v=>v!==""))rows.push(row);
+  }
+
+  if(!rows.length)return[];
+
+  const headers=rows[0].map(x=>
+    x.toLowerCase().replace(/\s+/g,"")
+  );
+
+  return rows.slice(1).map(r=>{
+
+    const obj={};
+
+    headers.forEach((h,i)=>{
+      obj[h]=r[i]||"";
+    });
+
+    return obj;
+  });
+}
+
+async function loadSheet(url){
+
+  if(!url || url.includes("YOUR_")){
+    return[];
+  }
+
+  try{
+
+    const res=await fetch(
+      url+"&_="+Date.now(),
+      {cache:"no-store"}
+    );
+
+    if(!res.ok)throw new Error("Sheet error");
+
+    return parseCSV(await res.text());
+
+  }catch(e){
+
+    console.warn(e);
+
+    return[];
+  }
+}
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+function renderProducts(list){
+
+  const grid=document.getElementById("productsGrid");
+
+  if(!list.length){
+
+    grid.innerHTML=
+      `<div class="empty">No products found.</div>`;
+
+    return;
+  }
+
+  grid.innerHTML=list.map(p=>{
+
+    const stock=p.stock||"In Stock";
+
+    const out=
+      stock.toLowerCase().includes("out");
+
+    return`
+
+      <article class="product">
+
+        <div class="product-image">
+
+          <img
+            src="${escapeHTML(p.image)}"
+            alt="${escapeHTML(p.name)}"
+            onerror="fallbackImage(this)"
+          >
+
+          ${
+            p.discount
+            ?
+            `<span class="discount">
+              -${escapeHTML(p.discount)}
+            </span>`
+            :""
+          }
+
+          <span class="stock ${out?"out":"in"}">
+            ${escapeHTML(stock)}
+          </span>
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-category">
+            ${escapeHTML(p.category||"Gaming")}
+          </div>
+
+          <div class="product-name">
+            ${escapeHTML(p.name||"Gaming Product")}
+          </div>
+
+          <div class="product-seller">
+            ${icon("shield")}
+            ${escapeHTML(p.seller||"Verified Seller")}
+          </div>
+
+          <div class="product-footer">
+
+            <div>
+
+              <span class="product-price">
+                ৳${escapeHTML(p.price||"0")}
+              </span>
+
+              ${
+                p.oldprice
+                ?
+                `<span class="old-price">
+                  ৳${escapeHTML(p.oldprice)}
+                </span>`
+                :""
+              }
+
+            </div>
+
+            <div class="rating">
+              ★ ${escapeHTML(p.rating||"5.0")}
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+}
+
+/* =====================================================
+   SELLERS
+===================================================== */
+
+function renderSellers(){
+
+  const grid=document.getElementById("sellersGrid");
+
+  if(!sellers.length){
+
+    grid.innerHTML=
+      `<div class="empty">No sellers available.</div>`;
+
+    return;
+  }
+
+  grid.innerHTML=sellers.map(s=>`
+
+    <div class="seller-card">
+
+      <img
+        class="seller-photo"
+        src="${escapeHTML(s.photo)}"
+        onerror="fallbackImage(this)"
+      >
+
+      <div>
+
+        <div class="seller-name">
+          ${escapeHTML(s.name||"Seller")}
+        </div>
+
+        <div class="seller-desc">
+          ${escapeHTML(s.description||"Verified seller")}
+        </div>
+
+        <span class="tag">
+          ${escapeHTML(s.tag||"Verified")}
+        </span>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+/* =====================================================
+   SUPPORT
+===================================================== */
+
+function renderSupport(){
+
+  const grid=document.getElementById("supportGrid");
+
+  if(!support.length){
+
+    grid.innerHTML=
+      `<div class="empty">No support members available.</div>`;
+
+    return;
+  }
+
+  grid.innerHTML=support.map(s=>`
+
+    <div class="support-card">
+
+      <img
+        class="support-photo"
+        src="${escapeHTML(s.photo)}"
+        onerror="fallbackImage(this)"
+      >
+
+      <div>
+
+        <div class="support-name">
+          ${escapeHTML(s.name||"Support")}
+        </div>
+
+        <div class="support-desc">
+          ${escapeHTML(s.description||"Customer support")}
+        </div>
+
+        <span class="tag">
+          ${escapeHTML(s.role||s.tag||"Support")}
+        </span>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+function filterCategory(category){
+
+  activeCategory=category;
+
+  const result=products.filter(p=>
+    category==="all" ||
+    (p.category||"")
+      .toLowerCase()
+      .includes(category.toLowerCase())
+  );
+
+  renderProducts(result);
+
+  document
+    .getElementById("products")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+}
+
+function searchProducts(){
+
+  const q=
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const result=products.filter(p=>{
+
+    const text=`
+      ${p.name}
+      ${p.category}
+      ${p.seller}
+    `.toLowerCase();
+
+    const searchMatch=text.includes(q);
+
+    const categoryMatch=
+      activeCategory==="all" ||
+      (p.category||"")
+      .toLowerCase()
+      .includes(activeCategory.toLowerCase());
+
+    return searchMatch&&categoryMatch;
+  });
+
+  renderProducts(result);
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+
+async function init(){
+
+  document.getElementById("shopName").innerHTML=
+    CONFIG.shopName;
+
+  document.getElementById("logo").src=
+    CONFIG.logo;
+
+  document.getElementById("paymentImage").src=
+    CONFIG.paymentVerified;
+
+  document.querySelectorAll(".discordLink")
+    .forEach(x=>x.href=CONFIG.discord.invite);
+
+  document.getElementById("discordLogo").src=
+    CONFIG.discord.logo;
+
+  document.getElementById("discordName").textContent=
+    CONFIG.discord.name;
+
+  document.getElementById("discordTotal").textContent=
+    CONFIG.discord.total;
+
+  document.getElementById("discordOnline").textContent=
+    CONFIG.discord.online;
+
+  document.getElementById("year").textContent=
+    new Date().getFullYear();
+
+  /* Products */
+
+  const productData=
+    await loadSheet(CONFIG.productSheet);
+
+  products=
+    productData.length
+    ? productData
+    : CONFIG.fallbackProducts;
+
+  renderProducts(products);
+
+  /* Sellers */
+
+  const sellerData=
+    await loadSheet(CONFIG.sellerSheet);
+
+  sellers=
+    sellerData.length
+    ? sellerData
+    : CONFIG.fallbackSellers;
+
+  renderSellers();
+
+  /* Support */
+
+  const supportData=
+    await loadSheet(CONFIG.supportSheet);
+
+  support=
+    supportData.length
+    ? supportData
+    : CONFIG.fallbackSupport;
+
+  renderSupport();
+}
+
+document
+  .getElementById("searchInput")
+  ?.addEventListener(
+    "input",
+    searchProducts
+  );
+
+init();
+</script>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+  <div class="container topbar-inner">
+
+    <div class="top-left">
+      <div class="top-item">
+        ✓ Verified Marketplace
+      </div>
+
+      <div class="top-item">
+        ⚡ Fast Delivery
+      </div>
+
+      <div class="top-item">
+        🛡 Secure Payment
+      </div>
+    </div>
+
+    <div class="top-right">
+      <div class="top-item">
+        Support Available
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <div class="container main-nav">
+
+    <a href="#" class="logo">
+
+      <img
+        id="logo"
+        src=""
+        alt="CEVIX"
+        onerror="fallbackImage(this)"
+      >
+
+      <span>
+        CEVIX <b>BAZAR</b>
+      </span>
+
+    </a>
+
+    <div class="search-box">
+
+      <svg class="icon">
+        <use href="#search"></use>
+      </svg>
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search products, games, categories..."
+      >
+
+    </div>
+
+    <div class="nav-actions">
+
+      <button
+        class="nav-btn"
+        onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"
+      >
+        <svg class="icon">
+          <use href="#game"></use>
+        </svg>
+        <span>Products</span>
+      </button>
+
+      <a
+        class="nav-btn discord-btn discordLink"
+        href="#"
+        target="_blank"
+      >
+        Discord
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- CATEGORY BAR -->
+
+<div class="category-bar">
+
+  <div class="container categories">
+
+    <button
+      class="cat active"
+      onclick="filterCategory('all')"
+    >
+      All Products
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('PUBG')"
+    >
+      🎯 PUBG
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('Free Fire')"
+    >
+      🔥 Free Fire
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('Roblox')"
+    >
+      ◈ Roblox
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('Discord')"
+    >
+      Discord
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('Gift Card')"
+    >
+      Gift Cards
+    </button>
+
+    <button
+      class="cat"
+      onclick="filterCategory('Games')"
+    >
+      Games
+    </button>
+
+  </div>
+
+</div>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-box">
+
+      <div class="hero-content">
+
+        <div class="hero-label">
+          <span></span>
+          BANGLADESH'S GAMING MARKETPLACE
+        </div>
+
+        <h1>
+          YOUR GAME.
+          <strong>YOUR STORE.</strong>
+        </h1>
+
+        <p>
+          Buy game currency, digital products, subscriptions
+          and gaming services from trusted sellers.
+          Fast delivery and secure transactions.
+        </p>
+
+        <div class="hero-buttons">
+
+          <button
+            class="hero-btn primary"
+            onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"
+          >
+            Browse Products
+          </button>
+
+          <a
+            href="#"
+            class="hero-btn nav-btn discordLink"
+            target="_blank"
+          >
+            Join Discord
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- TRUST -->
+
+<div class="container">
+
+  <div class="trust-strip">
+
+    <div class="trust-box">
+
+      <div class="trust-icon">
+        <svg class="icon">
+          <use href="#bolt"></use>
+        </svg>
+      </div>
+
+      <div>
+        <strong>Instant Delivery</strong>
+        <small>Fast digital delivery</small>
+      </div>
+
+    </div>
+
+    <div class="trust-box">
+
+      <div class="trust-icon">
+        <svg class="icon">
+          <use href="#shield"></use>
+        </svg>
+      </div>
+
+      <div>
+        <strong>100% Verified</strong>
+        <small>Trusted products</small>
+      </div>
+
+    </div>
+
+    <div class="trust-box">
+
+      <div class="trust-icon">
+        <svg class="icon">
+          <use href="#users"></use>
+        </svg>
+      </div>
+
+      <div>
+        <strong>Trusted Sellers</strong>
+        <small>Verified marketplace</small>
+      </div>
+
+    </div>
+
+    <div class="trust-box">
+
+      <div class="trust-icon">
+        <svg class="icon">
+          <use href="#headset"></use>
+        </svg>
+      </div>
+
+      <div>
+        <strong>24/7 Support</strong>
+        <small>We're here to help</small>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PAYMENT -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="payment">
+
+      <img
+        id="paymentImage"
+        src=""
+        alt="Payment Verified"
+        onerror="this.style.display='none'"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section class="section" id="products">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-title">
+          Featured Products
+        </div>
+
+        <div class="section-desc">
+          Popular gaming products available now
+        </div>
+
+      </div>
+
+      <a
+        href="javascript:filterCategory('all')"
+        class="view-all"
+      >
+        View All →
+      </a>
+
+    </div>
+
+    <div
+      id="productsGrid"
+      class="products"
+    >
+
+      <div class="empty">
+        Loading products...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- GAME CATEGORIES -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-title">
+          Popular Games
+        </div>
+
+        <div class="section-desc">
+          Browse products by game
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="game-grid">
+
+      <button
+        class="game-card"
+        onclick="filterCategory('PUBG')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=PUBG"
+        >
+        <div class="game-name">PUBG</div>
+      </button>
+
+      <button
+        class="game-card"
+        onclick="filterCategory('Free Fire')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=FF"
+        >
+        <div class="game-name">Free Fire</div>
+      </button>
+
+      <button
+        class="game-card"
+        onclick="filterCategory('Roblox')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=ROBLOX"
+        >
+        <div class="game-name">Roblox</div>
+      </button>
+
+      <button
+        class="game-card"
+        onclick="filterCategory('Discord')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=DC"
+        >
+        <div class="game-name">Discord</div>
+      </button>
+
+      <button
+        class="game-card"
+        onclick="filterCategory('Gift Card')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=GC"
+        >
+        <div class="game-name">Gift Cards</div>
+      </button>
+
+      <button
+        class="game-card"
+        onclick="filterCategory('Games')"
+      >
+        <img
+          class="game-icon"
+          src="https://placehold.co/100x100/101923/ffffff?text=GAME"
+        >
+        <div class="game-name">Games</div>
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SELLERS -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-title">
+          Verified Sellers
+        </div>
+
+        <div class="section-desc">
+          Buy confidently from trusted sellers
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      id="sellersGrid"
+      class="sellers"
+    >
+
+      <div class="empty">
+        Loading sellers...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- DISCORD -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="discord">
+
+      <div class="discord-left">
+
+        <img
+          id="discordLogo"
+          class="discord-logo"
+          src=""
+          alt="Discord"
+          onerror="fallbackImage(this)"
+        >
+
+        <div>
+
+          <h2 id="discordName">
+            CEVIX BAZAR
+          </h2>
+
+          <p>
+            Join our community for updates,
+            offers, support and gaming news.
+          </p>
+
+          <div class="discord-stats">
+
+            <div class="discord-stat">
+              <strong id="discordTotal">
+                10K+
+              </strong>
+              <span>Members</span>
+            </div>
+
+            <div class="discord-stat">
+              <strong id="discordOnline">
+                1K+
+              </strong>
+              <span>Online</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a
+        href="#"
+        class="hero-btn primary discordLink"
+        target="_blank"
+      >
+        Join Server
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SUPPORT -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="section-title">
+          Customer Support
+        </div>
+
+        <div class="section-desc">
+          Need help? Our team is ready.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      id="supportGrid"
+      class="support"
+    >
+
+      <div class="empty">
+        Loading support...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <div class="footer-brand">
+          CEVIX BAZAR
+        </div>
+
+        <p>
+          A premium gaming and digital marketplace
+          for gamers. Discover trusted products,
+          verified sellers and fast delivery.
+        </p>
+
+      </div>
+
+      <div>
+
+        <h4>Marketplace</h4>
+
+        <a href="#products">
+          Products
+        </a>
+
+        <a href="#products">
+          Gaming Items
+        </a>
+
+        <a href="#">
+          Terms & Conditions
+        </a>
+
+      </div>
+
+      <div>
+
+        <h4>Community</h4>
+
+        <a
+          href="#"
+          class="discordLink"
+          target="_blank"
+        >
+          Discord
+        </a>
+
+        <a href="#">
+          Support
+        </a>
+
+        <a href="#">
+          Contact Us
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+
+      © <span id="year"></span>
+      CEVIX BAZAR — All Rights Reserved.
+
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+       </html>
