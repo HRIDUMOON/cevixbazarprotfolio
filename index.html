@@ -5,766 +5,532 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cevix Bazar | Official Digital Store</title>
     
-    <!-- Meta Tags -->
     <meta name="description" content="Cevix Bazar - Your premier platform for Discord, OTT, Software & Game Topups. Founder: RENOX, Creator: HASAN HRIDOY.">
-    <meta property="og:title" content="Cevix Bazar | Digital Products">
     <meta property="og:image" content="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif">
     
-    <!-- Fonts & Real Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- PapaParse for Google Sheets CSV -->
+    <!-- PapaParse -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <style>
-        /* --- GREEN THEME VARIABLES --- */
+        /* --- GREEN THEME & STORE VARIABLES --- */
         :root {
             --primary: #059669;
             --primary-hover: #047857;
-            --primary-light: #ecfdf5;
-            --primary-border: #a7f3d0;
             --bg-color: #f9fafb;
             --card-bg: #ffffff;
             --text-dark: #111827;
             --text-muted: #6b7280;
             --border: #e5e7eb;
-            --yellow: #f59e0b;
-            --red: #ef4444;
             --discord: #5865F2;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
+            --usd-rate: 120; /* 1 USD = 120 BDT */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 75px; overflow-x: hidden; }
 
-        /* --- SCROLL ANIMATION --- */
-        .reveal { opacity: 0; transform: translateY(25px); transition: 0.6s ease-out; }
+        /* Store CSS */
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- HEADER & SEARCH --- */
         header { background: var(--card-bg); padding: 12px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
         .top-header { display: flex; justify-content: center; padding-bottom: 12px; }
-        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
-        
-        /* Auto-fit logo */
-        .logo-img-wrapper { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; background: #f3f4f6; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-img-wrapper { width: 44px; height: 44px; border-radius: 10px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border); }
         .logo-area img { width: 100%; height: 100%; object-fit: contain; }
-        .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); }
 
         .search-container { display: flex; gap: 10px; align-items: center; max-width: 800px; margin: 0 auto; }
-        .menu-btn { background: var(--primary); color: white; border: none; width: 44px; height: 44px; border-radius: 10px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition); flex-shrink: 0; }
-        .menu-btn:hover { background: var(--primary-hover); transform: scale(1.05); }
+        .menu-btn, .action-icon { background: var(--primary); color: white; border: none; width: 44px; height: 44px; border-radius: 10px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition); flex-shrink: 0; text-decoration: none; }
+        .action-icon { background: #f3f4f6; color: var(--primary); }
         
         .search-box { flex-grow: 1; position: relative; }
-        .search-box input { width: 100%; padding: 12px 42px 12px 15px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; outline: none; transition: var(--transition); background: #fff; }
-        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12); }
-        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 16px; }
-        
-        .action-icon { width: 44px; height: 44px; background: #f3f4f6; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: var(--primary); cursor: pointer; transition: var(--transition); flex-shrink: 0; text-decoration: none; }
-        .action-icon:hover { background: var(--primary); color: white; }
+        .search-box input { width: 100%; padding: 12px 42px 12px 15px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; outline: none; }
+        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
 
-        /* --- SIDEBAR MENU (Drawer) --- */
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); backdrop-filter: blur(2px); }
-        .sidebar-overlay.active { opacity: 1; visibility: visible; }
-        .sidebar { position: fixed; top: 0; left: -290px; width: 290px; height: 100%; background: var(--card-bg); z-index: 1001; transition: 0.35s ease; box-shadow: 4px 0 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
-        .sidebar.active { left: 0; }
-        
-        .sidebar-header { padding: 20px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 700; }
-        .sidebar-header i { cursor: pointer; font-size: 22px; }
-        .sidebar-links { list-style: none; padding: 15px 0; flex-grow: 1; overflow-y: auto; }
-        .sidebar-links li { padding: 14px 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 15px; color: var(--text-dark); transition: var(--transition); border-left: 4px solid transparent; }
-        .sidebar-links li:hover { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
-        .sidebar-links li i { width: 22px; text-align: center; color: var(--text-muted); font-size: 17px; }
-        .sidebar-links li:hover i { color: var(--primary); }
-
-        /* --- HERO BANNER --- */
-        .hero-banner { background: linear-gradient(135deg, var(--primary), #10b981); color: white; padding: 35px 20px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.15); }
+        .hero-banner { background: linear-gradient(135deg, var(--primary), #10b981); color: white; padding: 35px 20px; text-align: center; margin-bottom: 25px; }
         .hero-banner h1 { font-size: 25px; font-weight: 800; margin-bottom: 8px; }
-        .hero-banner p { font-size: 14px; opacity: 0.95; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .hero-banner p { font-size: 14px; opacity: 0.95; max-width: 600px; margin: 0 auto; }
 
-        /* --- CONTAINER & HEADINGS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; min-height: 50vh; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .section-title { font-size: 20px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .section-title { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
         .section-title::before { content: ''; display: block; width: 4px; height: 22px; background: var(--primary); border-radius: 2px; }
 
-        /* --- CATEGORY CARDS --- */
         .category-grid { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 12px; margin-bottom: 30px; scrollbar-width: none; }
         .category-grid::-webkit-scrollbar { display: none; }
-        .cat-card { min-width: 110px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; transition: var(--transition); }
-        .cat-card:hover, .cat-card.active { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 6px 15px rgba(5,150,105,0.12); background: var(--primary-light); }
-        .cat-img-box { width: 46px; height: 46px; margin: 0 auto 8px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .cat-card { min-width: 110px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; flex-shrink: 0; }
+        .cat-card.active { border-color: var(--primary); background: var(--primary-light); }
+        .cat-img-box { width: 46px; height: 46px; margin: 0 auto 8px; }
         .cat-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        .cat-card h4 { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+        .cat-card h4 { font-size: 13px; font-weight: 600; }
 
-        /* --- PRODUCTS & SELLERS GRID --- */
-        .product-grid, .seller-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 45px; }
-        @media(min-width: 768px) { .product-grid, .seller-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 45px; }
+        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
         
-        /* CARD STYLING (Image safe fitting) */
-        .custom-card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: var(--transition); }
-        .custom-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08); transform: translateY(-4px); border-color: var(--primary-border); }
+        .custom-card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); }
+        .custom-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .card-img-wrapper { width: 100%; aspect-ratio: 1/1; background: #fafafa; padding: 12px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f3f4f6; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: contain; }
         
-        .badge-tag { position: absolute; top: 10px; left: 10px; background: var(--red); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; z-index: 2; text-transform: uppercase; }
-        .seller-badge { background: var(--primary); }
-
-        /* Image Box - Any size image fits without distortion */
-        .card-img-wrapper { width: 100%; aspect-ratio: 1 / 1; background: #fafafa; display: flex; align-items: center; justify-content: center; padding: 12px; overflow: hidden; position: relative; border-bottom: 1px solid #f3f4f6; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease; }
-        .custom-card:hover .card-img-wrapper img { transform: scale(1.06); }
-
         .card-body { padding: 14px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; color: var(--text-dark); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }
-        
-        .rating-stars { color: var(--yellow); font-size: 11px; margin-bottom: 8px; }
-        .rating-stars span { color: var(--text-muted); font-size: 12px; margin-left: 4px; font-weight: 600; }
-        
-        .card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-        .price-area { margin-bottom: 12px; margin-top: auto; display: flex; align-items: center; gap: 8px; }
+        .card-title { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }
+        .price-area { margin-bottom: 12px; margin-top: auto; }
         .price { font-size: 17px; font-weight: 800; color: var(--primary); }
-        .old-price { font-size: 12px; text-decoration: line-through; color: #9ca3af; }
+        .btn-card { background: var(--primary); color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; }
+
+        /* --- OVERLAY / MODAL --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: #f5f7fb; width: 95%; max-width: 500px; border-radius: 20px; max-height: 95vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 16px; z-index: 10; color: #333; }
+
+        /* ==================================================
+           PAYMENT GATEWAY CSS (INTEGRATED)
+        ================================================== */
+        .payment-wrapper { padding: 25px 20px; color: #1c2638; }
         
-        .btn-card { background: var(--primary); color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 6px; text-decoration: none; }
-        .btn-card:hover { background: var(--primary-hover); }
-
-        /* --- DISCORD COMMUNITY BOX --- */
-        .discord-box { background: linear-gradient(135deg, #5865F2, #404eed); color: white; padding: 25px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; box-shadow: 0 4px 15px rgba(88, 101, 242, 0.25); }
-        .discord-info h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
-        .discord-info p { font-size: 13px; opacity: 0.9; }
-        .btn-join-discord { background: white; color: var(--discord); padding: 10px 22px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 14px; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
-        .btn-join-discord:hover { background: #f3f4f6; transform: translateY(-2px); }
-
-        /* --- TERMS SECTION --- */
-        .terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 45px; }
-        .term-box { background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--border); transition: var(--transition); }
-        .term-box:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .term-icon { width: 38px; height: 38px; background: var(--primary-light); color: var(--primary); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 18px; margin-bottom: 12px; }
-        .term-box h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-        .term-box p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-
-        /* --- TRUST STRIP --- */
-        .trust-banner { background: #111827; color: white; padding: 25px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        @media(min-width: 768px) { .trust-banner { grid-template-columns: repeat(4, 1fr); padding: 25px 10%; } }
-        .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
-        .trust-item i { font-size: 20px; color: var(--primary); }
-
-        /* --- FOOTER --- */
-        footer { background: var(--card-bg); padding: 45px 15px 20px; font-size: 13px; color: var(--text-muted); }
-        .footer-top { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; border-bottom: 1px solid var(--border); padding-bottom: 35px; }
-        @media(min-width: 768px) { .footer-top { grid-template-columns: 2fr 1fr 1fr; } }
+        .pay-header { text-align: center; margin-bottom: 20px; }
+        .pay-header .pay-logo { width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 12px; background: white; border: 1px solid #e5e7eb; display: flex; justify-content: center; align-items: center; padding: 5px; }
+        .pay-header .pay-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .pay-header h3 { font-size: 18px; font-weight: 800; color: #111827; }
         
-        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
-        .footer-logo img { width: 35px; height: 35px; object-fit: contain; }
-        .footer-logo span { font-size: 20px; font-weight: 800; color: var(--primary); }
-        .footer-links h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
-        .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 10px; }
-        .footer-links ul li a { color: var(--text-muted); text-decoration: none; cursor: pointer; transition: var(--transition); }
-        .footer-links ul li a:hover { color: var(--primary); padding-left: 4px; }
-        
-        .footer-bottom { text-align: center; padding-top: 25px; max-width: 1200px; margin: 0 auto; }
-        .payment-img { width: 100%; max-width: 650px; margin: 0 auto 15px; display: block; border-radius: 6px; }
+        .amount-box { text-align: center; padding: 20px; border-radius: 16px; background: #fff; border: 1px solid #edf1f7; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .amount-box small { color: #8b95a6; font-size: 13px; font-weight: 600; }
+        .amount-box h1 { margin-top: 5px; font-size: 32px; color: #25324a; font-weight: 900; }
+        .amount-box .fee-note { font-size: 11px; color: #ef4444; margin-top: 5px; font-weight: 500; }
 
-        /* --- BOTTOM NAVIGATION (Mobile) --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        @media(min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #9ca3af; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; }
-        .nav-item i { font-size: 20px; margin-bottom: 3px; }
-        .nav-item.active, .nav-item:hover { color: var(--primary); }
-
-        /* --- MODALS --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); backdrop-filter: blur(4px); }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content { background: var(--card-bg); width: 92%; max-width: 480px; border-radius: 14px; position: relative; transform: scale(0.9); transition: 0.3s ease; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.25); max-height: 90vh; overflow-y: auto; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .methods-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #333; }
+        .methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .method { cursor: pointer; background: #fff; border: 2px solid #e4e9f1; border-radius: 12px; padding: 12px 5px; text-align: center; transition: 0.2s; }
+        .method.active { border-color: var(--primary); background: #f0fdf4; box-shadow: 0 4px 10px rgba(5,150,105,0.1); }
         
-        .close-modal { position: absolute; top: 12px; right: 12px; font-size: 18px; cursor: pointer; color: var(--text-muted); width: 32px; height: 32px; background: #f3f4f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: var(--transition); z-index: 10; }
-        .close-modal:hover { background: #fee2e2; color: var(--red); }
+        .icon { width: 38px; height: 38px; border-radius: 10px; margin: auto; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; }
+        .icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        /* Using image links for real icons */
+        .crypto-icon { background: #f59e0b; color: white; }
+        .ltc-icon { background: #345d9d; color: white; }
+        .method b { display: block; margin-top: 8px; font-size: 11px; font-weight: 700; }
 
-        /* POPUP MODAL CUSTOM (Countdown + Image) */
-        .popup-header-img { width: 100%; max-height: 200px; background: #f3f4f6; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .popup-header-img img { width: 100%; height: 100%; object-fit: cover; }
-        .popup-body { padding: 25px 20px; text-align: center; }
-        .popup-price-tag { display: inline-block; background: var(--red); color: white; font-weight: 800; font-size: 14px; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
-        
-        /* Countdown Styling */
-        .countdown-container { display: flex; justify-content: center; gap: 8px; margin: 15px 0 20px; }
-        .time-box { background: #111827; color: white; padding: 6px 10px; border-radius: 6px; font-size: 16px; font-weight: 800; min-width: 44px; }
-        .time-box span { display: block; font-size: 9px; font-weight: 500; color: #9ca3af; text-transform: uppercase; margin-top: 2px; }
-        
-        /* Product Details Modal Image */
-        .pm-img-wrapper { width: 100%; height: 240px; background: #fafafa; display: flex; align-items: center; justify-content: center; padding: 15px; border-bottom: 1px solid var(--border); }
-        .pm-img-wrapper img { width: 100%; height: 100%; object-fit: contain; }
-        .pm-info { padding: 20px; }
-        .pm-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-        .pm-price { font-size: 22px; font-weight: 800; color: var(--primary); }
-        .pm-old { text-decoration: line-through; color: #9ca3af; font-size: 14px; margin-left: 8px; }
-        .pm-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 15px 0 20px; }
+        .panel { display: none; margin-top: 20px; border-radius: 16px; padding: 20px; color: white; }
+        .panel.active { display: block; }
+        .panel.bkash { background: #e2136e; }
+        .panel.nagad { background: #f58220; }
+        .panel.crypto { background: #202b3e; }
+        .panel.ltc { background: #345d9d; }
 
-        .info-modal { padding: 25px; }
-        .info-modal h2 { margin-bottom: 15px; color: var(--primary); border-bottom: 2px solid #f3f4f6; padding-bottom: 8px; font-size: 20px; }
-        .info-modal p { font-size: 13px; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px; }
+        .panel-head { text-align: center; margin-bottom: 18px; }
+        .panel-head h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .panel-head p { font-size: 12px; opacity: 0.9; }
+
+        .receive-label { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+        .address-row { display: flex; gap: 8px; }
+        .address { flex: 1; background: white; color: #222; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700; word-break: break-all; }
+        .copy { border: 0; background: #f3f4f6; color: #111; border-radius: 10px; padding: 0 15px; cursor: pointer; font-weight: 700; font-size: 12px; }
+
+        .steps { margin-top: 15px; }
+        .step { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.2); font-size: 13px; line-height: 1.4; align-items: center; }
+        .step:last-child { border-bottom: 0; }
+        .number { flex: none; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 12px; }
+
+        .field { margin-top: 18px; }
+        .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+        .field input, .field select { width: 100%; padding: 14px; border: 0; border-radius: 10px; font-size: 14px; background: white; color: #222; outline: none; font-weight: 500; }
+        
+        .verify { width: 100%; border: 0; margin-top: 20px; padding: 15px; border-radius: 10px; background: #fff; color: #111; font-size: 14px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .verify:hover { transform: scale(1.02); }
+
+        .success { display: none; text-align: center; padding: 30px 20px; }
+        .success-icon { width: 70px; height: 70px; margin: 0 auto 15px; border-radius: 50%; background: #d1fae5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+        .success h2 { font-size: 22px; color: #111; margin-bottom: 10px; }
+        .success p { color: #6b7280; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .contact-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--discord); color: white; padding: 14px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <!-- Header & Search -->
+    <!-- Header -->
     <header>
         <div class="top-header">
-            <a href="#" class="logo-area" onclick="goHome()">
+            <a href="#" class="logo-area" onclick="window.scrollTo(0,0)">
                 <div class="logo-img-wrapper">
-                    <img src="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif" id="siteLogo" alt="Cevix Logo">
+                    <img src="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif" alt="Logo">
                 </div>
                 <span class="logo-text">Cevix Bazar</span>
             </a>
         </div>
         <div class="search-container">
-            <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search Discord, OTT, Software, Topup...">
+                <input type="text" id="searchInput" placeholder="Search for products...">
                 <i class="fas fa-search"></i>
             </div>
-            <!-- Discord Button Header -->
-            <a href="https://discord.gg/cevixbazar" target="_blank" class="action-icon" title="Join Discord">
-                <i class="fab fa-discord" style="font-size: 20px;"></i>
+            <a href="https://discord.gg/cevixbazar" target="_blank" class="action-icon">
+                <i class="fab fa-discord"></i>
             </a>
         </div>
     </header>
 
-    <!-- Sidebar Menu (Real Slide Drawer) -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span><i class="fas fa-bars-staggered"></i> Navigation</span>
-            <i class="fas fa-times" onclick="toggleSidebar()"></i>
-        </div>
-        <ul class="sidebar-links">
-            <li onclick="goHome(); toggleSidebar()"><i class="fas fa-house"></i> Home Store</li>
-            <li onclick="openModal('aboutModal'); toggleSidebar()"><i class="fas fa-circle-info"></i> About Us (Team)</li>
-            <li onclick="openModal('termsModal'); toggleSidebar()"><i class="fas fa-shield-halved"></i> Terms & Refund</li>
-            <li onclick="openModal('supportModal'); toggleSidebar()"><i class="fas fa-headset"></i> 24/7 Support Desk</li>
-            <li onclick="window.open('https://discord.gg/cevixbazar','_blank')"><i class="fab fa-discord" style="color:var(--discord);"></i> Discord Server</li>
-        </ul>
+    <div class="hero-banner">
+        <h1>All Digital Services In One Place</h1>
+        <p>100% Authentic Products with Fast Secure Payment.</p>
     </div>
 
-    <!-- Customizable Announcement Popup Modal -->
-    <div class="modal-overlay" id="announceModal">
-        <div class="modal-content">
-            <i class="fas fa-times close-modal" onclick="closeModal('announceModal')"></i>
-            
-            <div class="popup-header-img" id="popupImgContainer">
-                <img id="popupImg" src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=600&auto=format&fit=crop" alt="Special Offer">
-            </div>
+    <div class="container">
+        <div class="category-grid" id="categoryGrid"></div>
+        <h2 class="section-title" id="viewTitle">Trending Products</h2>
+        <div class="product-grid" id="productGrid"></div>
+    </div>
 
-            <div class="popup-body">
-                <div class="popup-price-tag" id="popupPriceTag">EXCLUSIVE OFFER</div>
-                <h2 id="popupTitle" style="font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">Flash Sale is Live!</h2>
-                <p id="popupDesc" style="color: var(--text-muted); font-size: 13px; line-height: 1.5;">Get up to 30% OFF on all Discord Nitro, Game Topups, and Premium OTT subscriptions today!</p>
+
+    <!-- ==============================================
+         PAYMENT / CHECKOUT MODAL 
+    =============================================== -->
+    <div class="modal-overlay" id="payModal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closePayModal()"><i class="fas fa-times"></i></div>
+            
+            <div class="payment-wrapper">
                 
-                <!-- Countdown Timer -->
-                <div class="countdown-container" id="popupTimerBox">
-                    <div class="time-box"><span id="cdHours">02</span><span>Hours</span></div>
-                    <div class="time-box"><span id="cdMinutes">45</span><span>Mins</span></div>
-                    <div class="time-box"><span id="cdSeconds">18</span><span>Secs</span></div>
+                <!-- PAYMENT CONTENT -->
+                <div id="paymentContent">
+                    
+                    <div class="pay-header">
+                        <div class="pay-logo"><img id="payProdImg" src="" alt=""></div>
+                        <h3 id="payProdName">Product Name</h3>
+                    </div>
+
+                    <div class="amount-box">
+                        <small>Total Amount to Pay</small>
+                        <h1 id="payAmount">৳ 0</h1>
+                        <div class="fee-note" id="feeNote">Includes 2% Cashout Charge</div>
+                    </div>
+
+                    <div class="methods-title">Select Payment Method</div>
+                    
+                    <div class="methods">
+                        <div class="method active" onclick="selectPayment('bkash', this)">
+                            <!-- Real bKash Logo -->
+                            <div class="icon"><img src="https://freelogopng.com/images/all_img/1656234782bkash-app-logo-png.png" alt="bKash"></div>
+                            <b>bKash</b>
+                        </div>
+                        <div class="method" onclick="selectPayment('nagad', this)">
+                            <!-- Real Nagad Logo -->
+                            <div class="icon"><img src="https://freelogopng.com/images/all_img/1679248787Nagad-Logo.png" alt="Nagad"></div>
+                            <b>Nagad</b>
+                        </div>
+                        <div class="method" onclick="selectPayment('crypto', this)">
+                            <div class="icon crypto-icon"><i class="fab fa-bitcoin"></i></div>
+                            <b>Crypto</b>
+                        </div>
+                        <div class="method" onclick="selectPayment('ltc', this)">
+                            <div class="icon ltc-icon">Ł</div>
+                            <b>LTC</b>
+                        </div>
+                    </div>
+
+                    <!-- BKASH PANEL -->
+                    <div class="panel bkash active" id="bkashPanel">
+                        <div class="panel-head">
+                            <h3>bKash Payment</h3>
+                            <p>Cash Out (Agent)</p>
+                        </div>
+                        <div class="receive-label">bKash Agent Number</div>
+                        <div class="address-row">
+                            <div class="address" id="bkashNumber">017XXXXXXXX</div>
+                            <button class="copy" onclick="copyText('bkashNumber', this)">COPY</button>
+                        </div>
+                        <div class="steps">
+                            <div class="step"><span class="number">1</span><span>Open bKash App and select <b>Cash Out</b>.</span></div>
+                            <div class="step"><span class="number">2</span><span>Send the exact total amount shown above.</span></div>
+                        </div>
+                        <div class="field">
+                            <label>Transaction ID</label>
+                            <input id="bkashTrx" placeholder="Enter TrxID">
+                        </div>
+                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                    </div>
+
+                    <!-- NAGAD PANEL -->
+                    <div class="panel nagad" id="nagadPanel">
+                        <div class="panel-head">
+                            <h3>Nagad Payment</h3>
+                            <p>Cash Out (Uddokta)</p>
+                        </div>
+                        <div class="receive-label">Nagad Uddokta Number</div>
+                        <div class="address-row">
+                            <div class="address" id="nagadNumber">018XXXXXXXX</div>
+                            <button class="copy" onclick="copyText('nagadNumber', this)">COPY</button>
+                        </div>
+                        <div class="steps">
+                            <div class="step"><span class="number">1</span><span>Open Nagad App and select <b>Cash Out</b>.</span></div>
+                            <div class="step"><span class="number">2</span><span>Send the exact total amount shown above.</span></div>
+                        </div>
+                        <div class="field">
+                            <label>Transaction ID</label>
+                            <input id="nagadTrx" placeholder="Enter TrxID">
+                        </div>
+                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                    </div>
+
+                    <!-- CRYPTO PANEL -->
+                    <div class="panel crypto" id="cryptoPanel">
+                        <div class="panel-head">
+                            <h3>Crypto Payment</h3>
+                            <p>No extra fees applied</p>
+                        </div>
+                        <div class="field" style="margin-top:0">
+                            <label>Select Network / Coin</label>
+                            <select id="cryptoNetwork" onchange="updateCryptoAddress()">
+                                <option value="usdttrc">USDT (TRC20)</option>
+                                <option value="usdtbep">USDT (BEP20)</option>
+                                <option value="btc">Bitcoin (BTC)</option>
+                            </select>
+                        </div>
+                        <div class="receive-label" style="margin-top:15px">Deposit Address</div>
+                        <div class="address-row">
+                            <div class="address" id="cryptoAddress"></div>
+                            <button class="copy" onclick="copyText('cryptoAddress', this)">COPY</button>
+                        </div>
+                        <div class="field">
+                            <label>Transaction Hash / TXID</label>
+                            <input id="cryptoTrx" placeholder="Enter TXID">
+                        </div>
+                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                    </div>
+
+                    <!-- LTC PANEL -->
+                    <div class="panel ltc" id="ltcPanel">
+                        <div class="panel-head">
+                            <h3>Litecoin (LTC) Payment</h3>
+                        </div>
+                        <div class="receive-label">LTC Address</div>
+                        <div class="address-row">
+                            <div class="address" id="ltcAddress">LTC_ADDRESS_HERE</div>
+                            <button class="copy" onclick="copyText('ltcAddress', this)">COPY</button>
+                        </div>
+                        <div class="field">
+                            <label>Transaction ID</label>
+                            <input id="ltcTrx" placeholder="Enter TXID">
+                        </div>
+                        <button class="verify" onclick="submitPayment()">CONFIRM PAYMENT</button>
+                    </div>
                 </div>
 
-                <!-- Action Button -->
-                <a href="https://discord.gg/cevixbazar" target="_blank" id="popupBtnLink" class="btn-card" style="padding: 12px; font-size: 14px;">
-                    <span id="popupBtnText"><i class="fab fa-discord"></i> Claim Offer on Discord</span>
-                </a>
+                <!-- SUCCESS SCREEN -->
+                <div class="success" id="successContent">
+                    <div class="success-icon"><i class="fas fa-check"></i></div>
+                    <h2>Payment Verified!</h2>
+                    <p>Your payment submission is successful. Please take a screenshot of this page and contact the seller with your Transaction ID to receive your product instantly.</p>
+                    <a href="https://discord.gg/cevixbazar" target="_blank" class="contact-btn">
+                        <i class="fab fa-discord"></i> Contact Seller on Discord
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <!-- MAIN VIEW -->
-    <div id="mainView">
-        
-        <div class="hero-banner">
-            <h1>All Digital Services In One Place</h1>
-            <p>100% Authentic Discord Nitro, Streaming Accounts, AI Tools & Game Top-ups with Instant Delivery.</p>
-        </div>
 
-        <div class="container">
-            
-            <!-- Category Cards -->
-            <div class="reveal">
-                <div class="category-grid" id="categoryGrid">
-                    <!-- Injected by JS -->
-                </div>
-            </div>
-
-            <!-- Products Section Title -->
-            <div class="section-header reveal">
-                <h2 class="section-title" id="viewTitle">Trending Products</h2>
-            </div>
-
-            <!-- Products Grid -->
-            <div class="product-grid reveal" id="productGrid">
-                <!-- Injected by JS -->
-            </div>
-            
-            <!-- Search Not Found Message -->
-            <div id="noResults" style="display:none; text-align:center; padding: 40px; color: var(--text-muted); width: 100%;">
-                <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px; color: #d1d5db;"></i>
-                <h3>No products found</h3>
-                <p>Try searching for Discord, Netflix, AI Tools, or Free Fire.</p>
-            </div>
-
-            <!-- Discord Community Banner -->
-            <div class="discord-box reveal">
-                <div class="discord-info">
-                    <h3><i class="fab fa-discord"></i> Cevix Community Hub</h3>
-                    <p>Join 8,500+ members! Get live updates, giveaways, and instant order support.</p>
-                </div>
-                <a href="https://discord.gg/cevixbazar" target="_blank" class="btn-join-discord"><i class="fab fa-discord"></i> Join Discord Server</a>
-            </div>
-
-            <!-- DYNAMIC SELLER CARDS -->
-            <div class="section-header reveal">
-                <h2 class="section-title">Verified Sellers & Leadership</h2>
-            </div>
-            <div class="seller-grid reveal" id="sellerGrid">
-                <!-- Injected by JS -->
-            </div>
-
-            <!-- Terms & Trust Policies -->
-            <div class="section-header reveal">
-                <h2 class="section-title">Our Guarantees</h2>
-            </div>
-            <div class="terms-grid reveal">
-                <div class="term-box">
-                    <div class="term-icon"><i class="fas fa-bolt"></i></div>
-                    <h4>Fast & Secure Delivery</h4>
-                    <p>Automated and manual orders are delivered safely within 5 to 30 minutes after verification.</p>
-                </div>
-                <div class="term-box">
-                    <div class="term-icon"><i class="fas fa-shield-halved"></i></div>
-                    <h4>100% Replacement Warranty</h4>
-                    <p>Facing issues? We offer a hassle-free 24-hour full replacement guarantee on all accounts & keys.</p>
-                </div>
-                <div class="term-box">
-                    <div class="term-icon"><i class="fas fa-headset"></i></div>
-                    <h4>24/7 Dedicated Support</h4>
-                    <p>Our team is available round-the-clock on Discord, WhatsApp, and Telegram to help you.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Trust Strip -->
-    <div class="trust-banner">
-        <div class="trust-item"><i class="fas fa-certificate"></i> Govt Registered</div>
-        <div class="trust-item"><i class="fas fa-users"></i> 25,000+ Customers</div>
-        <div class="trust-item"><i class="fas fa-award"></i> 100% Satisfaction</div>
-        <div class="trust-item"><i class="fas fa-truck-fast"></i> Instant Delivery</div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-top">
-            <div>
-                <div class="footer-logo">
-                    <img src="https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif" alt="Logo">
-                    <span>Cevix Bazar</span>
-                </div>
-                <p>Cevix Bazar is Bangladesh's trusted digital merchant since 2024. Providing authentic subscriptions, gaming currencies, and license keys securely.</p>
-                <p style="margin-top: 10px;">
-                    <strong>Official Discord:</strong> <a href="https://discord.gg/cevixbazar" target="_blank" style="color:var(--discord); text-decoration:none;">discord.gg/cevixbazar</a><br>
-                    <strong>Support Email:</strong> support@cevixbazar.com
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a onclick="goHome()">Home Store</a></li>
-                    <li><a onclick="openModal('aboutModal')">About Us (Founders)</a></li>
-                    <li><a onclick="openModal('termsModal')">Terms & Conditions</a></li>
-                    <li><a href="https://discord.gg/cevixbazar" target="_blank">Discord Server</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Customer Support</h4>
-                <ul>
-                    <li><a onclick="openModal('supportModal')"><i class="fab fa-whatsapp"></i> WhatsApp Support</a></li>
-                    <li><a onclick="openModal('supportModal')"><i class="fab fa-telegram"></i> Telegram Channel</a></li>
-                    <li><a href="https://discord.gg/cevixbazar" target="_blank"><i class="fab fa-discord"></i> Open Ticket on Discord</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <!-- Payment Image -->
-            <img src="IMG_20260907_153800.png" alt="Payment Methods" class="payment-img">
-            <p>&copy; 2024-2026 Cevix Bazar. All rights reserved. | Founded by RENOX & Created by HASAN HRIDOY.</p>
-        </div>
-    </footer>
-
-    <!-- Bottom Navigation Bar (Mobile View) -->
-    <div class="bottom-nav">
-        <a class="nav-item active" onclick="goHome()">
-            <i class="fas fa-store"></i>
-            <span>Shop</span>
-        </a>
-        <a class="nav-item" onclick="document.getElementById('searchInput').focus(); window.scrollTo({top:0, behavior:'smooth'});">
-            <i class="fas fa-search"></i>
-            <span>Search</span>
-        </a>
-        <a class="nav-item" href="https://discord.gg/cevixbazar" target="_blank">
-            <i class="fab fa-discord"></i>
-            <span>Discord</span>
-        </a>
-        <a class="nav-item" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-            <span>Menu</span>
-        </a>
-    </div>
-
-    <!-- ================= MODALS ================= -->
-
-    <!-- Product Details Modal -->
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
-            <i class="fas fa-times close-modal" onclick="closeModal('productModal')"></i>
-            <div class="pm-img-wrapper">
-                <img id="pmImg" src="" alt="Product Details">
-            </div>
-            <div class="pm-info">
-                <h2 id="pmTitle" class="pm-title">Product Name</h2>
-                <div class="rating-stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    <span id="pmRating">(5.0 Verified)</span>
-                </div>
-                <div>
-                    <span id="pmPrice" class="pm-price">৳0</span>
-                    <span id="pmOld" class="pm-old"></span>
-                </div>
-                <p id="pmDesc" class="pm-desc">Description will appear here...</p>
-                <a href="https://discord.gg/cevixbazar" id="pmBuyBtn" target="_blank" class="btn-card" style="padding: 12px; font-size: 14px; background: var(--discord);">
-                    <i class="fab fa-discord"></i> Purchase on Discord Server
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Modal -->
-    <div class="modal-overlay" id="aboutModal">
-        <div class="modal-content info-modal">
-            <i class="fas fa-times close-modal" onclick="closeModal('aboutModal')"></i>
-            <h2>About Cevix Bazar</h2>
-            <p>Welcome to <strong>Cevix Bazar</strong>, established in 2024. We are your reliable digital goods provider in Bangladesh.</p>
-            <p><i class="fas fa-crown" style="color:var(--yellow); width:20px;"></i> <strong>Founder:</strong> RENOX</p>
-            <p><i class="fas fa-laptop-code" style="color:var(--primary); width:20px;"></i> <strong>Creator:</strong> HASAN HRIDOY</p>
-            <p style="margin-top: 12px;">We treat our customers like family, ensuring polite communication, 100% privacy, and super fast order fulfillment.</p>
-        </div>
-    </div>
-
-    <!-- Support Modal -->
-    <div class="modal-overlay" id="supportModal">
-        <div class="modal-content info-modal">
-            <i class="fas fa-times close-modal" onclick="closeModal('supportModal')"></i>
-            <h2>24/7 Live Support</h2>
-            <p>Our staff is always ready to assist you. Choose your preferred contact platform:</p>
-            <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                <a href="https://discord.gg/cevixbazar" target="_blank" class="btn-card" style="background:var(--discord);"><i class="fab fa-discord"></i> Discord Support Ticket</a>
-                <a href="https://wa.me/your_number" target="_blank" class="btn-card" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WhatsApp Support</a>
-                <a href="https://t.me/your_username" target="_blank" class="btn-card" style="background:#0088cc;"><i class="fab fa-telegram"></i> Telegram Support</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms Modal -->
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal-content info-modal">
-            <i class="fas fa-times close-modal" onclick="closeModal('termsModal')"></i>
-            <h2>Terms & Replacement Policy</h2>
-            <p><strong>Order Delivery:</strong> Subscriptions and topups are typically delivered within 5-30 minutes.</p>
-            <p><strong>Replacements:</strong> 100% replacement warranty is provided if there is any issue with account access during the guarantee period.</p>
-            <p><strong>Fair Use:</strong> Do not change emails or violate password guidelines where specified for shared accounts.</p>
-        </div>
-    </div>
-
-    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         // ==========================================
-        // 1. GOOGLE SHEET CONFIGURATION
+        // 1. STORE & PAYMENT CONFIGURATION
         // ==========================================
-        // Publish your sheet to Web as CSV and paste URL below.
+        const CONFIG = {
+            usdRate: 120, // 1 USD = 120 Taka
+            cashoutFee: 0.02, // 2% charge (20tk per thousand) for bKash/Nagad
+            
+            // Your payment numbers
+            bkashNumber: "017XXXXXXXX",
+            nagadNumber: "018XXXXXXXX",
+            crypto: {
+                usdttrc: "TYXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                usdtbep: "0xXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                btc: "bc1XXXXXXXXXXXXXXXXXXXXXXXXXX"
+            },
+            ltcAddress: "ltc1XXXXXXXXXXXXXXXXXXXXXXXXX"
+        };
+
         const GOOGLE_SHEET_CSV_URL = ""; 
 
-        // ==========================================
-        // 2. DEFAULT REAL DATA & ADDING SECTION
-        // ==========================================
         const localData = {
-            settings: {
-                popupTitle: "Exclusive Nitro & AI Sale!",
-                popupDesc: "Limited time offer! Grab Discord Nitro, Claude Pro, and Netflix UHD at the best rates in Bangladesh.",
-                popupImg: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=600&auto=format&fit=crop",
-                popupPrice: "Starts @ ৳250",
-                popupBtnText: "Claim on Discord Server",
-                popupBtnLink: "https://discord.gg/cevixbazar",
-                popupCountdownMinutes: 180, // Countdown timer in minutes (3 hours)
-                logoUrl: "https://i.ibb.co.com/dwv4Wsqg/a-3946284f588476b38791de993ccc717e.gif"
-            },
             categories: [
                 { id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' },
                 { id: 'discord', name: 'Discord', img: 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png' },
-                { id: 'ai', name: 'AI Tools', img: 'https://cdn-icons-png.flaticon.com/512/2083/2083213.png' },
-                { id: 'ott', name: 'OTT & Media', img: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png' },
-                { id: 'game', name: 'Game Topup', img: 'https://cdn-icons-png.flaticon.com/512/686/686589.png' },
-                { id: 'software', name: 'PC Software', img: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png' }
+                { id: 'game', name: 'Game Topup', img: 'https://cdn-icons-png.flaticon.com/512/686/686589.png' }
             ],
-            // ----------------------------------------------------
-            // UNLIMITED PRODUCTS CAN BE ADDED HERE (Copy & Paste a block to add more)
-            // ----------------------------------------------------
             products: [
-                { id: 'p1', catId: 'discord', name: 'Discord Nitro (1 Month Boost)', price: '450', oldPrice: '550', desc: 'Full Discord Nitro with 2 Server Boosts. Custom tags, high quality streams, 100% legal regional pricing.', img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' },
-                { id: 'p2', catId: 'ai', name: 'Claude AI Pro Subscription (1 Month)', price: '2990', oldPrice: '3500', desc: 'Smarter, faster AI with Claude 3.5 Sonnet access. Best for coders, content creators and research.', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' },
-                { id: 'p3', catId: 'ott', name: 'Netflix Premium (1 Screen UHD)', price: '250', oldPrice: '350', desc: '4K Ultra HD profile. Private 4-digit PIN lock. 30 days non-stop warranty without screen error.', img: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' },
-                { id: 'p4', catId: 'ai', name: 'CapCut Pro Subscription BD', price: '650', oldPrice: '900', desc: 'Unlock all pro effects, transitions, captions, and 4K export. Works on PC and Mobile.', img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' },
-                { id: 'p5', catId: 'game', name: 'Free Fire 100 Diamonds (UID)', price: '75', oldPrice: '85', desc: 'Direct UID topup. Instant delivery within 5 minutes. 100% safe from banning.', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' },
-                { id: 'p6', catId: 'software', name: 'Windows 11 Pro Lifetime Key', price: '350', oldPrice: '600', desc: 'Retail binding license key. Lifetime activation directly with your official Microsoft account.', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=400&auto=format&fit=crop', link: 'https://discord.gg/cevixbazar' }
-            ],
-            // ----------------------------------------------------
-            // UNLIMITED SELLERS CAN BE ADDED HERE
-            // ----------------------------------------------------
-            sellers: [
-                { id: 's1', name: 'RENOX', tag: 'Founder & Owner', rating: '5.0', desc: 'Visionary founder of Cevix Bazar. Handles server administration, corporate deals, and customer relations.', img: 'https://ui-avatars.com/api/?name=Renox&background=059669&color=fff&size=200' },
-                { id: 's2', name: 'HASAN HRIDOY', tag: 'Creator & Lead Dev', rating: '5.0', desc: 'Technical architect and platform developer. Ensures instant delivery systems and secure payments.', img: 'https://ui-avatars.com/api/?name=Hasan+Hridoy&background=10b981&color=fff&size=200' },
-                { id: 's3', name: 'Cevix Support Team', tag: '24/7 Verified Staff', rating: '4.9', desc: 'Active ticket moderators handling fast order delivery, replacements, and inquiries round-the-clock.', img: 'https://ui-avatars.com/api/?name=Support&background=5865F2&color=fff&size=200' }
+                { id: 'p1', catId: 'discord', name: 'Discord Nitro (1 Month Boost)', price: 450, img: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=400&auto=format&fit=crop' },
+                { id: 'p2', catId: 'game', name: 'Free Fire 1000 Diamonds', price: 650, img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop' },
+                { id: 'p3', catId: 'game', name: 'PUBG 600 UC', price: 950, img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400&auto=format&fit=crop' }
             ]
         };
 
-        let appData = { settings: {}, categories: [], products: [], sellers: [] };
-        let countdownInterval;
+        let appData = { categories: [], products: [] };
+        let currentProduct = null;
+        let currentMethod = 'bkash'; // Default
 
-        // --- CORE INITIALIZATION ---
+        // INIT
         window.onload = () => {
             if (GOOGLE_SHEET_CSV_URL !== "") {
                 Papa.parse(GOOGLE_SHEET_CSV_URL, {
                     download: true, header: true, skipEmptyLines: true,
-                    complete: function(results) { parseSheetData(results.data); },
-                    error: function() { loadDefaultData(); }
+                    complete: function(results) {
+                        appData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }];
+                        appData.products = [];
+                        results.data.forEach(row => {
+                            if(row.Type === 'Category') appData.categories.push({ id: row.ID, name: row.Name, img: row.Image });
+                            else if(row.Type === 'Product') appData.products.push({ id: row.ID, catId: row.CategoryID, name: row.Name, price: parseInt(row.TagOrPrice), img: row.Image });
+                        });
+                        renderUI();
+                    },
+                    error: function() { loadDefault(); }
                 });
             } else {
-                loadDefaultData();
+                loadDefault();
             }
 
-            document.getElementById('searchInput').addEventListener('input', handleSearch);
-            setTimeout(() => { openModal('announceModal'); }, 1200);
+            // Setup Payment Details
+            document.getElementById("bkashNumber").innerText = CONFIG.bkashNumber;
+            document.getElementById("nagadNumber").innerText = CONFIG.nagadNumber;
+            document.getElementById("ltcAddress").innerText = CONFIG.ltcAddress;
+            updateCryptoAddress();
         };
 
-        function loadDefaultData() {
+        function loadDefault() {
             appData = JSON.parse(JSON.stringify(localData));
-            applySettings(appData.settings);
-            renderCategories();
-            renderProducts(appData.products);
-            renderSellers(appData.sellers);
-            setupScrollObserver();
-            initCountdown(appData.settings.popupCountdownMinutes || 120);
+            renderUI();
         }
 
-        function parseSheetData(data) {
-            appData.categories = [{ id: 'all', name: 'All Products', img: 'https://cdn-icons-png.flaticon.com/512/3502/3502601.png' }];
-            appData.products = [];
-            appData.sellers = [];
-            appData.settings = { ...localData.settings };
-
-            data.forEach(row => {
-                if(row.Type === 'Category') {
-                    appData.categories.push({ id: row.ID, name: row.Name, img: row.Image });
-                } else if(row.Type === 'Product') {
-                    appData.products.push({
-                        id: row.ID, catId: row.CategoryID, name: row.Name,
-                        price: row.TagOrPrice, oldPrice: row.OldPrice, desc: row.Desc,
-                        img: row.Image, link: row.BuyLink || 'https://discord.gg/cevixbazar'
-                    });
-                } else if(row.Type === 'Seller') {
-                    appData.sellers.push({
-                        id: row.ID, name: row.Name, tag: row.TagOrPrice || 'Merchant',
-                        rating: row.OldPrice || '5.0', desc: row.Desc, img: row.Image
-                    });
-                } else if(row.Type === 'Settings') {
-                    if(row.ID === 'PopupTitle') appData.settings.popupTitle = row.Desc;
-                    if(row.ID === 'PopupDesc') appData.settings.popupDesc = row.Desc;
-                    if(row.ID === 'PopupImg') appData.settings.popupImg = row.Image;
-                    if(row.ID === 'PopupPrice') appData.settings.popupPrice = row.TagOrPrice;
-                    if(row.ID === 'PopupBtnText') appData.settings.popupBtnText = row.TagOrPrice;
-                    if(row.ID === 'PopupBtnLink') appData.settings.popupBtnLink = row.BuyLink;
-                    if(row.ID === 'PopupCountdownMinutes') appData.settings.popupCountdownMinutes = parseInt(row.TagOrPrice);
-                    if(row.ID === 'LogoUrl') appData.settings.logoUrl = row.Image;
-                }
-            });
-
-            applySettings(appData.settings);
-            renderCategories();
-            renderProducts(appData.products);
-            renderSellers(appData.sellers);
-            setupScrollObserver();
-            initCountdown(appData.settings.popupCountdownMinutes || 120);
-        }
-
-        function applySettings(s) {
-            if(s.popupTitle) document.getElementById('popupTitle').innerText = s.popupTitle;
-            if(s.popupDesc) document.getElementById('popupDesc').innerText = s.popupDesc;
-            if(s.popupImg) document.getElementById('popupImg').src = s.popupImg;
-            if(s.popupPrice) document.getElementById('popupPriceTag').innerText = s.popupPrice;
-            if(s.popupBtnText) document.getElementById('popupBtnText').innerHTML = `<i class="fab fa-discord"></i> ${s.popupBtnText}`;
-            if(s.popupBtnLink) document.getElementById('popupBtnLink').href = s.popupBtnLink;
-            if(s.logoUrl) document.getElementById('siteLogo').src = s.logoUrl;
-        }
-
-        function initCountdown(minutes) {
-            let totalSeconds = minutes * 60;
-            const hEl = document.getElementById('cdHours');
-            const mEl = document.getElementById('cdMinutes');
-            const sEl = document.getElementById('cdSeconds');
-
-            clearInterval(countdownInterval);
-            countdownInterval = setInterval(() => {
-                if(totalSeconds <= 0) {
-                    clearInterval(countdownInterval);
-                    return;
-                }
-                totalSeconds--;
-                let hrs = Math.floor(totalSeconds / 3600);
-                let mins = Math.floor((totalSeconds % 3600) / 60);
-                let secs = totalSeconds % 60;
-
-                hEl.innerText = hrs < 10 ? '0' + hrs : hrs;
-                mEl.innerText = mins < 10 ? '0' + mins : mins;
-                sEl.innerText = secs < 10 ? '0' + secs : secs;
-            }, 1000);
-        }
-
-        function renderCategories() {
-            const grid = document.getElementById('categoryGrid');
-            grid.innerHTML = '';
+        // STORE RENDERING
+        function renderUI() {
+            const catGrid = document.getElementById('categoryGrid');
+            catGrid.innerHTML = '';
             appData.categories.forEach(cat => {
-                grid.innerHTML += `
-                    <div class="cat-card ${cat.id === 'all' ? 'active' : ''}" onclick="filterCategory('${cat.id}', '${cat.name}', this)">
+                catGrid.innerHTML += `
+                    <div class="cat-card ${cat.id === 'all' ? 'active' : ''}" onclick="filterCategory('${cat.id}', this)">
                         <div class="cat-img-box"><img src="${cat.img}" alt="${cat.name}"></div>
                         <h4>${cat.name}</h4>
-                    </div>
-                `;
+                    </div>`;
             });
+            filterCategory('all');
         }
 
-        function renderProducts(prods) {
-            const grid = document.getElementById('productGrid');
-            const noRes = document.getElementById('noResults');
-            grid.innerHTML = '';
-
-            if(!prods || prods.length === 0) {
-                grid.style.display = 'none';
-                noRes.style.display = 'block';
-                return;
+        function filterCategory(catId, el = null) {
+            if(el) {
+                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
             }
-            grid.style.display = 'grid';
-            noRes.style.display = 'none';
-
+            const prods = catId === 'all' ? appData.products : appData.products.filter(p => p.catId === catId);
+            
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
             prods.forEach(p => {
-                let pData = encodeURIComponent(JSON.stringify(p));
+                let pStr = encodeURIComponent(JSON.stringify(p));
                 grid.innerHTML += `
-                    <div class="custom-card" onclick="openProdModal('${pData}')">
-                        <div class="badge-tag">SALE</div>
+                    <div class="custom-card" onclick="openCheckout('${pStr}')">
                         <div class="card-img-wrapper"><img src="${p.img}" alt="${p.name}"></div>
                         <div class="card-body">
                             <div class="card-title">${p.name}</div>
-                            <div class="rating-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span>(5.0)</span>
-                            </div>
-                            <div class="price-area">
-                                <span class="price">৳${p.price}</span>
-                                ${p.oldPrice ? `<span class="old-price">৳${p.oldPrice}</span>` : ''}
-                            </div>
-                            <button class="btn-card"><i class="fas fa-cart-shopping"></i> View Details</button>
+                            <div class="price-area"><span class="price">৳${p.price}</span></div>
+                            <button class="btn-card">Buy Now</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
-        function renderSellers(sellers) {
-            const grid = document.getElementById('sellerGrid');
-            grid.innerHTML = '';
-            sellers.forEach(s => {
-                grid.innerHTML += `
-                    <div class="custom-card">
-                        <div class="badge-tag seller-badge">${s.tag}</div>
-                        <div class="card-img-wrapper" style="padding: 20px;">
-                            <img src="${s.img}" alt="${s.name}" style="border-radius: 50%;">
-                        </div>
-                        <div class="card-body" style="text-align: center;">
-                            <div class="card-title" style="height: auto; font-size: 16px;">${s.name}</div>
-                            <div class="rating-stars" style="margin: 5px 0 10px;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span>(${s.rating})</span>
-                            </div>
-                            <p class="card-desc">${s.desc}</p>
-                            <a href="https://discord.gg/cevixbazar" target="_blank" class="btn-card" style="margin-top: auto; background:#111827;">
-                                <i class="fas fa-badge-check"></i> Contact Seller
-                            </a>
-                        </div>
-                    </div>
-                `;
+        // ==========================================
+        // PAYMENT GATEWAY LOGIC
+        // ==========================================
+        function openCheckout(pStr) {
+            currentProduct = JSON.parse(decodeURIComponent(pStr));
+            
+            // Set Product info in Modal
+            document.getElementById('payProdName').innerText = currentProduct.name;
+            document.getElementById('payProdImg').src = currentProduct.img;
+            
+            // Reset state
+            document.getElementById('paymentContent').style.display = 'block';
+            document.getElementById('successContent').style.display = 'none';
+            document.getElementById('bkashTrx').value = '';
+            document.getElementById('nagadTrx').value = '';
+            document.getElementById('cryptoTrx').value = '';
+            document.getElementById('ltcTrx').value = '';
+
+            // Default to bKash selection
+            document.querySelector('.method').click(); 
+            document.getElementById('payModal').classList.add('active');
+        }
+
+        function closePayModal() {
+            document.getElementById('payModal').classList.remove('active');
+        }
+
+        function selectPayment(method, element) {
+            currentMethod = method;
+            document.querySelectorAll(".method").forEach(x => x.classList.remove("active"));
+            element.classList.add("active");
+
+            document.querySelectorAll(".panel").forEach(x => x.classList.remove("active"));
+            document.getElementById(method + "Panel").classList.add("active");
+
+            calculateAmount();
+        }
+
+        function calculateAmount() {
+            const basePrice = parseInt(currentProduct.price);
+            const amountEl = document.getElementById('payAmount');
+            const noteEl = document.getElementById('feeNote');
+
+            if(currentMethod === 'bkash' || currentMethod === 'nagad') {
+                // Add 2% Cashout Charge
+                const total = Math.ceil(basePrice + (basePrice * CONFIG.cashoutFee));
+                amountEl.innerText = `৳ ${total}`;
+                noteEl.innerText = `Includes 2% Cashout Charge (৳${total - basePrice})`;
+                noteEl.style.color = '#ef4444';
+            } else {
+                // Convert to USD (No extra fee)
+                const usdTotal = (basePrice / CONFIG.usdRate).toFixed(2);
+                amountEl.innerText = `$ ${usdTotal}`;
+                noteEl.innerText = `Converted at 1 USD = ${CONFIG.usdRate} BDT (No extra fee)`;
+                noteEl.style.color = '#059669';
+            }
+        }
+
+        function updateCryptoAddress() {
+            const coin = document.getElementById("cryptoNetwork").value;
+            document.getElementById("cryptoAddress").innerText = CONFIG.crypto[coin];
+        }
+
+        function copyText(id, btn) {
+            const text = document.getElementById(id).innerText.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const old = btn.innerText;
+                btn.innerText = "COPIED!";
+                btn.style.background = "#d1fae5";
+                setTimeout(() => {
+                    btn.innerText = old;
+                    btn.style.background = "#f3f4f6";
+                }, 1500);
             });
         }
 
-        function filterCategory(catId, catName, el) {
-            document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-            if(el) el.classList.add('active');
-            
-            document.getElementById('viewTitle').innerHTML = catId === 'all' ? 'Trending Products' : `${catName} Products`;
-            document.getElementById('searchInput').value = '';
+        function submitPayment() {
+            let inputId = `${currentMethod}Trx`;
+            let inputVal = document.getElementById(inputId).value.trim();
 
-            const filtered = catId === 'all' ? appData.products : appData.products.filter(p => p.catId === catId);
-            renderProducts(filtered);
+            if(!inputVal) {
+                alert("Please enter the Transaction ID / TXID to confirm.");
+                return;
+            }
+
+            // Show Success Screen
+            document.getElementById('paymentContent').style.display = 'none';
+            document.getElementById('successContent').style.display = 'block';
         }
 
-        function handleSearch(e) {
-            const term = e.target.value.toLowerCase().trim();
-            document.getElementById('viewTitle').innerHTML = `<i class="fas fa-magnifying-glass"></i> Search Results`;
-            
-            const results = appData.products.filter(p => 
-                p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)
-            );
-            renderProducts(results);
-        }
-
-        function openProdModal(pStr) {
-            const p = JSON.parse(decodeURIComponent(pStr));
-            document.getElementById('pmImg').src = p.img;
-            document.getElementById('pmTitle').innerText = p.name;
-            document.getElementById('pmPrice').innerText = '৳' + p.price;
-            document.getElementById('pmOld').innerText = p.oldPrice ? '৳' + p.oldPrice : '';
-            document.getElementById('pmDesc').innerText = p.desc;
-            document.getElementById('pmBuyBtn').href = p.link || 'https://discord.gg/cevixbazar';
-            openModal('productModal');
-        }
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
-        }
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function goHome() { filterCategory('all', 'Trending Products', document.querySelector('.cat-card')); window.scrollTo({top: 0, behavior: 'smooth'}); }
-
-        function setupScrollObserver() {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
-            }, { threshold: 0.08 });
-            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-        }
-
-        window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('active'); }
     </script>
 </body>
-                            </html>
+    </html>
