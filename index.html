@@ -80,7 +80,7 @@ a{
 }
 
 /* =========================
-   SVG ICON FIXES (CSS)
+   SVG ICON (FIXED & ALIGNED)
 ========================= */
 
 .icon{
@@ -94,19 +94,7 @@ a{
   display:inline-block;
   vertical-align:middle;
   flex-shrink:0;
-  transition:transform .2s ease, stroke .2s ease, fill .2s ease;
-}
-
-/* Filled icons fix */
-symbol#fire path,
-.fire-icon {
-  fill: currentColor;
-  stroke: none;
-}
-
-symbol#facebook path {
-  fill: currentColor;
-  stroke: none;
+  transition:all .2s ease;
 }
 
 /* =========================
@@ -178,6 +166,10 @@ symbol#facebook path {
   gap:10px;
 }
 
+.search .icon{
+  color:var(--muted);
+}
+
 .search input{
   border:0;
   outline:0;
@@ -193,8 +185,14 @@ symbol#facebook path {
   border-radius:10px;
   background:var(--orange);
   color:#fff;
-  display:grid;
-  place-items:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease;
+}
+
+.search button:hover{
+  background:#e95600;
 }
 
 .nav-links{
@@ -209,7 +207,7 @@ symbol#facebook path {
   font-size:13px;
   font-weight:650;
   white-space:nowrap;
-  transition:.2s;
+  transition:all .2s ease;
 }
 
 .nav-links a:hover,
@@ -225,10 +223,10 @@ symbol#facebook path {
   padding:12px 17px;
   border-radius:12px;
   font-weight:750;
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:8px;
-  transition:.2s;
+  transition:background .2s ease;
 }
 
 .join-btn:hover{
@@ -237,19 +235,21 @@ symbol#facebook path {
 
 .menu-btn{
   border:1px solid var(--border);
-  background:#f8fafc;
-  color:var(--text);
-  border-radius:11px;
+  background:#fff;
   width:42px;
   height:42px;
+  border-radius:12px;
   display:none;
-  place-items:center;
+  align-items:center;
+  justify-content:center;
+  color:var(--text);
   cursor:pointer;
-  transition:all .2s ease;
+  transition:all .25s ease;
+  box-shadow:0 3px 10px rgba(0,0,0,.03);
 }
 
 .menu-btn:hover{
-  background:#fff0e7;
+  background:var(--soft);
   color:var(--orange);
   border-color:#ffd2b5;
 }
@@ -261,9 +261,9 @@ symbol#facebook path {
 .drawer-bg{
   position:fixed;
   inset:0;
-  background:rgba(10,15,25,.6);
+  background:rgba(10,15,25,.55);
   backdrop-filter:blur(6px);
-  z-index:5000;
+  z-index:3500;
   opacity:0;
   visibility:hidden;
   transition:opacity .3s ease, visibility .3s ease;
@@ -278,15 +278,15 @@ symbol#facebook path {
   position:absolute;
   top:0;
   right:0;
+  bottom:0;
   width:min(320px, 85vw);
-  height:100%;
-  background:#fff;
+  background:#ffffff;
   box-shadow:-10px 0 35px rgba(0,0,0,.15);
   display:flex;
   flex-direction:column;
   transform:translateX(100%);
   transition:transform .35s cubic-bezier(.2,.8,.2,1);
-  padding:24px 20px;
+  padding:24px;
   overflow-y:auto;
 }
 
@@ -294,7 +294,7 @@ symbol#facebook path {
   transform:translateX(0);
 }
 
-.drawer-header{
+.drawer-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -302,39 +302,36 @@ symbol#facebook path {
   border-bottom:1px solid var(--border);
 }
 
-.drawer-header .brand img{
+.drawer-logo{
   width:38px;
   height:38px;
+  object-fit:contain;
 }
 
-.drawer-header .brand-text strong{
-  font-size:18px;
-}
-
-.close-drawer{
+.drawer-close{
   width:36px;
   height:36px;
+  border:0;
+  background:#f1f3f5;
   border-radius:10px;
-  border:1px solid var(--border);
-  background:#f8fafc;
-  display:grid;
-  place-items:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
   color:var(--text);
-  transition:.2s;
+  transition:all .2s ease;
 }
 
-.close-drawer:hover{
-  background:#fff0e7;
+.drawer-close:hover{
+  background:#ffeae0;
   color:var(--orange);
-  border-color:#ffd2b5;
 }
 
 .drawer-links{
   display:flex;
   flex-direction:column;
-  gap:8px;
-  padding:20px 0;
+  gap:6px;
+  margin-top:20px;
   flex:1;
 }
 
@@ -344,40 +341,37 @@ symbol#facebook path {
   gap:12px;
   padding:12px 14px;
   border-radius:12px;
-  font-size:14px;
   font-weight:700;
-  color:#334155;
+  font-size:14px;
+  color:var(--text);
   transition:all .2s ease;
 }
 
 .drawer-links a:hover,
-.drawer-links a.active{
+.drawer-links a:active{
   background:#fff2e8;
   color:var(--orange);
 }
 
-.drawer-links a .icon{
-  color:var(--orange);
-}
-
 .drawer-footer{
-  padding-top:15px;
+  margin-top:24px;
+  padding-top:18px;
   border-top:1px solid var(--border);
 }
 
 .drawer-join-btn{
-  display:flex;
+  width:100%;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  width:100%;
-  padding:13px;
+  gap:9px;
   background:var(--orange);
   color:#fff;
+  padding:13px;
   border-radius:12px;
   font-weight:750;
-  font-size:14px;
-  transition:.2s;
+  font-size:13px;
+  transition:background .2s ease;
 }
 
 .drawer-join-btn:hover{
@@ -445,6 +439,8 @@ symbol#facebook path {
 
   color:#334155;
   font-size:13px;
+  cursor:pointer;
+  transition:all .2s ease;
 }
 
 .category-btn:hover,
@@ -528,6 +524,12 @@ symbol#facebook path {
   padding:13px 21px;
   border-radius:11px;
   font-weight:800;
+  transition:all .2s ease;
+}
+
+.hero-btn:hover{
+  background:#fff0e6;
+  transform:translateY(-2px);
 }
 
 .slider-dots{
@@ -543,6 +545,7 @@ symbol#facebook path {
   height:8px;
   border-radius:50%;
   background:rgba(255,255,255,.55);
+  transition:all .3s ease;
 }
 
 .dot.active{
@@ -571,13 +574,18 @@ symbol#facebook path {
   letter-spacing:-.4px;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:6px;
 }
 
 .view-all{
   color:var(--orange);
   font-size:13px;
   font-weight:750;
+  transition:opacity .2s;
+}
+
+.view-all:hover{
+  opacity:.8;
 }
 
 /* =========================
@@ -597,6 +605,7 @@ symbol#facebook path {
   background:#fff;
   overflow:hidden;
   box-shadow:0 7px 22px rgba(0,0,0,.045);
+  cursor:pointer;
 
   transition:
     transform .3s ease,
@@ -716,7 +725,7 @@ symbol#facebook path {
   border-radius:9px;
   font-size:12px;
   font-weight:800;
-  transition:.2s;
+  transition:background .2s ease;
 }
 
 .details-btn:hover{
@@ -784,6 +793,11 @@ symbol#facebook path {
   border-radius:8px;
   font-size:11px;
   font-weight:750;
+  transition:background .2s;
+}
+
+.notice-btn:hover{
+  background:#e95600;
 }
 
 /* =========================
@@ -802,8 +816,12 @@ symbol#facebook path {
   padding:15px 8px;
   text-align:center;
   background:#fff;
-
-  transition:.25s;
+  cursor:pointer;
+  transition:.25s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
 .quick:hover{
@@ -814,8 +832,8 @@ symbol#facebook path {
 
 .quick .icon{
   color:var(--orange);
-  width:25px;
-  height:25px;
+  width:24px;
+  height:24px;
 }
 
 .quick span{
@@ -912,6 +930,12 @@ symbol#facebook path {
   color:var(--orange);
   border-radius:10px;
   font-weight:800;
+  transition:all .2s ease;
+}
+
+.cta button:hover{
+  background:#fff3eb;
+  transform:scale(1.03);
 }
 
 /* =========================
@@ -964,8 +988,15 @@ symbol#facebook path {
   width:35px;
   height:35px;
   border-radius:10px;
-  display:grid;
-  place-items:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .2s ease;
+}
+
+.close:hover{
+  background:#e2e8f0;
+  color:var(--orange);
 }
 
 .modal-body{
@@ -1031,6 +1062,11 @@ symbol#facebook path {
   border-radius:11px;
   margin-top:18px;
   font-weight:850;
+  transition:background .2s;
+}
+
+.buy-main:hover{
+  background:#e95600;
 }
 
 .contact-buttons{
@@ -1051,6 +1087,11 @@ symbol#facebook path {
   border-radius:9px;
   font-size:11px;
   font-weight:800;
+  transition:opacity .2s;
+}
+
+.contact:hover{
+  opacity:.9;
 }
 
 .telegram{
@@ -1186,10 +1227,12 @@ symbol#facebook path {
   color:#aeb5bf;
   font-size:11px;
   margin-top:8px;
+  transition:all .2s ease;
 }
 
 .footer a:hover{
   color:#ff741d;
+  transform:translateX(3px);
 }
 
 .socials{
@@ -1199,22 +1242,28 @@ symbol#facebook path {
 }
 
 .socials a{
-  width:34px;
-  height:34px;
+  width:32px;
+  height:32px;
   border:1px solid #343a42;
   border-radius:8px;
-  display:grid;
-  place-items:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   margin:0;
-  transition:all .2s ease;
   color:#aeb5bf;
+  transition:all .25s ease;
 }
 
 .socials a:hover{
-  color:#fff;
   border-color:var(--orange);
-  background:var(--orange);
-  transform:translateY(-2px);
+  background:rgba(255,101,0,.15);
+  color:#ff741d;
+  transform:translateY(-3px);
+}
+
+.socials a .icon{
+  width:16px;
+  height:16px;
 }
 
 .payment-icons{
@@ -1231,9 +1280,10 @@ symbol#facebook path {
   font-size:10px;
 }
 
+/* FOOTER BOTTOM & DEVELOPER TAG */
 .footer-bottom{
   border-top:1px solid #2c323a;
-  padding:14px 28px;
+  padding:16px 28px;
   max-width:1450px;
   margin:auto;
 
@@ -1243,26 +1293,36 @@ symbol#facebook path {
 
   color:#89919d;
   font-size:11px;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
 .developer-tag{
-  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-weight:500;
+}
+
+.developer-tag a{
+  color:var(--orange);
+  font-weight:800;
+  text-decoration:none;
+  padding:4px 10px;
+  border-radius:8px;
+  background:rgba(255,101,0,.12);
+  border:1px solid rgba(255,101,0,.28);
   display:inline-flex;
   align-items:center;
   gap:5px;
+  transition:all .25s ease;
 }
 
-.dev-link{
-  color:var(--orange);
-  font-weight:750;
-  text-decoration:underline;
-  text-underline-offset:3px;
-  transition:all .2s ease;
-}
-
-.dev-link:hover{
-  color:#fff;
-  text-shadow:0 0 10px rgba(255,101,0,.6);
+.developer-tag a:hover{
+  background:var(--orange);
+  color:#ffffff;
+  transform:translateY(-2px);
+  box-shadow:0 4px 14px rgba(255,101,0,.35);
 }
 
 /* =========================
@@ -1328,13 +1388,14 @@ symbol#facebook path {
     grid-template-columns:repeat(3,1fr);
   }
 
-  .nav-links{
+  .nav-links,
+  .join-btn{
     display:none;
   }
 
   .menu-btn{
-    display:grid;
-    place-items:center;
+    display:inline-flex;
+    margin-left:auto;
   }
 }
 
@@ -1387,10 +1448,9 @@ symbol#facebook path {
   }
 
   .menu-btn{
-    display:grid;
+    display:inline-flex;
     width:38px;
     height:38px;
-    place-items:center;
     margin-left:auto;
   }
 
@@ -1573,9 +1633,10 @@ symbol#facebook path {
 
   .footer-bottom{
     padding:13px 18px;
+    display:flex;
     flex-direction:column;
-    gap:6px;
     text-align:center;
+    gap:10px;
   }
 
   .mobile-nav{
@@ -1650,6 +1711,12 @@ const CONFIG = {
   metaImage:
     "https://YOUR-DOMAIN.COM/meta.jpg",
 
+  developerName:
+    "HRIDOY HASAN",
+
+  developerLink:
+    "https://github.com/hridoyhasan", // আপনার পছন্দের প্রোফাইল/সোশ্যাল লিঙ্ক এখানে দিন
+
   productSheetID:
     "YOUR_GOOGLE_SHEET_ID",
 
@@ -1695,11 +1762,7 @@ const CONFIG = {
   showResellerPrice:true,
   showPopup:true,
   showBanner:true,
-  showDiscordBox:true,
-
-  /* DEVELOPER CONFIG */
-  developerName: "HASAN HRIDOY",
-  developerLink: "https://facebook.com/YOUR_PROFILE" // আপনার সোশ্যাল মিডিয়া বা পোর্টফোলিও লিংক দিন
+  showDiscordBox:true
 };
 
 
@@ -1796,9 +1859,10 @@ document.querySelector('link[rel="icon"]')
   </a>
 
 
+  <!-- HAMBURGER BUTTON -->
   <button
     class="menu-btn"
-    aria-label="Toggle Menu"
+    aria-label="Open Menu"
     onclick="openMobileMenu()">
 
     <svg class="icon">
@@ -1813,7 +1877,7 @@ document.querySelector('link[rel="icon"]')
 
 
 <!-- =====================================================
-     MOBILE NAVIGATION DRAWER (HAMBURGER MENU)
+     MOBILE DRAWER (HAMBURGER MENU)
 ===================================================== -->
 
 <div
@@ -1821,25 +1885,31 @@ document.querySelector('link[rel="icon"]')
   class="drawer-bg"
   onclick="closeMobileMenu()">
 
-  <div class="drawer" onclick="event.stopPropagation()">
+  <div
+    class="drawer"
+    onclick="event.stopPropagation()">
 
-    <div class="drawer-header">
+    <div class="drawer-top">
 
       <div class="brand">
+
         <img
           id="drawerLogo"
           src="https://YOUR-DOMAIN.COM/logo.png"
-          alt="Logo">
+          alt="Logo"
+          class="drawer-logo">
+
         <div class="brand-text">
           <strong>CEVIX <span>BAZAR</span></strong>
           <small>All in One Shop</small>
         </div>
+
       </div>
 
       <button
-        class="close-drawer"
-        aria-label="Close Menu"
-        onclick="closeMobileMenu()">
+        class="drawer-close"
+        onclick="closeMobileMenu()"
+        aria-label="Close Menu">
 
         <svg class="icon">
           <use href="#close"/>
@@ -1886,16 +1956,13 @@ document.querySelector('link[rel="icon"]')
     <div class="drawer-footer">
 
       <a
-        id="drawerDiscord"
+        id="drawerDiscordBtn"
         class="drawer-join-btn"
         href="https://discord.gg/YOURSERVER"
         target="_blank">
 
-        <svg class="icon">
-          <use href="#discord"/>
-        </svg>
-
-        Join Discord
+        <svg class="icon"><use href="#discord"/></svg>
+        Join Discord Community
 
       </a>
 
@@ -1994,7 +2061,7 @@ document.querySelector('link[rel="icon"]')
     <h2>
       <svg
         class="icon"
-        style="color:#ff6500;vertical-align:middle">
+        style="color:#ff6500">
         <use href="#fire"/>
       </svg>
 
@@ -2528,7 +2595,10 @@ document.querySelector('link[rel="icon"]')
   </span>
 
   <span class="developer-tag">
-    Developed by <a href="https://facebook.com/YOUR_PROFILE" target="_blank" rel="noopener noreferrer" id="developerLink" class="dev-link">HASAN HRIDOY</a>
+    Developed by 
+    <a id="devLink" href="https://github.com/hridoyhasan" target="_blank" rel="noopener noreferrer">
+      HRIDOY HASAN
+    </a>
   </span>
 
 </div>
@@ -2710,12 +2780,9 @@ document.querySelector('link[rel="icon"]')
 ===================================================== */
 
 document.getElementById("logo").src = CONFIG.logo;
-
-const drawerLogo = document.getElementById("drawerLogo");
-if(drawerLogo) drawerLogo.src = CONFIG.logo;
-
-const drawerDiscord = document.getElementById("drawerDiscord");
-if(drawerDiscord) drawerDiscord.href = CONFIG.discord;
+if(document.getElementById("drawerLogo")){
+  document.getElementById("drawerLogo").src = CONFIG.logo;
+}
 
 document.getElementById("socialDiscord").href = CONFIG.discord;
 document.getElementById("socialInstagram").href = CONFIG.instagram;
@@ -2727,36 +2794,19 @@ document.getElementById("footerTelegram").href = CONFIG.telegram;
 document.getElementById("footerWhatsapp").href = CONFIG.whatsapp;
 document.getElementById("footerDiscord").href = CONFIG.discord;
 
-/* Set Developer Link */
-const devLink = document.getElementById("developerLink");
-if(devLink){
-  if(CONFIG.developerLink) devLink.href = CONFIG.developerLink;
-  if(CONFIG.developerName) devLink.textContent = CONFIG.developerName;
+if(document.getElementById("drawerDiscordBtn")){
+  document.getElementById("drawerDiscordBtn").href = CONFIG.discord;
+}
+
+/* Apply Developer Attribution & Link */
+const devLinkEl = document.getElementById("devLink");
+if(devLinkEl){
+  devLinkEl.textContent = CONFIG.developerName || "HRIDOY HASAN";
+  devLinkEl.href = CONFIG.developerLink || "#";
 }
 
 if(!CONFIG.showDiscordBox){
   document.getElementById("discordPanel").style.display="none";
-}
-
-
-/* =====================================================
-   MOBILE MENU / DRAWER HANDLER
-===================================================== */
-
-function openMobileMenu(){
-  const drawerBg = document.getElementById("mobileDrawerBg");
-  if(drawerBg){
-    drawerBg.classList.add("show");
-    document.body.style.overflow = "hidden";
-  }
-}
-
-function closeMobileMenu(){
-  const drawerBg = document.getElementById("mobileDrawerBg");
-  if(drawerBg){
-    drawerBg.classList.remove("show");
-    document.body.style.overflow = "";
-  }
 }
 
 
@@ -3675,7 +3725,7 @@ function closePopup(){
 
 
 /* =====================================================
-   UTILITIES
+   UTILITIES & NAVIGATION
 ===================================================== */
 
 function escapeHTML(value){
@@ -3722,6 +3772,23 @@ function scrollToSection(id){
       behavior:"smooth"
     });
 
+}
+
+
+/* =====================================================
+   MOBILE MENU DRAWER HANDLERS
+===================================================== */
+
+function openMobileMenu(){
+  document
+    .getElementById("mobileDrawerBg")
+    .classList.add("show");
+}
+
+function closeMobileMenu(){
+  document
+    .getElementById("mobileDrawerBg")
+    .classList.remove("show");
 }
 
 
@@ -3794,4 +3861,4 @@ loadPopup();
 </script>
 
 </body>
-    </html>
+          </html>
