@@ -1,3908 +1,950 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>CEVIX BAZAR — All in One Shop</title>
-
-<meta name="description"
-      content="100% Authentic Digital Products, Games, OTT, Software and Digital Services.">
-
-<meta name="keywords"
-      content="CEVIX BAZAR, Discord, OTT, Game Top Up, Digital Products, Software">
-
-<meta name="theme-color" content="#ff6500">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="CEVIX BAZAR — All in One Shop">
-<meta property="og:description"
-      content="100% Authentic Digital Products.">
-<meta property="og:image"
-      content="https://YOUR-DOMAIN.COM/meta.jpg">
-
-<link rel="icon"
-      href="https://YOUR-DOMAIN.COM/favicon.png">
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-:root{
-  --orange:#ff6500;
-  --orange2:#ff8a00;
-  --dark:#111827;
-  --text:#172033;
-  --muted:#6b7280;
-  --white:#ffffff;
-  --soft:#fff7f1;
-  --border:#eceff3;
-  --shadow:0 12px 35px rgba(20,30,50,.08);
-  --radius:18px;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:
-  Inter,
-  ui-sans-serif,
-  system-ui,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  sans-serif;
-
-  background:#fff;
-  color:var(--text);
-  overflow-x:hidden;
-}
-
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-/* =========================
-   UNIVERSAL SVG ICON FIX
-========================= */
-
-.icon{
-  width:20px;
-  height:20px;
-  display:inline-block;
-  vertical-align:middle;
-  flex-shrink:0;
-  transition:all .2s ease;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-}
-
-.nav{
-  max-width:1450px;
-  margin:auto;
-  min-height:76px;
-  padding:0 28px;
-
-  display:flex;
-  align-items:center;
-  gap:28px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  min-width:245px;
-}
-
-.brand img{
-  width:46px;
-  height:46px;
-  object-fit:contain;
-}
-
-.brand-text strong{
-  display:block;
-  font-size:22px;
-  font-weight:850;
-  letter-spacing:-.6px;
-}
-
-.brand-text strong span{
-  color:var(--orange);
-}
-
-.brand-text small{
-  color:#6b7280;
-  font-size:12px;
-}
-
-.search{
-  flex:1;
-  max-width:650px;
-  margin:auto;
-
-  height:46px;
-  border:1px solid #e6e8ec;
-  background:#fafafa;
-  border-radius:13px;
-
-  display:flex;
-  align-items:center;
-  padding:0 13px;
-  gap:10px;
-}
-
-.search .icon{
-  color:var(--muted);
-}
-
-.search input{
-  border:0;
-  outline:0;
-  background:transparent;
-  width:100%;
-  color:var(--text);
-}
-
-.search button{
-  width:38px;
-  height:36px;
-  border:0;
-  border-radius:10px;
-  background:var(--orange);
-  color:#fff;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition:background .2s ease;
-}
-
-.search button:hover{
-  background:#e95600;
-}
-
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:4px;
-}
-
-.nav-links a{
-  padding:11px 14px;
-  border-radius:10px;
-  font-size:13px;
-  font-weight:650;
-  white-space:nowrap;
-  transition:all .2s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active{
-  color:#fff;
-  background:var(--orange);
-}
-
-.join-btn{
-  border:0;
-  background:var(--orange);
-  color:#fff;
-  padding:12px 17px;
-  border-radius:12px;
-  font-weight:750;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  transition:background .2s ease;
-}
-
-.join-btn:hover{
-  background:#e95600;
-}
-
-/* HAMBURGER BUTTON */
-.menu-btn{
-  border:1px solid var(--border);
-  background:#fff;
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  color:var(--text);
-  cursor:pointer;
-  transition:all .25s ease;
-  box-shadow:0 3px 10px rgba(0,0,0,.03);
-}
-
-.menu-btn:hover{
-  background:var(--soft);
-  color:var(--orange);
-  border-color:#ffd2b5;
-}
-
-/* =========================
-   MOBILE DRAWER (HAMBURGER)
-========================= */
-
-.drawer-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(10,15,25,.55);
-  backdrop-filter:blur(6px);
-  z-index:3500;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .3s ease, visibility .3s ease;
-}
-
-.drawer-bg.show{
-  opacity:1;
-  visibility:visible;
-}
-
-.drawer{
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  width:min(320px, 85vw);
-  background:#ffffff;
-  box-shadow:-10px 0 35px rgba(0,0,0,.15);
-  display:flex;
-  flex-direction:column;
-  transform:translateX(100%);
-  transition:transform .35s cubic-bezier(.2,.8,.2,1);
-  padding:24px;
-  overflow-y:auto;
-}
-
-.drawer-bg.show .drawer{
-  transform:translateX(0);
-}
-
-.drawer-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-bottom:18px;
-  border-bottom:1px solid var(--border);
-}
-
-.drawer-logo{
-  width:38px;
-  height:38px;
-  object-fit:contain;
-}
-
-.drawer-close{
-  width:36px;
-  height:36px;
-  border:0;
-  background:#f1f3f5;
-  border-radius:10px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  color:var(--text);
-  transition:all .2s ease;
-}
-
-.drawer-close:hover{
-  background:#ffeae0;
-  color:var(--orange);
-}
-
-.drawer-links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:20px;
-  flex:1;
-}
-
-.drawer-links a{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 14px;
-  border-radius:12px;
-  font-weight:700;
-  font-size:14px;
-  color:var(--text);
-  transition:all .2s ease;
-}
-
-.drawer-links a:hover,
-.drawer-links a:active{
-  background:#fff2e8;
-  color:var(--orange);
-}
-
-.drawer-footer{
-  margin-top:24px;
-  padding-top:18px;
-  border-top:1px solid var(--border);
-}
-
-.drawer-join-btn{
-  width:100%;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  background:var(--orange);
-  color:#fff;
-  padding:13px;
-  border-radius:12px;
-  font-weight:750;
-  font-size:13px;
-  transition:background .2s ease;
-}
-
-.drawer-join-btn:hover{
-  background:#e95600;
-}
-
-/* =========================
-   PAGE
-========================= */
-
-.page{
-  max-width:1450px;
-  margin:auto;
-  padding:22px 28px 0;
-}
-
-.main-grid{
-  display:grid;
-  grid-template-columns:220px minmax(0,1fr) 275px;
-  gap:16px;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:#fff;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  height:max-content;
-  position:sticky;
-  top:96px;
-}
-
-.side-title{
-  padding:18px;
-  font-size:15px;
-  font-weight:800;
-  color:var(--orange);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.category-list{
-  padding:8px;
-}
-
-.category-btn{
-  width:100%;
-  border:0;
-  background:transparent;
-  text-align:left;
-
-  padding:12px 11px;
-  border-radius:11px;
-
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  color:#334155;
-  font-size:13px;
-  cursor:pointer;
-  transition:all .2s ease;
-}
-
-.category-btn:hover,
-.category-btn.active{
-  background:#fff2e8;
-  color:var(--orange);
-  font-weight:700;
-}
-
-.category-arrow{
-  margin-left:auto;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  min-height:310px;
-  border-radius:20px;
-  overflow:hidden;
-  position:relative;
-  background:#ff6500;
-  box-shadow:var(--shadow);
-}
-
-.hero-track{
-  height:100%;
-  display:flex;
-  transition:transform .6s cubic-bezier(.2,.8,.2,1);
-}
-
-.hero-slide{
-  min-width:100%;
-  min-height:310px;
-  position:relative;
-  background-size:cover;
-  background-position:center;
-}
-
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    90deg,
-    rgba(185,55,0,.9),
-    rgba(255,101,0,.38),
-    rgba(0,0,0,0)
-  );
-}
-
-.hero-content{
-  position:absolute;
-  inset:0;
-  padding:45px;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:flex-start;
-}
-
-.hero-content h1{
-  font-size:46px;
-  line-height:1;
-  letter-spacing:-2px;
-  max-width:580px;
-}
-
-.hero-content p{
-  margin-top:13px;
-  font-size:17px;
-  max-width:540px;
-}
-
-.hero-btn{
-  margin-top:24px;
-  background:#fff;
-  color:var(--orange);
-  border:0;
-  padding:13px 21px;
-  border-radius:11px;
-  font-weight:800;
-  transition:all .2s ease;
-}
-
-.hero-btn:hover{
-  background:#fff0e6;
-  transform:translateY(-2px);
-}
-
-.slider-dots{
-  position:absolute;
-  bottom:17px;
-  left:45px;
-  display:flex;
-  gap:6px;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:rgba(255,255,255,.55);
-  transition:all .3s ease;
-}
-
-.dot.active{
-  width:24px;
-  border-radius:10px;
-  background:#fff;
-}
-
-/* =========================
-   SECTION
-========================= */
-
-.section{
-  margin-top:25px;
-}
-
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:13px;
-}
-
-.section-head h2{
-  font-size:21px;
-  letter-spacing:-.4px;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.view-all{
-  color:var(--orange);
-  font-size:13px;
-  font-weight:750;
-  transition:opacity .2s;
-}
-
-.view-all:hover{
-  opacity:.8;
-}
-
-/* =========================
-   PRODUCTS
-========================= */
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-}
-
-.product{
-  position:relative;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:#fff;
-  overflow:hidden;
-  box-shadow:0 7px 22px rgba(0,0,0,.045);
-  cursor:pointer;
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    border-color .3s ease;
-
-  animation:fadeUp .65s both;
-}
-
-.product:hover{
-  transform:translateY(-7px);
-  border-color:#ffd2b5;
-  box-shadow:0 18px 40px rgba(255,101,0,.12);
-}
-
-.product-image{
-  height:175px;
-  padding:10px;
-  position:relative;
-}
-
-.product-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:11px;
-  background:#f4f5f7;
-}
-
-.tag{
-  position:absolute;
-  left:17px;
-  top:17px;
-
-  padding:5px 9px;
-  border-radius:7px;
-
-  background:var(--orange);
-  color:#fff;
-
-  font-size:10px;
-  font-weight:800;
-  z-index:2;
-}
-
-.product-info{
-  padding:3px 14px 14px;
-}
-
-.product-name{
-  font-size:14px;
-  font-weight:800;
-  line-height:1.35;
-  min-height:38px;
-}
-
-.category-label{
-  display:inline-block;
-  margin-top:7px;
-
-  background:#fff0e7;
-  color:var(--orange);
-
-  border-radius:6px;
-  padding:4px 7px;
-
-  font-size:10px;
-  font-weight:750;
-}
-
-.rating{
-  margin-top:9px;
-  font-size:11px;
-  color:#64748b;
-  display:flex;
-  align-items:center;
-  gap:3px;
-}
-
-.price-row{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:10px;
-}
-
-.price{
-  font-size:18px;
-  font-weight:850;
-}
-
-.old-price{
-  margin-left:5px;
-  font-size:11px;
-  color:#9ca3af;
-  text-decoration:line-through;
-}
-
-.reseller{
-  margin-top:5px;
-  font-size:10px;
-  color:#16a34a;
-  font-weight:750;
-}
-
-.details-btn{
-  width:100%;
-  border:0;
-  background:var(--orange);
-  color:#fff;
-
-  padding:10px;
-  margin-top:12px;
-
-  border-radius:9px;
-  font-size:12px;
-  font-weight:800;
-  transition:background .2s ease;
-}
-
-.details-btn:hover{
-  background:#e95600;
-}
-
-/* =========================
-   RIGHT PANEL
-========================= */
-
-.right-panel{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-.panel{
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:#fff;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.panel-title{
-  padding:15px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:14px;
-  font-weight:800;
-}
-
-.notice{
-  padding:15px;
-}
-
-.notice img{
-  width:65px;
-  height:65px;
-  object-fit:cover;
-  border-radius:11px;
-  float:left;
-  margin-right:11px;
-}
-
-.notice h4{
-  font-size:13px;
-}
-
-.notice p{
-  font-size:11px;
-  color:#64748b;
-  line-height:1.5;
-  margin-top:5px;
-}
-
-.notice-btn{
-  display:inline-block;
-  margin-top:12px;
-  background:var(--orange);
-  color:#fff;
-  padding:8px 12px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:750;
-  transition:background .2s;
-}
-
-.notice-btn:hover{
-  background:#e95600;
-}
-
-/* =========================
-   QUICK CATEGORIES
-========================= */
-
-.quick-categories{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
-
-.quick{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:15px 8px;
-  text-align:center;
-  background:#fff;
-  cursor:pointer;
-  transition:.25s ease;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-
-.quick:hover{
-  transform:translateY(-4px);
-  border-color:#ffc49f;
-  box-shadow:var(--shadow);
-}
-
-.quick .icon{
-  color:var(--orange);
-  width:24px;
-  height:24px;
-}
-
-.quick span{
-  display:block;
-  margin-top:8px;
-  font-size:11px;
-  font-weight:700;
-}
-
-/* =========================
-   TRUST BAR
-========================= */
-
-.trust{
-  margin-top:22px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-
-  border:1px solid #ffd9c1;
-  background:#fff9f5;
-  border-radius:15px;
-  overflow:hidden;
-}
-
-.trust-item{
-  padding:17px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  border-right:1px solid #ffe4d4;
-}
-
-.trust-item:last-child{
-  border:0;
-}
-
-.trust-item .icon{
-  color:var(--orange);
-  width:24px;
-  height:24px;
-}
-
-.trust-item strong{
-  display:block;
-  font-size:12px;
-}
-
-.trust-item small{
-  color:#78828f;
-  font-size:10px;
-}
-
-/* =========================
-   CTA
-========================= */
-
-.cta{
-  margin-top:23px;
-  min-height:125px;
-
-  border-radius:17px;
-  overflow:hidden;
-  position:relative;
-
-  background:
-    linear-gradient(
-      110deg,
-      #ff5b00,
-      #ff8a00
-    );
-
-  color:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:25px 35px;
-}
-
-.cta h2{
-  font-size:27px;
-}
-
-.cta p{
-  font-size:12px;
-  margin-top:5px;
-}
-
-.cta button{
-  border:0;
-  padding:12px 18px;
-  background:#fff;
-  color:var(--orange);
-  border-radius:10px;
-  font-weight:800;
-  transition:all .2s ease;
-}
-
-.cta button:hover{
-  background:#fff3eb;
-  transform:scale(1.03);
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(10,15,25,.62);
-  backdrop-filter:blur(8px);
-
-  display:none;
-  align-items:center;
-  justify-content:center;
-
-  padding:20px;
-  z-index:3000;
-}
-
-.modal-bg.show{
-  display:flex;
-}
-
-.modal{
-  width:min(900px,100%);
-  max-height:90vh;
-  overflow:auto;
-
-  background:#fff;
-  border-radius:22px;
-
-  box-shadow:
-    0 30px 100px rgba(0,0,0,.25);
-
-  animation:modalIn .3s ease;
-}
-
-.modal-top{
-  padding:18px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-}
-
-.close{
-  border:0;
-  background:#f4f5f6;
-  width:35px;
-  height:35px;
-  border-radius:10px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition:all .2s ease;
-  color:var(--text);
-}
-
-.close:hover{
-  background:#e2e8f0;
-  color:var(--orange);
-}
-
-.modal-body{
-  display:grid;
-  grid-template-columns:45% 55%;
-}
-
-.modal-image{
-  padding:25px;
-}
-
-.modal-image img{
-  width:100%;
-  height:360px;
-  object-fit:cover;
-  border-radius:15px;
-  background:#f5f5f5;
-}
-
-.modal-info{
-  padding:28px 28px 30px 0;
-}
-
-.modal-info h2{
-  font-size:27px;
-}
-
-.modal-desc{
-  margin-top:15px;
-  color:#64748b;
-  line-height:1.7;
-  font-size:13px;
-}
-
-.modal-meta{
-  margin-top:17px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.meta-tag{
-  padding:6px 9px;
-  background:#fff1e8;
-  color:var(--orange);
-  border-radius:7px;
-  font-size:10px;
-  font-weight:750;
-}
-
-.modal-price{
-  margin-top:20px;
-  font-size:28px;
-  font-weight:900;
-}
-
-.buy-main{
-  width:100%;
-  border:0;
-  background:var(--orange);
-  color:#fff;
-  padding:14px;
-  border-radius:11px;
-  margin-top:18px;
-  font-weight:850;
-  transition:background .2s;
-}
-
-.buy-main:hover{
-  background:#e95600;
-}
-
-.contact-buttons{
-  display:none;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-
-.contact-buttons.show{
-  display:grid;
-}
-
-.contact{
-  border:0;
-  color:#fff;
-  padding:11px 5px;
-  border-radius:9px;
-  font-size:11px;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  transition:opacity .2s;
-}
-
-.contact:hover{
-  opacity:.9;
-}
-
-.telegram{
-  background:#229ed9;
-}
-
-.whatsapp{
-  background:#20b858;
-}
-
-.discord{
-  background:#5865f2;
-}
-
-/* =========================
-   POPUP
-========================= */
-
-.popup-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(5px);
-
-  display:none;
-  align-items:center;
-  justify-content:center;
-
-  z-index:4000;
-  padding:20px;
-}
-
-.popup-bg.show{
-  display:flex;
-}
-
-.popup{
-  width:min(470px,100%);
-  background:#fff;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.3);
-  animation:modalIn .35s ease;
-}
-
-.popup-image{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-}
-
-.popup-content{
-  padding:23px;
-}
-
-.popup-content h2{
-  font-size:22px;
-}
-
-.popup-content p{
-  margin-top:8px;
-  color:#64748b;
-  line-height:1.6;
-  font-size:13px;
-}
-
-.popup-actions{
-  margin-top:18px;
-  display:flex;
-  gap:8px;
-}
-
-.popup-actions button{
-  flex:1;
-  border:0;
-  border-radius:9px;
-  padding:11px;
-  font-weight:800;
-}
-
-.popup-close{
-  background:#f3f4f6;
-}
-
-.popup-link{
-  background:var(--orange);
-  color:#fff;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-  margin-top:45px;
-  background:#15191f;
-  color:#fff;
-}
-
-.footer-inner{
-  max-width:1450px;
-  margin:auto;
-  padding:45px 28px;
-
-  display:grid;
-  grid-template-columns:1.6fr 1fr 1.3fr 1fr 1.2fr;
-  gap:35px;
-}
-
-.footer-brand{
-  font-size:20px;
-  font-weight:850;
-}
-
-.footer-brand span{
-  color:#ff741d;
-}
-
-.footer p{
-  color:#9da5b1;
-  font-size:11px;
-  line-height:1.7;
-  margin-top:10px;
-}
-
-.footer h4{
-  font-size:13px;
-  margin-bottom:13px;
-}
-
-.footer a{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  color:#aeb5bf;
-  font-size:11px;
-  margin-top:8px;
-  transition:all .2s ease;
-}
-
-.footer a:hover{
-  color:#ff741d;
-  transform:translateX(3px);
-}
-
-.socials{
-  display:flex;
-  gap:8px;
-  margin-top:13px;
-}
-
-.socials a{
-  width:32px;
-  height:32px;
-  border:1px solid #343a42;
-  border-radius:8px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin:0;
-  color:#aeb5bf;
-  transition:all .25s ease;
-}
-
-.socials a:hover{
-  border-color:var(--orange);
-  background:rgba(255,101,0,.15);
-  color:#ff741d;
-  transform:translateY(-3px);
-}
-
-.socials a .icon{
-  width:16px;
-  height:16px;
-}
-
-.payment-icons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-
-.payment{
-  padding:8px 10px;
-  background:#252b33;
-  border-radius:7px;
-  font-size:10px;
-}
-
-/* FOOTER BOTTOM & DEVELOPER TAG */
-.footer-bottom{
-  border-top:1px solid #2c323a;
-  padding:16px 28px;
-  max-width:1450px;
-  margin:auto;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  color:#89919d;
-  font-size:11px;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.developer-tag{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  font-weight:500;
-}
-
-.developer-tag a{
-  color:var(--orange);
-  font-weight:800;
-  text-decoration:none;
-  padding:5px 11px;
-  border-radius:8px;
-  background:rgba(255,101,0,.12);
-  border:1px solid rgba(255,101,0,.3);
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  transition:all .25s ease;
-}
-
-.developer-tag a:hover{
-  background:var(--orange);
-  color:#ffffff;
-  transform:translateY(-2px);
-  box-shadow:0 4px 14px rgba(255,101,0,.35);
-}
-
-/* =========================
-   MOBILE BOTTOM
-========================= */
-
-.mobile-nav{
-  display:none;
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(25px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes modalIn{
-  from{
-    opacity:0;
-    transform:scale(.94) translateY(15px);
-  }
-  to{
-    opacity:1;
-    transform:scale(1) translateY(0);
-  }
-}
-
-.reveal{
-  opacity:0;
-  transform:translateY(25px);
-  transition:.7s ease;
-}
-
-.reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* =========================
-   TABLET
-========================= */
-
-@media(max-width:1150px){
-
-  .main-grid{
-    grid-template-columns:190px 1fr;
-  }
-
-  .right-panel{
-    display:none;
-  }
-
-  .products{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .nav-links,
-  .join-btn{
-    display:none;
-  }
-
-  .menu-btn{
-    display:inline-flex;
-    margin-left:auto;
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:720px){
-
-  body{
-    padding-bottom:65px;
-  }
-
-  .nav{
-    min-height:65px;
-    padding:8px 14px;
-    gap:10px;
-  }
-
-  .brand{
-    min-width:auto;
-    gap:7px;
-  }
-
-  .brand img{
-    width:37px;
-    height:37px;
-  }
-
-  .brand-text strong{
-    font-size:17px;
-  }
-
-  .brand-text small{
-    font-size:9px;
-  }
-
-  .search{
-    order:3;
-    position:absolute;
-    top:70px;
-    left:12px;
-    right:12px;
-    max-width:none;
-    height:43px;
-  }
-
-  .join-btn{
-    display:none;
-  }
-
-  .menu-btn{
-    display:inline-flex;
-    width:38px;
-    height:38px;
-    margin-left:auto;
-  }
-
-  .page{
-    padding:62px 12px 0;
-  }
-
-  .main-grid{
-    display:block;
-  }
-
-  .sidebar{
-    display:none;
-  }
-
-  .hero{
-    min-height:230px;
-    border-radius:15px;
-  }
-
-  .hero-slide{
-    min-height:230px;
-  }
-
-  .hero-content{
-    padding:25px;
-  }
-
-  .hero-content h1{
-    font-size:31px;
-    letter-spacing:-1.2px;
-  }
-
-  .hero-content p{
-    font-size:12px;
-  }
-
-  .hero-btn{
-    margin-top:15px;
-    padding:10px 14px;
-    font-size:11px;
-  }
-
-  .slider-dots{
-    left:25px;
-  }
-
-  .quick-categories{
-    display:flex;
-    overflow-x:auto;
-    padding-bottom:5px;
-    scrollbar-width:none;
-  }
-
-  .quick{
-    min-width:100px;
-  }
-
-  .section{
-    margin-top:20px;
-  }
-
-  .section-head h2{
-    font-size:18px;
-  }
-
-  .products{
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
-  }
-
-  .product{
-    border-radius:13px;
-  }
-
-  .product-image{
-    height:135px;
-    padding:7px;
-  }
-
-  .product-info{
-    padding:2px 9px 10px;
-  }
-
-  .product-name{
-    font-size:12px;
-    min-height:34px;
-  }
-
-  .price{
-    font-size:15px;
-  }
-
-  .details-btn{
-    padding:9px 5px;
-    font-size:10px;
-  }
-
-  .trust{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .trust-item{
-    padding:13px 10px;
-  }
-
-  .trust-item:nth-child(2){
-    border-right:0;
-  }
-
-  .trust-item:nth-child(-n+2){
-    border-bottom:1px solid #ffe4d4;
-  }
-
-  .cta{
-    min-height:150px;
-    padding:22px;
-    display:block;
-  }
-
-  .cta h2{
-    font-size:22px;
-  }
-
-  .cta button{
-    margin-top:15px;
-  }
-
-  .modal-bg{
-    padding:10px;
-    align-items:flex-end;
-  }
-
-  .modal{
-    max-height:94vh;
-    border-radius:20px 20px 0 0;
-  }
-
-  .modal-body{
-    display:block;
-  }
-
-  .modal-image{
-    padding:13px;
-  }
-
-  .modal-image img{
-    height:240px;
-  }
-
-  .modal-info{
-    padding:0 17px 22px;
-  }
-
-  .modal-info h2{
-    font-size:21px;
-  }
-
-  .modal-price{
-    font-size:23px;
-  }
-
-  .contact-buttons{
-    grid-template-columns:1fr;
-  }
-
-  .footer{
-    margin-top:30px;
-  }
-
-  .footer-inner{
-    grid-template-columns:1fr 1fr;
-    gap:25px 20px;
-    padding:30px 18px;
-  }
-
-  .footer-inner > div:first-child{
-    grid-column:1/-1;
-  }
-
-  .footer-bottom{
-    padding:13px 18px;
-    display:flex;
-    flex-direction:column;
-    text-align:center;
-    gap:10px;
-  }
-
-  .mobile-nav{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    height:62px;
-
-    background:rgba(255,255,255,.97);
-    backdrop-filter:blur(15px);
-
-    border-top:1px solid var(--border);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-
-    z-index:2000;
-  }
-
-  .mobile-nav button{
-    border:0;
-    background:transparent;
-    color:#6b7280;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:3px;
-
-    font-size:9px;
-    font-weight:700;
-  }
-
-  .mobile-nav button.active{
-    color:var(--orange);
-  }
-
-  .mobile-nav .icon{
-    width:20px;
-    height:20px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- =====================================================
-     100% WORKING SVG ICON SYSTEM (TOP LOADED)
-===================================================== -->
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;" aria-hidden="true">
-
-  <!-- Search -->
-  <symbol id="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"/>
-    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-  </symbol>
-
-  <!-- Hamburger Menu -->
-  <symbol id="menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="3" y1="12" x2="21" y2="12"/>
-    <line x1="3" y1="6" x2="21" y2="6"/>
-    <line x1="3" y1="18" x2="21" y2="18"/>
-  </symbol>
-
-  <!-- Close -->
-  <symbol id="close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"/>
-    <line x1="6" y1="6" x2="18" y2="18"/>
-  </symbol>
-
-  <!-- Grid / Category -->
-  <symbol id="grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="3" width="7" height="7" rx="1"/>
-    <rect x="14" y="3" width="7" height="7" rx="1"/>
-    <rect x="14" y="14" width="7" height="7" rx="1"/>
-    <rect x="3" y="14" width="7" height="7" rx="1"/>
-  </symbol>
-
-  <!-- Fire / Featured -->
-  <symbol id="fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-  </symbol>
-
-  <!-- Shield -->
-  <symbol id="shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    <polyline points="9 12 11 14 15 10"/>
-  </symbol>
-
-  <!-- Truck / Delivery -->
-  <symbol id="truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="1" y="3" width="15" height="13" rx="1"/>
-    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-    <circle cx="5.5" cy="18.5" r="2.5"/>
-    <circle cx="18.5" cy="18.5" r="2.5"/>
-  </symbol>
-
-  <!-- Support Headset -->
-  <symbol id="support" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-  </symbol>
-
-  <!-- Lock -->
-  <symbol id="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-  </symbol>
-
-  <!-- Bell -->
-  <symbol id="bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  </symbol>
-
-  <!-- Trophy -->
-  <symbol id="trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-    <path d="M4 22h16"/>
-    <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/>
-    <path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/>
-  </symbol>
-
-  <!-- Home -->
-  <symbol id="homeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    <polyline points="9 22 9 12 15 12 15 22"/>
-  </symbol>
-
-  <!-- Bag / Shop -->
-  <symbol id="bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-    <line x1="3" y1="6" x2="21" y2="6"/>
-    <path d="M16 10a4 4 0 0 1-8 0"/>
-  </symbol>
-
-  <!-- Star -->
-  <symbol id="star" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </symbol>
-
-  <!-- External Link -->
-  <symbol id="external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-    <polyline points="15 3 21 3 21 9"/>
-    <line x1="10" y1="14" x2="21" y2="3"/>
-  </symbol>
-
-  <!-- Discord (Official Silhouette) -->
-  <symbol id="discord" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-  </symbol>
-
-  <!-- Instagram -->
-  <symbol id="instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-  </symbol>
-
-  <!-- Facebook (Official Silhouette) -->
-  <symbol id="facebook" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-  </symbol>
-
-  <!-- YouTube (Official Silhouette) -->
-  <symbol id="youtube" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-  </symbol>
-
-  <!-- Telegram (Official Silhouette) -->
-  <symbol id="telegram" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/>
-  </symbol>
-
-  <!-- WhatsApp (Official Silhouette) -->
-  <symbol id="whatsapp" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12.031 0C5.396 0 .029 5.367.029 11.987c0 2.115.553 4.178 1.602 5.999L0 24l6.195-1.625c1.748.953 3.722 1.455 5.836 1.455 6.633 0 12.002-5.367 12.002-11.988C24.033 5.367 18.664 0 12.031 0zm.019 21.948c-1.802 0-3.567-.484-5.111-1.402l-.367-.218-3.799.996 1.014-3.704-.24-.383a9.923 9.923 0 0 1-1.528-5.25c0-5.503 4.478-9.98 9.99-9.98 5.513 0 9.99 4.477 9.99 9.98 0 5.504-4.477 9.98-9.949 9.98zm5.474-7.487c-.3-.15-1.774-.875-2.05-.975-.274-.1-.474-.15-.674.15-.2.3-.774.975-.95 1.175-.175.2-.35.225-.65.075-.3-.15-1.267-.467-2.414-1.49-.893-.796-1.496-1.78-1.671-2.08-.175-.3-.019-.462.131-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525s-.675-1.625-.925-2.225c-.244-.585-.493-.505-.675-.515-.175-.008-.375-.01-.575-.01s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.124 4.53.716.31 1.275.495 1.71.634.72.228 1.375.196 1.893.118.577-.087 1.774-.725 2.024-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35z"/>
-  </symbol>
-
-</svg>
-
-
-<!-- =====================================================
-     CONFIG
-===================================================== -->
-
-<script>
-const CONFIG = {
-
-  brandName: "CEVIX BAZAR",
-  brandTagline: "All in One Shop",
-
-  logo:
-    "https://YOUR-DOMAIN.COM/logo.png",
-
-  favicon:
-    "https://YOUR-DOMAIN.COM/favicon.png",
-
-  metaTitle:
-    "CEVIX BAZAR — All in One Shop",
-
-  metaDescription:
-    "100% Authentic Digital Products, Games, OTT, Software and Digital Services.",
-
-  metaImage:
-    "https://YOUR-DOMAIN.COM/meta.jpg",
-
-  developerName:
-    "HRIDOY HASAN",
-
-  developerLink:
-    "https://github.com/hridoyhasan", // আপনার পছন্দের লিংক দিন
-
-  productSheetID:
-    "YOUR_GOOGLE_SHEET_ID",
-
-  productSheetName:
-    "Products",
-
-  bannerSheetID:
-    "YOUR_GOOGLE_SHEET_ID",
-
-  bannerSheetName:
-    "Banners",
-
-  popupSheetID:
-    "YOUR_GOOGLE_SHEET_ID",
-
-  popupSheetName:
-    "Popup",
-
-  telegram:
-    "https://t.me/YOUR_USERNAME",
-
-  whatsapp:
-    "https://wa.me/8801XXXXXXXXX",
-
-  discord:
-    "https://discord.gg/YOURSERVER",
-
-  instagram:
-    "https://instagram.com/YOUR_USERNAME",
-
-  facebook:
-    "https://facebook.com/YOUR_PAGE",
-
-  youtube:
-    "https://youtube.com/@YOUR_CHANNEL",
-
-  telegramChannel:
-    "https://t.me/YOUR_CHANNEL",
-
-  currency:
-    "৳",
-
-  showResellerPrice:true,
-  showPopup:true,
-  showBanner:true,
-  showDiscordBox:true
-};
-
-
-/* Update browser SEO */
-document.title = CONFIG.metaTitle;
-
-document.querySelector('meta[name="description"]')
-.setAttribute("content", CONFIG.metaDescription);
-
-document.querySelector('meta[property="og:title"]')
-.setAttribute("content", CONFIG.metaTitle);
-
-document.querySelector('meta[property="og:description"]')
-.setAttribute("content", CONFIG.metaDescription);
-
-document.querySelector('meta[property="og:image"]')
-.setAttribute("content", CONFIG.metaImage);
-
-document.querySelector('link[rel="icon"]')
-.setAttribute("href", CONFIG.favicon);
-</script>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-<nav class="nav">
-
-  <a class="brand" href="#home">
-
-    <img
-      id="logo"
-      src="https://YOUR-DOMAIN.COM/logo.png"
-      alt="Logo">
-
-    <div class="brand-text">
-      <strong>
-        CEVIX <span>BAZAR</span>
-      </strong>
-      <small>All in One Shop</small>
-    </div>
-
-  </a>
-
-
-  <div class="search">
-
-    <svg class="icon">
-      <use href="#search" xlink:href="#search"/>
-    </svg>
-
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search for products, services...">
-
-    <button id="searchButton" aria-label="Search">
-
-      <svg class="icon">
-        <use href="#search" xlink:href="#search"/>
-      </svg>
-
-    </button>
-
-  </div>
-
-
-  <div class="nav-links">
-
-    <a class="active" href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#categories">Categories</a>
-    <a href="#support">Support</a>
-    <a href="#about">About</a>
-    <a href="#terms">Terms</a>
-
-  </div>
-
-
-  <a
-    class="join-btn"
-    href="https://discord.gg/YOURSERVER"
-    target="_blank">
-
-    <svg class="icon">
-      <use href="#discord" xlink:href="#discord"/>
-    </svg>
-
-    Join Discord
-
-  </a>
-
-
-  <!-- HAMBURGER BUTTON -->
-  <button
-    class="menu-btn"
-    aria-label="Open Navigation Menu"
-    onclick="openMobileMenu()">
-
-    <svg class="icon">
-      <use href="#menu" xlink:href="#menu"/>
-    </svg>
-
-  </button>
-
-</nav>
-
-</header>
-
-
-<!-- =====================================================
-     MOBILE DRAWER (HAMBURGER MENU)
-===================================================== -->
-
-<div
-  id="mobileDrawerBg"
-  class="drawer-bg"
-  onclick="closeMobileMenu()">
-
-  <div
-    class="drawer"
-    onclick="event.stopPropagation()">
-
-    <div class="drawer-top">
-
-      <div class="brand">
-
-        <img
-          id="drawerLogo"
-          src="https://YOUR-DOMAIN.COM/logo.png"
-          alt="Logo"
-          class="drawer-logo">
-
-        <div class="brand-text">
-          <strong>CEVIX <span>BAZAR</span></strong>
-          <small>All in One Shop</small>
-        </div>
-
-      </div>
-
-      <button
-        class="drawer-close"
-        onclick="closeMobileMenu()"
-        aria-label="Close Menu">
-
-        <svg class="icon">
-          <use href="#close" xlink:href="#close"/>
-        </svg>
-
-      </button>
-
-    </div>
-
-    <div class="drawer-links">
-
-      <a href="#home" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#homeIcon" xlink:href="#homeIcon"/></svg>
-        Home
-      </a>
-
-      <a href="#shop" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#bag" xlink:href="#bag"/></svg>
-        Shop
-      </a>
-
-      <a href="#categories" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#grid" xlink:href="#grid"/></svg>
-        Categories
-      </a>
-
-      <a href="#support" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#support" xlink:href="#support"/></svg>
-        Support
-      </a>
-
-      <a href="#about" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#shield" xlink:href="#shield"/></svg>
-        About Us
-      </a>
-
-      <a href="#terms" onclick="closeMobileMenu()">
-        <svg class="icon"><use href="#lock" xlink:href="#lock"/></svg>
-        Terms & Conditions
-      </a>
-
-    </div>
-
-    <div class="drawer-footer">
-
-      <a
-        id="drawerDiscordBtn"
-        class="drawer-join-btn"
-        href="https://discord.gg/YOURSERVER"
-        target="_blank">
-
-        <svg class="icon"><use href="#discord" xlink:href="#discord"/></svg>
-        Join Discord Community
-
-      </a>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     PAGE
-===================================================== -->
-
-<main class="page" id="home">
-
-<div class="main-grid">
-
-
-<!-- =====================================================
-     CATEGORY SIDEBAR
-===================================================== -->
-
-<aside class="sidebar">
-
-  <div class="side-title">
-
-    <svg class="icon">
-      <use href="#grid" xlink:href="#grid"/>
-    </svg>
-
-    Categories
-
-  </div>
-
-  <div
-    id="categoryList"
-    class="category-list">
-
-  </div>
-
-</aside>
-
-
-<!-- =====================================================
-     CENTER
-===================================================== -->
-
-<section>
-
-
-<!-- HERO -->
-
-<div
-  id="hero"
-  class="hero">
-
-  <div
-    id="heroTrack"
-    class="hero-track">
-
-  </div>
-
-  <div
-    id="sliderDots"
-    class="slider-dots">
-
-  </div>
-
-</div>
-
-
-<!-- QUICK CATEGORY -->
-
-<div
-  id="categories"
-  class="section">
-
-  <div
-    id="quickCategories"
-    class="quick-categories">
-
-  </div>
-
-</div>
-
-
-<!-- FEATURED -->
-
-<div
-  id="shop"
-  class="section reveal">
-
-  <div class="section-head">
-
-    <h2>
-      <svg
-        class="icon"
-        style="color:#ff6500">
-        <use href="#fire" xlink:href="#fire"/>
-      </svg>
-
-      Featured Products
-    </h2>
-
-    <a
-      href="#"
-      class="view-all"
-      onclick="showAllProducts(event)">
-      View All
-    </a>
-
-  </div>
-
-  <div
-    id="productGrid"
-    class="products">
-
-  </div>
-
-</div>
-
-
-<!-- TRUST -->
-
-<div class="trust reveal">
-
-  <div class="trust-item">
-
-    <svg class="icon">
-      <use href="#shield" xlink:href="#shield"/>
-    </svg>
-
-    <div>
-      <strong>100% Authentic</strong>
-      <small>Original products only</small>
-    </div>
-
-  </div>
-
-
-  <div class="trust-item">
-
-    <svg class="icon">
-      <use href="#truck" xlink:href="#truck"/>
-    </svg>
-
-    <div>
-      <strong>Instant Delivery</strong>
-      <small>Get your product quickly</small>
-    </div>
-
-  </div>
-
-
-  <div class="trust-item">
-
-    <svg class="icon">
-      <use href="#support" xlink:href="#support"/>
-    </svg>
-
-    <div>
-      <strong>24/7 Support</strong>
-      <small>We are always here</small>
-    </div>
-
-  </div>
-
-
-  <div class="trust-item">
-
-    <svg class="icon">
-      <use href="#lock" xlink:href="#lock"/>
-    </svg>
-
-    <div>
-      <strong>Secure Payment</strong>
-      <small>Safe & trusted gateway</small>
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- CTA -->
-
-<div class="cta reveal">
-
-  <div>
-
-    <h2>
-      Level Up Your Experience
-    </h2>
-
-    <p>
-      Games, OTT, Software, Digital Services & More...
-    </p>
-
-  </div>
-
-  <button onclick="showAllProducts()">
-    Explore All Categories →
-  </button>
-
-</div>
-
-
-</section>
-
-
-<!-- =====================================================
-     RIGHT SIDE
-===================================================== -->
-
-<aside class="right-panel">
-
-
-<!-- NOTICE -->
-
-<div class="panel">
-
-  <div class="panel-title">
-
-    <svg
-      class="icon"
-      style="color:#ff6500">
-
-      <use href="#bell" xlink:href="#bell"/>
-
-    </svg>
-
-    Special Notice
-
-  </div>
-
-  <div
-    id="noticeBox"
-    class="notice">
-
-    Loading...
-
-  </div>
-
-</div>
-
-
-<!-- TOP SELLER -->
-
-<div class="panel">
-
-  <div class="panel-title">
-
-    <svg class="icon">
-      <use href="#trophy" xlink:href="#trophy"/>
-    </svg>
-
-    Top Sellers
-
-  </div>
-
-  <div
-    id="topSeller"
-    class="notice">
-
-    <p>
-      Products are loading...
-    </p>
-
-  </div>
-
-</div>
-
-
-<!-- DISCORD -->
-
-<div
-  class="panel"
-  id="discordPanel">
-
-  <div class="panel-title">
-
-    <svg class="icon">
-      <use href="#discord" xlink:href="#discord"/>
-    </svg>
-
-    Discord Community
-
-  </div>
-
-  <div class="notice">
-
-    <h4>CEVIX BAZAR</h4>
-
-    <p>
-      Official Community Server<br>
-      Shop • Support • Giveaways
-    </p>
-
-    <a
-      class="notice-btn"
-      href="https://discord.gg/YOURSERVER"
-      target="_blank">
-
-      Join Now →
-
-    </a>
-
-  </div>
-
-</div>
-
-
-</aside>
-
-</div>
-
-</main>
-
-
-<!-- =====================================================
-     PRODUCT MODAL
-===================================================== -->
-
-<div
-  id="productModal"
-  class="modal-bg">
-
-  <div class="modal">
-
-    <div class="modal-top">
-
-      <strong>
-        Product Details
-      </strong>
-
-      <button
-        class="close"
-        onclick="closeProduct()"
-        aria-label="Close Product Details">
-
-        <svg class="icon">
-          <use href="#close" xlink:href="#close"/>
-        </svg>
-
-      </button>
-
-    </div>
-
-
-    <div class="modal-body">
-
-      <div class="modal-image">
-
-        <img
-          id="modalImage"
-          src=""
-          alt="Product">
-
-      </div>
-
-
-      <div class="modal-info">
-
-        <h2 id="modalName"></h2>
-
-        <div
-          id="modalCategory"
-          class="category-label">
-        </div>
-
-        <p
-          id="modalDescription"
-          class="modal-desc">
-        </p>
-
-        <div
-          id="modalTags"
-          class="modal-meta">
-        </div>
-
-        <div
-          id="modalPrice"
-          class="modal-price">
-        </div>
-
-        <div
-          id="modalReseller"
-          class="reseller">
-        </div>
-
-
-        <button
-          id="buyButton"
-          class="buy-main"
-          onclick="showContacts()">
-
-          Buy Now
-
-        </button>
-
-
-        <div
-          id="contactButtons"
-          class="contact-buttons">
-
-          <button
-            class="contact telegram"
-            onclick="contactSeller('telegram')">
-
-            <svg class="icon" style="width:16px;height:16px;">
-              <use href="#telegram" xlink:href="#telegram"/>
-            </svg>
-            Telegram
-
-          </button>
-
-          <button
-            class="contact whatsapp"
-            onclick="contactSeller('whatsapp')">
-
-            <svg class="icon" style="width:16px;height:16px;">
-              <use href="#whatsapp" xlink:href="#whatsapp"/>
-            </svg>
-            WhatsApp
-
-          </button>
-
-          <button
-            class="contact discord"
-            onclick="contactSeller('discord')">
-
-            <svg class="icon" style="width:16px;height:16px;">
-              <use href="#discord" xlink:href="#discord"/>
-            </svg>
-            Discord
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     POPUP
-===================================================== -->
-
-<div
-  id="popupBg"
-  class="popup-bg">
-
-  <div class="popup">
-
-    <img
-      id="popupImage"
-      class="popup-image"
-      src=""
-      alt="Notice">
-
-    <div class="popup-content">
-
-      <h2 id="popupTitle"></h2>
-
-      <p id="popupText"></p>
-
-      <div class="popup-actions">
-
-        <button
-          class="popup-close"
-          onclick="closePopup()">
-
-          Close
-
-        </button>
-
-        <button
-          id="popupLink"
-          class="popup-link">
-
-          View Details
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer
-  class="footer"
-  id="about">
-
-<div class="footer-inner">
-
-
-<div>
-
-  <div class="footer-brand">
-    CEVIX <span>BAZAR</span>
-  </div>
-
-  <p>
-    Your trusted digital marketplace for
-    games, subscriptions, software and
-    digital services.
-    <br><br>
-    100% authentic products, always.
-  </p>
-
-  <div class="socials">
-
-    <a href="#" id="socialDiscord" aria-label="Discord">
-      <svg class="icon">
-        <use href="#discord" xlink:href="#discord"/>
-      </svg>
-    </a>
-
-    <a href="#" id="socialInstagram" aria-label="Instagram">
-      <svg class="icon">
-        <use href="#instagram" xlink:href="#instagram"/>
-      </svg>
-    </a>
-
-    <a href="#" id="socialFacebook" aria-label="Facebook">
-      <svg class="icon">
-        <use href="#facebook" xlink:href="#facebook"/>
-      </svg>
-    </a>
-
-    <a href="#" id="socialYoutube" aria-label="YouTube">
-      <svg class="icon">
-        <use href="#youtube" xlink:href="#youtube"/>
-      </svg>
-    </a>
-
-    <a href="#" id="socialTelegram" aria-label="Telegram">
-      <svg class="icon">
-        <use href="#telegram" xlink:href="#telegram"/>
-      </svg>
-    </a>
-
-  </div>
-
-</div>
-
-
-<div>
-
-  <h4>Quick Links</h4>
-
-  <a href="#home">Home</a>
-  <a href="#shop">Shop</a>
-  <a href="#categories">Categories</a>
-  <a href="#support">Support</a>
-  <a href="#about">About</a>
-  <a href="#terms">Terms</a>
-
-</div>
-
-
-<div>
-
-  <h4>Categories</h4>
-
-  <a href="#">Discord Products</a>
-  <a href="#">OTT Subscription</a>
-  <a href="#">Game / Game Top-up</a>
-  <a href="#">Digital Services</a>
-  <a href="#">Website Make / Design</a>
-  <a href="#">PC Games</a>
-  <a href="#">PC Software</a>
-  <a href="#">Graphics Designer Services</a>
-
-</div>
-
-
-<div>
-
-  <h4>Payment Methods</h4>
-
-  <div class="payment-icons">
-
-    <div class="payment">bKash</div>
-    <div class="payment">Nagad</div>
-    <div class="payment">BTC</div>
-    <div class="payment">ETH</div>
-    <div class="payment">USDT</div>
-    <div class="payment">LTC</div>
-
-  </div>
-
-</div>
-
-
-<div id="support">
-
-  <h4>Contact & Support</h4>
-
-  <a href="#" id="footerTelegram">
-    <svg class="icon" style="width:14px;height:14px;"><use href="#telegram" xlink:href="#telegram"/></svg>
-    Telegram
-  </a>
-
-  <a href="#" id="footerWhatsapp">
-    <svg class="icon" style="width:14px;height:14px;"><use href="#whatsapp" xlink:href="#whatsapp"/></svg>
-    WhatsApp
-  </a>
-
-  <a href="#" id="footerDiscord">
-    <svg class="icon" style="width:14px;height:14px;"><use href="#discord" xlink:href="#discord"/></svg>
-    Discord
-  </a>
-
-  <p>
-    Support available 24/7
-  </p>
-
-</div>
-
-
-</div>
-
-
-<!-- FOOTER BOTTOM & DEVELOPER TAG -->
-<div class="footer-bottom">
-
-  <span>
-    © 2026 CEVIX BAZAR. All rights reserved.
-  </span>
-
-  <span class="developer-tag">
-    Developed by 
-    <a id="devLink" href="https://hasanhridoy.pages.dev" target="_blank" rel="noopener noreferrer">
-      HRIDOY HASAN
-      <svg class="icon" style="width:12px;height:12px;"><use href="#external" xlink:href="#external"/></svg>
-    </a>
-  </span>
-
-</div>
-
-</footer>
-
-
-<!-- MOBILE NAV -->
-
-<nav class="mobile-nav">
-
-  <button
-    class="active"
-    onclick="scrollToSection('home')">
-
-    <svg class="icon">
-      <use href="#homeIcon" xlink:href="#homeIcon"/>
-    </svg>
-
-    Home
-
-  </button>
-
-
-  <button
-    onclick="scrollToSection('shop')">
-
-    <svg class="icon">
-      <use href="#bag" xlink:href="#bag"/>
-    </svg>
-
-    Shop
-
-  </button>
-
-
-  <button
-    onclick="scrollToSection('categories')">
-
-    <svg class="icon">
-      <use href="#grid" xlink:href="#grid"/>
-    </svg>
-
-    Categories
-
-  </button>
-
-
-  <button
-    onclick="scrollToSection('support')">
-
-    <svg class="icon">
-      <use href="#support" xlink:href="#support"/>
-    </svg>
-
-    Support
-
-  </button>
-
-</nav>
-
-
-<script>
-
-/* =====================================================
-   APPLY CONFIG
-===================================================== */
-
-document.getElementById("logo").src = CONFIG.logo;
-if(document.getElementById("drawerLogo")){
-  document.getElementById("drawerLogo").src = CONFIG.logo;
-}
-
-document.getElementById("socialDiscord").href = CONFIG.discord;
-document.getElementById("socialInstagram").href = CONFIG.instagram;
-document.getElementById("socialFacebook").href = CONFIG.facebook;
-document.getElementById("socialYoutube").href = CONFIG.youtube;
-document.getElementById("socialTelegram").href = CONFIG.telegramChannel;
-
-document.getElementById("footerTelegram").href = CONFIG.telegram;
-document.getElementById("footerWhatsapp").href = CONFIG.whatsapp;
-document.getElementById("footerDiscord").href = CONFIG.discord;
-
-if(document.getElementById("drawerDiscordBtn")){
-  document.getElementById("drawerDiscordBtn").href = CONFIG.discord;
-}
-
-/* Apply Developer Attribution & Link */
-const devLinkEl = document.getElementById("devLink");
-if(devLinkEl){
-  devLinkEl.innerHTML = `${CONFIG.developerName || "HRIDOY HASAN"} <svg class="icon" style="width:12px;height:12px;"><use href="#external" xlink:href="#external"/></svg>`;
-  devLinkEl.href = CONFIG.developerLink || "#";
-}
-
-if(!CONFIG.showDiscordBox){
-  document.getElementById("discordPanel").style.display="none";
-}
-
-
-/* =====================================================
-   GOOGLE SHEET FETCH
-===================================================== */
-
-function sheetURL(id,name){
-
-  return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(name)}`;
-
-}
-
-
-async function getSheet(id,name){
-
-  if(
-    !id ||
-    id === "YOUR_GOOGLE_SHEET_ID"
-  ){
-    return [];
-  }
-
-  try{
-
-    const response =
-      await fetch(sheetURL(id,name));
-
-    const text =
-      await response.text();
-
-    const json =
-      JSON.parse(
-        text.substring(
-          text.indexOf("{"),
-          text.lastIndexOf("}")+1
-        )
-      );
-
-    const rows =
-      json.table.rows || [];
-
-    const cols =
-      json.table.cols || [];
-
-    const headers =
-      cols.map(
-        c => (c.label || c.id || "")
-          .toLowerCase()
-          .trim()
-      );
-
-    return rows.map(row=>{
-
-      const obj={};
-
-      headers.forEach((header,index)=>{
-
-        obj[header] =
-          row.c[index]?.v ?? "";
-
-      });
-
-      return obj;
-
-    });
-
-  }catch(error){
-
-    console.error("Sheet Error:",error);
-
-    return [];
-
-  }
-
-}
-
-
-/* =====================================================
-   PRODUCTS
-===================================================== */
-
-let PRODUCTS=[];
-let currentProduct=null;
-let currentCategory="All";
-
-
-async function loadProducts(){
-
-  PRODUCTS =
-    await getSheet(
-      CONFIG.productSheetID,
-      CONFIG.productSheetName
-    );
-
-  renderCategories();
-  renderProducts(PRODUCTS);
-  renderTopSellers(PRODUCTS);
-
-}
-
-
-/* =====================================================
-   PRODUCT RENDER
-===================================================== */
-
-function renderProducts(products){
-
-  const grid =
-    document.getElementById("productGrid");
-
-  if(!products.length){
-
-    grid.innerHTML = `
-      <div style="
-        grid-column:1/-1;
-        padding:60px 20px;
-        text-align:center;
-        color:#8a929e;
-        border:1px dashed #ddd;
-        border-radius:15px;
-      ">
-        No products available.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  grid.innerHTML =
-    products.map((p,index)=>{
-
-      const image =
-        p.image ||
-        p.photo ||
-        p["image url"] ||
-        "";
-
-      const name =
-        p.name ||
-        p.product ||
-        "Unnamed Product";
-
-      const category =
-        p.category ||
-        "General";
-
-      const tag =
-        p.tag ||
-        "";
-
-      const price =
-        p.price ||
-        "0";
-
-      const oldPrice =
-        p["old price"] ||
-        p.oldprice ||
-        "";
-
-      const reseller =
-        p["reseller price"] ||
-        p.reseller ||
-        "";
-
-      const rating =
-        p.rating ||
-        "";
-
-      return `
-
-      <article
-        class="product"
-        style="animation-delay:${index*.05}s"
-        onclick="openProduct(${index})">
-
-        <div class="product-image">
-
-          ${
-            tag
-            ?
-            `<span class="tag">${escapeHTML(tag)}</span>`
-            :
-            ""
-          }
-
-          <img
-            src="${escapeAttr(image)}"
-            alt="${escapeAttr(name)}"
-            loading="lazy"
-            onerror="this.style.opacity='.2'">
-
-        </div>
-
-        <div class="product-info">
-
-          <div class="product-name">
-            ${escapeHTML(name)}
-          </div>
-
-          <span class="category-label">
-            ${escapeHTML(category)}
-          </span>
-
-          ${
-            rating
-            ?
-            `<div class="rating">
-              <svg class="icon" style="width:14px;height:14px;"><use href="#star" xlink:href="#star"/></svg>
-              <strong>${escapeHTML(rating)}</strong>
-            </div>`
-            :
-            ""
-          }
-
-          <div class="price-row">
-
-            <div class="price">
-
-              ${CONFIG.currency}${escapeHTML(price)}
-
-              ${
-                oldPrice
-                ?
-                `<span class="old-price">
-                  ${CONFIG.currency}${escapeHTML(oldPrice)}
-                </span>`
-                :
-                ""
-              }
-
-            </div>
-
-          </div>
-
-          ${
-            CONFIG.showResellerPrice && reseller
-            ?
-            `<div class="reseller">
-              Reseller: ${CONFIG.currency}${escapeHTML(reseller)}
-            </div>`
-            :
-            ""
-          }
-
-          <button
-            class="details-btn"
-            onclick="event.stopPropagation();openProduct(${index})">
-
-            View Details →
-
-          </button>
-
-        </div>
-
-      </article>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =====================================================
-   CATEGORIES
-===================================================== */
-
-function renderCategories(){
-
-  const categories =
-    [
-      "All",
-      ...new Set(
-        PRODUCTS
-        .map(p=>p.category)
-        .filter(Boolean)
-      )
-    ];
-
-  document.getElementById("categoryList").innerHTML =
-    categories.map((cat,i)=>`
-
-      <button
-        class="category-btn ${i===0?'active':''}"
-        onclick="filterCategory('${escapeAttr(cat)}',this)">
-
-        <svg class="icon">
-          <use href="#grid" xlink:href="#grid"/>
-        </svg>
-
-        ${escapeHTML(cat)}
-
-        <span class="category-arrow">›</span>
-
-      </button>
-
-    `).join("");
-
-
-  document.getElementById("quickCategories").innerHTML =
-    categories
-    .filter(x=>x!=="All")
-    .slice(0,10)
-    .map(cat=>`
-
-      <button
-        class="quick"
-        onclick="filterCategory('${escapeAttr(cat)}')">
-
-        <svg class="icon">
-          <use href="#grid" xlink:href="#grid"/>
-        </svg>
-
-        <span>
-          ${escapeHTML(cat)}
-        </span>
-
-      </button>
-
-    `).join("");
-
-}
-
-
-function filterCategory(category,button){
-
-  currentCategory=category;
-
-  document
-    .querySelectorAll(".category-btn")
-    .forEach(b=>b.classList.remove("active"));
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  if(category==="All"){
-
-    renderProducts(PRODUCTS);
-
-  }else{
-
-    renderProducts(
-      PRODUCTS.filter(
-        p =>
-          String(p.category)
-          .toLowerCase()
-          ===
-          category.toLowerCase()
-      )
-    );
-
-  }
-
-  document
-    .getElementById("shop")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-document
-.getElementById("searchInput")
-.addEventListener("input",function(){
-
-  const q =
-    this.value
-    .toLowerCase()
-    .trim();
-
-  const filtered =
-    PRODUCTS.filter(p=>
-
-      String(p.name||"")
-      .toLowerCase()
-      .includes(q)
-
-      ||
-
-      String(p.category||"")
-      .toLowerCase()
-      .includes(q)
-
-      ||
-
-      String(p.description||"")
-      .toLowerCase()
-      .includes(q)
-
-      ||
-
-      String(p.tags||"")
-      .toLowerCase()
-      .includes(q)
-
-    );
-
-  renderProducts(filtered);
-
-});
-
-
-/* =====================================================
-   PRODUCT MODAL
-===================================================== */
-
-function openProduct(index){
-
-  const visible =
-    getVisibleProducts();
-
-  const product =
-    visible[index];
-
-  if(!product) return;
-
-  currentProduct=product;
-
-  const image =
-    product.image ||
-    product.photo ||
-    product["image url"] ||
-    "";
-
-  const name =
-    product.name ||
-    product.product ||
-    "Product";
-
-  const description =
-    product.description ||
-    product.details ||
-    "No description available.";
-
-  const category =
-    product.category ||
-    "General";
-
-  const price =
-    product.price ||
-    "0";
-
-  const reseller =
-    product["reseller price"] ||
-    product.reseller ||
-    "";
-
-  document.getElementById("modalImage").src=image;
-  document.getElementById("modalName").textContent=name;
-  document.getElementById("modalCategory").textContent=category;
-  document.getElementById("modalDescription").textContent=description;
-
-  document.getElementById("modalPrice").textContent =
-    CONFIG.currency + price;
-
-
-  document.getElementById("modalReseller").textContent =
-    CONFIG.showResellerPrice && reseller
-    ?
-    `Reseller Price: ${CONFIG.currency}${reseller}`
-    :
-    "";
-
-
-  const tags =
-    String(
-      product.tags ||
-      product.tag ||
-      ""
-    )
-    .split(",")
-    .map(x=>x.trim())
-    .filter(Boolean);
-
-  document.getElementById("modalTags").innerHTML =
-    tags.map(tag=>
-      `<span class="meta-tag">
-        ${escapeHTML(tag)}
-      </span>`
-    ).join("");
-
-
-  document
-    .getElementById("contactButtons")
-    .classList.remove("show");
-
-  document
-    .getElementById("productModal")
-    .classList.add("show");
-
-}
-
-
-function getVisibleProducts(){
-
-  if(currentCategory==="All"){
-    return PRODUCTS;
-  }
-
-  return PRODUCTS.filter(
-    p =>
-      String(p.category)
-      .toLowerCase()
-      ===
-      currentCategory.toLowerCase()
-  );
-
-}
-
-
-function closeProduct(){
-
-  document
-    .getElementById("productModal")
-    .classList.remove("show");
-
-}
-
-
-function showContacts(){
-
-  document
-    .getElementById("contactButtons")
-    .classList.add("show");
-
-}
-
-
-function contactSeller(type){
-
-  if(!currentProduct) return;
-
-  const name =
-    currentProduct.name ||
-    currentProduct.product ||
-    "Product";
-
-  const message =
-    encodeURIComponent(
-      `Hello, I want to buy: ${name}`
-    );
-
-
-  if(type==="telegram"){
-
-    window.open(
-      CONFIG.telegram +
-      "?text=" +
-      message,
-      "_blank"
-    );
-
-  }
-
-  if(type==="whatsapp"){
-
-    window.open(
-      CONFIG.whatsapp +
-      "?text=" +
-      message,
-      "_blank"
-    );
-
-  }
-
-  if(type==="discord"){
-
-    window.open(
-      CONFIG.discord,
-      "_blank"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   TOP SELLERS
-===================================================== */
-
-function renderTopSellers(products){
-
-  const sorted =
-    [...products]
-    .sort(
-      (a,b)=>
-        Number(b.sold||0)
-        -
-        Number(a.sold||0)
-    )
-    .slice(0,5);
-
-  document.getElementById("topSeller").innerHTML =
-    sorted.length
-    ?
-    sorted.map((p,i)=>`
-
-      <div style="
-        display:flex;
-        align-items:center;
-        gap:10px;
-        padding:9px 0;
-        border-bottom:1px solid #f0f1f3;
-      ">
-
-        <strong
-          style="
-            width:20px;
-            color:#ff6500;
-          ">
-          ${i+1}
-        </strong>
-
-        <img
-          src="${escapeAttr(p.image||'')}"
-          style="
-            width:42px;
-            height:42px;
-            object-fit:cover;
-            border-radius:8px;
-          ">
-
-        <div>
-
-          <div style="
-            font-size:11px;
-            font-weight:750;
-          ">
-            ${escapeHTML(p.name||"Product")}
-          </div>
-
-          <small style="
-            color:#8a929e;
-            font-size:9px;
-          ">
-            ${escapeHTML(p.sold||0)} sold
-          </small>
-
-        </div>
-
-      </div>
-
-    `).join("")
-    :
-    `<p>No seller data.</p>`;
-
-}
-
-
-/* =====================================================
-   BANNERS
-===================================================== */
-
-let slideIndex=0;
-let slideTimer;
-
-
-async function loadBanners(){
-
-  if(!CONFIG.showBanner){
-    return;
-  }
-
-  const banners =
-    await getSheet(
-      CONFIG.bannerSheetID,
-      CONFIG.bannerSheetName
-    );
-
-  const track =
-    document.getElementById("heroTrack");
-
-  const dots =
-    document.getElementById("sliderDots");
-
-
-  if(!banners.length){
-
-    track.innerHTML = `
-
-      <div
-        class="hero-slide"
-        style="
-          background:
-          linear-gradient(
-            110deg,
-            #e95200,
-            #ff8a00
-          );
-        ">
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-
-          <h1>
-            ${CONFIG.brandName}
-          </h1>
-
-          <p>
-            ${CONFIG.brandTagline}
-            • 100% Authentic Products
-          </p>
-
-          <button
-            class="hero-btn"
-            onclick="showAllProducts()">
-
-            Explore Now
-
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  track.innerHTML =
-    banners.map(b=>{
-
-      const image =
-        b.image ||
-        b.photo ||
-        b.banner ||
-        "";
-
-      const title =
-        b.title ||
-        CONFIG.brandName;
-
-      const subtitle =
-        b.subtitle ||
-        b.description ||
-        "100% Authentic Products";
-
-      const button =
-        b.button ||
-        "Explore Now";
-
-      const link =
-        b.link ||
-        "#shop";
-
-      return `
-
-      <div
-        class="hero-slide"
-        style="
-          background-image:
-          url('${escapeAttr(image)}');
-        ">
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-
-          <h1>
-            ${escapeHTML(title)}
-          </h1>
-
-          <p>
-            ${escapeHTML(subtitle)}
-          </p>
-
-          <button
-            class="hero-btn"
-            onclick="window.location.href='${escapeAttr(link)}'">
-
-            ${escapeHTML(button)} →
-
-          </button>
-
-        </div>
-
-      </div>
-
-      `;
-
-    }).join("");
-
-
-  dots.innerHTML =
-    banners.map((_,i)=>
-      `<span
-        class="dot ${i===0?'active':''}">
-      </span>`
-    ).join("");
-
-
-  if(banners.length>1){
-
-    clearInterval(slideTimer);
-
-    slideTimer =
-      setInterval(()=>{
-
-        slideIndex =
-          (slideIndex+1)
-          %
-          banners.length;
-
-        track.style.transform =
-          `translateX(-${slideIndex*100}%)`;
-
-        document
-          .querySelectorAll(".dot")
-          .forEach((d,i)=>
-            d.classList.toggle(
-              "active",
-              i===slideIndex
-            )
-          );
-
-      },5000);
-
-  }
-
-}
-
-
-/* =====================================================
-   POPUP
-===================================================== */
-
-async function loadPopup(){
-
-  if(!CONFIG.showPopup){
-    return;
-  }
-
-  const rows =
-    await getSheet(
-      CONFIG.popupSheetID,
-      CONFIG.popupSheetName
-    );
-
-  if(!rows.length){
-    return;
-  }
-
-  const p=rows[0];
-
-  const image =
-    p.image ||
-    p.photo ||
-    "";
-
-  const title =
-    p.title ||
-    "Special Notice";
-
-  const text =
-    p.message ||
-    p.description ||
-    "";
-
-  const link =
-    p.link ||
-    "#shop";
-
-  const enabled =
-    String(p.enabled||"yes")
-    .toLowerCase();
-
-
-  if(
-    enabled==="no" ||
-    enabled==="false"
-  ){
-    return;
-  }
-
-
-  document.getElementById("popupImage").src=image;
-
-  document.getElementById("popupTitle").textContent=title;
-
-  document.getElementById("popupText").textContent=text;
-
-  document.getElementById("popupLink").onclick=()=>{
-    window.location.href=link;
-  };
-
-
-  setTimeout(()=>{
-
-    document
-      .getElementById("popupBg")
-      .classList.add("show");
-
-  },1500);
-
-}
-
-
-function closePopup(){
-
-  document
-    .getElementById("popupBg")
-    .classList.remove("show");
-
-}
-
-
-/* =====================================================
-   UTILITIES & NAVIGATION
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function escapeAttr(value){
-
-  return escapeHTML(value);
-
-}
-
-
-function showAllProducts(event){
-
-  if(event) event.preventDefault();
-
-  currentCategory="All";
-
-  renderProducts(PRODUCTS);
-
-  document
-    .getElementById("shop")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-function scrollToSection(id){
-
-  document
-    .getElementById(id)
-    ?.scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-/* =====================================================
-   MOBILE MENU DRAWER HANDLERS
-===================================================== */
-
-function openMobileMenu(){
-  document
-    .getElementById("mobileDrawerBg")
-    .classList.add("show");
-}
-
-function closeMobileMenu(){
-  document
-    .getElementById("mobileDrawerBg")
-    .classList.remove("show");
-}
-
-
-/* =====================================================
-   SCROLL ANIMATION
-===================================================== */
-
-const observer =
-  new IntersectionObserver(
-    entries=>{
-
-      entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-          entry.target
-            .classList
-            .add("visible");
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Stream</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            --bg-base: #0a0c10;
+            --bg-surface: #14171f;
+            --bg-elevated: #1e222d;
+            --accent: #f47521; /* Overwritten by JS config */
+            --accent-hover: #ff8c40;
+            --text-main: #ffffff;
+            --text-muted: #9ba1b0;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --sidebar-width: 260px;
+            --mobile-nav-height: 65px;
+            --font-main: 'Inter', sans-serif;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-bg: rgba(20, 23, 31, 0.7);
         }
 
-      });
+        /* ==================== RESET & BASE ==================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        
+        /* Typography */
+        h1, h2, h3 { font-weight: 700; line-height: 1.2; }
+        .text-accent { color: var(--accent); }
+        .text-muted { color: var(--text-muted); font-size: 0.9rem; }
 
-    },
-    {
-      threshold:.1
-    }
-  );
+        /* ==================== LAYOUT ==================== */
+        .app-container { display: flex; min-height: 100vh; }
+        
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        /* ==================== DESKTOP SIDEBAR ==================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--bg-elevated); }
+
+        .brand {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .brand img { height: 32px; width: auto; object-fit: contain; }
+
+        .nav-section { padding: 12px 0; }
+        .nav-section-title {
+            padding: 0 24px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .nav-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-muted);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--accent);
+            background: linear-gradient(90deg, rgba(244,117,33,0.1) 0%, transparent 100%);
+            border-left: 3px solid var(--accent);
+        }
+        .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .go-premium-card {
+            margin: auto 24px 24px;
+            background: linear-gradient(135deg, var(--bg-elevated), var(--bg-surface));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+
+        /* ==================== DESKTOP HEADER ==================== */
+        .top-header {
+            height: 70px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 24px;
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .icon-btn { color: var(--text-muted); transition: var(--transition); }
+        .icon-btn:hover { color: var(--accent); }
+        .icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background-color: var(--bg-elevated); }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            position: relative;
+            height: 65vh;
+            min-height: 500px;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 40px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--bg-base) 0%, rgba(10, 12, 16, 0.6) 50%, transparent 100%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, var(--bg-base) 0%, transparent 50%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            animation: fadeIn 1s ease;
+        }
+        .hero-title { font-size: 3rem; margin-bottom: 12px; }
+        .hero-meta { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; font-weight: 500; font-size: 0.9rem;}
+        .rating-badge { background: var(--accent); color: #fff; padding: 4px 8px; border-radius: 4px; font-weight: 700; }
+        .hero-desc { color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .hero-buttons { display: flex; gap: 16px; }
+        .btn-secondary {
+            background-color: var(--bg-elevated);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .btn-secondary:hover { background-color: rgba(255,255,255,0.1); }
+
+        /* ==================== ANIME SECTIONS ==================== */
+        .section { padding: 40px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .section-title { font-size: 1.5rem; }
+        
+        .carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .carousel::-webkit-scrollbar { display: none; } /* Chrome */
+        
+        .anime-card {
+            min-width: 200px;
+            width: 200px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .anime-card:hover { transform: translateY(-8px); }
+        .anime-card:hover .card-overlay { opacity: 1; }
+        
+        .card-img-container {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 2/3;
+            background: var(--bg-surface);
+        }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .play-icon { width: 48px; height: 48px; fill: #fff; }
+        
+        .premium-badge {
+            position: absolute;
+            top: 8px; left: 8px;
+            background: #e2b714;
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .premium-badge svg { width: 12px; height: 12px; fill: #000; }
+
+        .card-info { padding-top: 12px; }
+        .card-title { font-size: 1rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ==================== MODALS ==================== */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: var(--transition);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        /* Details Modal */
+        .details-modal {
+            background: var(--bg-surface);
+            width: 90%; max-width: 1000px; max-height: 90vh;
+            border-radius: 12px;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95); transition: var(--transition);
+        }
+        .modal-overlay.active .details-modal { transform: scale(1); }
+        .close-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(0,0,0,0.5); border-radius: 50%;
+            width: 40px; height: 40px;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10; color: #fff;
+        }
+        
+        .details-hero { height: 400px; position: relative; background-size: cover; background-position: center; }
+        .details-hero::after { content:''; position: absolute; inset:0; background: linear-gradient(0deg, var(--bg-surface) 0%, transparent 100%); }
+        
+        .details-content { padding: 0 40px 40px; position: relative; z-index: 2; margin-top: -100px; display: flex; gap: 40px; }
+        .details-poster { width: 220px; flex-shrink: 0; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .details-info { flex: 1; }
+        .tags { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+        .tag { background: var(--bg-elevated); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }
+        
+        /* Episodes List */
+        .episodes-section { margin-top: 40px; }
+        .episode-card {
+            display: flex; gap: 16px; padding: 16px; background: var(--bg-elevated);
+            border-radius: 8px; margin-bottom: 12px; align-items: center;
+            transition: var(--transition); cursor: pointer;
+        }
+        .episode-card:hover { background: var(--border-color); }
+        .ep-thumb { width: 120px; height: 68px; background: var(--bg-base); border-radius: 4px; object-fit: cover; }
+        .ep-info { flex: 1; }
+        .ep-title { font-weight: 600; margin-bottom: 4px; }
+        
+        /* Premium Modal */
+        .premium-modal {
+            background: var(--bg-surface);
+            padding: 40px; border-radius: 16px; text-align: center;
+            max-width: 400px; border: 1px solid var(--accent);
+        }
+
+        /* Search Overlay */
+        .search-overlay {
+            position: fixed; inset: 0;
+            background: var(--bg-base);
+            z-index: 2000;
+            padding: 40px;
+            display: none; flex-direction: column;
+        }
+        .search-overlay.active { display: flex; }
+        .search-header { display: flex; gap: 16px; align-items: center; border-bottom: 2px solid var(--bg-elevated); padding-bottom: 20px; }
+        .search-input {
+            flex: 1; background: transparent; border: none; color: #fff; font-size: 2rem; outline: none; font-weight: 700;
+        }
+        .search-results {
+            flex: 1; overflow-y: auto; padding-top: 40px; display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .site-footer { background: var(--bg-surface); padding: 60px 40px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul li { margin-bottom: 12px; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
+        .footer-col ul li:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ==================== LOADING & UTILS ==================== */
+        .skeleton { background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 8px; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .empty-state { text-align: center; padding: 60px; color: var(--text-muted); }
+        .hide { display: none !important; }
+
+        /* ==================== MOBILE RESPONSIVE ==================== */
+        .mobile-header { display: none; }
+        .mobile-bottom-nav { display: none; }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { width: 100%; margin-left: 0; padding-bottom: calc(var(--mobile-nav-height) + 20px); }
+            
+            .desktop-header { display: none; }
+            
+            .mobile-header {
+                display: flex; justify-content: space-between; align-items: center;
+                height: 60px; padding: 0 20px;
+                background: var(--glass-bg); backdrop-filter: blur(10px);
+                position: sticky; top: 0; z-index: 90;
+            }
+            .mobile-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--accent); }
+            .mobile-brand img { height: 24px; }
+            
+            .hero { padding: 40px 20px; height: 50vh; min-height: 400px; }
+            .hero-title { font-size: 2rem; }
+            .hero-desc { display: none; } /* Hide long desc on mobile */
+            
+            .section { padding: 20px; }
+            .anime-card { min-width: 140px; width: 140px; }
+            
+            .details-content { flex-direction: column; padding: 0 20px 20px; margin-top: -60px; gap: 20px; }
+            .details-poster { width: 140px; margin: 0 auto; }
+            .details-info { text-align: center; }
+            .tags { justify-content: center; }
+            .hero-buttons { justify-content: center; }
+            
+            /* Bottom Nav */
+            .mobile-bottom-nav {
+                display: flex; justify-content: space-around; align-items: center;
+                position: fixed; bottom: 0; left: 0; right: 0;
+                height: var(--mobile-nav-height);
+                background: var(--glass-bg); backdrop-filter: blur(10px);
+                border-top: 1px solid var(--border-color);
+                z-index: 100;
+            }
+            .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; }
+            .bottom-nav-item.active { color: var(--accent); }
+            .bottom-nav-item svg { width: 24px; height: 24px; fill: currentColor; }
+
+            .footer-grid { grid-template-columns: 1fr; }
+            
+            .search-input { font-size: 1.5rem; }
+            .search-results { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SVG ICONS DEFS -->
+    <svg width="0" height="0" class="hide">
+        <defs>
+            <path id="icon-home" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            <path id="icon-search" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            <path id="icon-play" d="M8 5v14l11-7z"/>
+            <path id="icon-movie" d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+            <path id="icon-series" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+            <path id="icon-list" d="M14 10H2v2h12v-2zm0-4H2v2h12V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 16h8v-2H2v2z"/>
+            <path id="icon-user" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            <path id="icon-bell" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            <path id="icon-lock" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+            <path id="icon-close" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </defs>
+    </svg>
+
+    <div class="app-container">
+        
+        <!-- DESKTOP SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="" alt="Logo" class="site-logo">
+                <span class="site-name">Anime</span>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Menu</div>
+                <a href="#" class="nav-item active"><svg><use href="#icon-home"/></svg> Home</a>
+                <a href="#" class="nav-item"><svg><use href="#icon-movie"/></svg> Movies</a>
+                <a href="#" class="nav-item"><svg><use href="#icon-series"/></svg> Series</a>
+                <a href="#" class="nav-item"><svg><use href="#icon-list"/></svg> My List</a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Genres</div>
+                <a href="#" class="nav-item">Action</a>
+                <a href="#" class="nav-item">Comedy</a>
+                <a href="#" class="nav-item">Drama</a>
+                <a href="#" class="nav-item">Fantasy</a>
+                <a href="#" class="nav-item">Romance</a>
+                <a href="#" class="nav-item">Sci-Fi</a>
+            </div>
+
+            <div style="flex-grow: 1;"></div>
+            
+            <div class="go-premium-card">
+                <h3 style="margin-bottom: 8px;">Upgrade Plan</h3>
+                <p class="text-muted" style="margin-bottom: 16px; font-size: 0.8rem;">Ad-free & Premium anime</p>
+                <button class="btn-primary" style="width: 100%;" onclick="showPremium()">Go Premium</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- MOBILE HEADER -->
+            <header class="mobile-header">
+                <div class="mobile-brand">
+                    <img src="" alt="Logo" class="site-logo">
+                    <span class="site-name">Anime</span>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn" onclick="openSearch()"><svg><use href="#icon-search"/></svg></button>
+                    <button class="icon-btn"><svg><use href="#icon-user"/></svg></button>
+                </div>
+            </header>
+
+            <!-- DESKTOP HEADER -->
+            <header class="top-header desktop-header">
+                <button class="icon-btn" onclick="openSearch()"><svg><use href="#icon-search"/></svg></button>
+                <button class="btn-primary" onclick="showPremium()">PREMIUM</button>
+                <button class="icon-btn"><svg><use href="#icon-bell"/></svg></button>
+                <div class="user-avatar"></div>
+            </header>
+
+            <!-- HERO SECTION -->
+            <section class="hero" id="hero-section">
+                <!-- Injected via JS -->
+                <div class="skeleton" style="width: 100%; height: 100%; position: absolute; inset: 0;"></div>
+            </section>
+
+            <!-- ANIME SECTIONS -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Trending Now</h2>
+                </div>
+                <div class="carousel" id="trending-carousel">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Popular Anime</h2>
+                </div>
+                <div class="carousel" id="popular-carousel">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Recently Added</h2>
+                </div>
+                <div class="carousel" id="recent-carousel">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="site-footer">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <div class="brand" style="padding: 0; margin-bottom: 20px;">
+                            <img src="" alt="Logo" class="site-logo">
+                            <span class="site-name">Anime</span>
+                        </div>
+                        <p class="text-muted site-desc" style="line-height: 1.6;">Premium anime streaming platform. Watch high-quality anime online.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li>Home</li>
+                            <li>Popular</li>
+                            <li>New Releases</li>
+                            <li>My List</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li>Terms of Service</li>
+                            <li>Privacy Policy</li>
+                            <li>Cookie Policy</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contact</h3>
+                        <ul>
+                            <li>Support</li>
+                            <li>Twitter</li>
+                            <li>Discord</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2026 <span class="site-name"></span>. All rights reserved. Code for display purposes only.
+                </div>
+            </footer>
+        </main>
+
+        <!-- MOBILE BOTTOM NAV -->
+        <nav class="mobile-bottom-nav">
+            <div class="bottom-nav-item active">
+                <svg><use href="#icon-home"/></svg>
+                <span>Home</span>
+            </div>
+            <div class="bottom-nav-item">
+                <svg><use href="#icon-movie"/></svg>
+                <span>Anime</span>
+            </div>
+            <div class="bottom-nav-item">
+                <svg><use href="#icon-list"/></svg>
+                <span>My List</span>
+            </div>
+            <div class="bottom-nav-item">
+                <svg><use href="#icon-user"/></svg>
+                <span>Profile</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Anime Details Modal -->
+    <div class="modal-overlay" id="details-modal">
+        <div class="details-modal">
+            <button class="close-btn" onclick="closeModals()"><svg><use href="#icon-close"/></svg></button>
+            <div class="details-hero" id="modal-hero"></div>
+            <div class="details-content">
+                <img src="" alt="Poster" class="details-poster" id="modal-poster">
+                <div class="details-info">
+                    <h2 class="hero-title" id="modal-title" style="font-size: 2.5rem;">Title</h2>
+                    <div class="hero-meta" id="modal-meta">
+                        <span class="rating-badge" id="modal-score">8.5</span>
+                        <span id="modal-year">2026</span>
+                        <span id="modal-episodes">24 Episodes</span>
+                    </div>
+                    <div class="tags" id="modal-genres"></div>
+                    <p class="hero-desc" id="modal-desc" style="-webkit-line-clamp: unset;">Description goes here...</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="alert('Player Placeholder: Streaming initiated.')"><svg style="width:20px;height:20px;fill:#fff"><use href="#icon-play"/></svg> Watch Now</button>
+                        <button class="btn-secondary" onclick="addToMyList()"><svg style="width:20px;height:20px;fill:#fff"><use href="#icon-list"/></svg> Add to List</button>
+                    </div>
+                    
+                    <div class="episodes-section">
+                        <h3>Episodes</h3>
+                        <div id="modal-ep-list">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Gate Modal -->
+    <div class="modal-overlay" id="premium-modal">
+        <div class="premium-modal">
+            <button class="close-btn" onclick="closeModals()" style="top: 10px; right: 10px; width: 30px; height: 30px;"><svg><use href="#icon-close"/></svg></button>
+            <svg style="width:64px;height:64px;fill:var(--accent);margin-bottom:20px;"><use href="#icon-lock"/></svg>
+            <h2>Premium Content</h2>
+            <p class="text-muted" style="margin: 16px 0 24px;">This anime is reserved for Premium members. Upgrade to watch ad-free in 4K quality.</p>
+            <button class="btn-primary" style="width: 100%;" onclick="alert('Redirecting to subscription page...')">Subscribe Now</button>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-header">
+            <button class="icon-btn" onclick="closeSearch()"><svg><use href="#icon-close"/></svg></button>
+            <input type="text" class="search-input" id="search-input" placeholder="Search anime...">
+        </div>
+        <div class="search-results" id="search-results">
+            <!-- Results here -->
+        </div>
+    </div>
 
 
-document
-  .querySelectorAll(".reveal")
-  .forEach(el=>observer.observe(el));
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        /* ==================== CONFIGURATION ==================== */
+        const SITE_CONFIG = {
+            name: "AnimeVerse",
+            logo: "", // Leave empty to use text, or provide URL
+            favicon: "",
+            description: "Cinematic premium anime streaming experience.",
+            accentColor: "#f47521" // Crunchyroll-ish orange. Change to #6366f1 for Indigo, etc.
+        };
 
+        const API_CONFIG = {
+            // Using Jikan API (Unofficial MyAnimeList API) - Free, CORS enabled, no key needed.
+            baseURL: "https://api.jikan.moe/v4", 
+            apiKey: "" // Not required for Jikan
+        };
 
-/* =====================================================
-   CLOSE MODAL WHEN OUTSIDE CLICK
-===================================================== */
+        /* ==================== INITIALIZATION ==================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            applyBranding();
+            loadHomeData();
+        });
 
-document
-  .getElementById("productModal")
-  .addEventListener("click",function(e){
+        function applyBranding() {
+            document.title = SITE_CONFIG.name;
+            document.documentElement.style.setProperty('--accent', SITE_CONFIG.accentColor);
+            
+            document.querySelectorAll('.site-name').forEach(el => el.textContent = SITE_CONFIG.name);
+            document.querySelectorAll('.site-desc').forEach(el => el.textContent = SITE_CONFIG.description);
+            
+            if(SITE_CONFIG.logo) {
+                document.querySelectorAll('.site-logo').forEach(el => el.src = SITE_CONFIG.logo);
+            } else {
+                document.querySelectorAll('.site-logo').forEach(el => el.style.display = 'none');
+            }
 
-    if(e.target===this){
-      closeProduct();
-    }
+            if(SITE_CONFIG.favicon) {
+                let link = document.querySelector("link[rel~='icon']");
+                if (!link) {
+                    link = document.createElement('link');
+                    link.rel = 'icon';
+                    document.head.appendChild(link);
+                }
+                link.href = SITE_CONFIG.favicon;
+            }
+        }
 
-  });
+        /* ==================== API HELPERS ==================== */
+        async function fetchAPI(endpoint) {
+            try {
+                // Add minor delay for Jikan rate limiting on free tier if needed, but fetch direct for now
+                const res = await fetch(`${API_CONFIG.baseURL}${endpoint}`);
+                if (!res.ok) throw new Error('API Response not ok');
+                const data = await res.json();
+                return data.data;
+            } catch (err) {
+                console.error("API Error:", err);
+                return null;
+            }
+        }
 
+        /* ==================== DATA LOADING ==================== */
+        async function loadHomeData() {
+            renderSkeletons('trending-carousel', 5);
+            renderSkeletons('popular-carousel', 5);
+            renderSkeletons('recent-carousel', 5);
 
-document
-  .getElementById("popupBg")
-  .addEventListener("click",function(e){
+            // Fetch Current Season (Trending)
+            const trending = await fetchAPI('/seasons/now?limit=10');
+            // Fetch Top Anime (Popular)
+            const popular = await fetchAPI('/top/anime?limit=10');
+            // Fetch Recent (Using upcoming or random for variety)
+            const recent = await fetchAPI('/seasons/upcoming?limit=10');
 
-    if(e.target===this){
-      closePopup();
-    }
+            if(trending && trending.length > 0) {
+                renderHero(trending[0]);
+                renderCarousel('trending-carousel', trending);
+            } else {
+                showError('hero-section');
+                showError('trending-carousel');
+            }
 
-  });
+            if(popular) renderCarousel('popular-carousel', popular);
+            if(recent) renderCarousel('recent-carousel', recent);
+        }
 
+        /* ==================== UI RENDERING ==================== */
+        function renderHero(anime) {
+            const hero = document.getElementById('hero-section');
+            const bgImg = anime.trailer?.images?.maximum_image_url || anime.images.webp.large_image_url;
+            
+            hero.style.backgroundImage = `url('${bgImg}')`;
+            hero.innerHTML = `
+                <div class="hero-content">
+                    <h1 class="hero-title">${anime.title_english || anime.title}</h1>
+                    <div class="hero-meta">
+                        <span class="rating-badge">★ ${anime.score || 'N/A'}</span>
+                        <span>${anime.year || '2026'}</span>
+                        <span>${anime.episodes ? anime.episodes + ' Episodes' : 'Ongoing'}</span>
+                        <span style="color:var(--accent)">${anime.type}</span>
+                    </div>
+                    <p class="hero-desc">${anime.synopsis}</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="openDetails(${anime.mal_id})"><svg style="width:20px;height:20px;fill:#fff"><use href="#icon-play"/></svg> Watch Now</button>
+                        <button class="btn-secondary" onclick="addToMyList(${anime.mal_id})"><svg style="width:20px;height:20px;fill:#fff"><use href="#icon-list"/></svg> Add to List</button>
+                    </div>
+                </div>
+            `;
+        }
 
-/* =====================================================
-   START
-===================================================== */
+        function renderCarousel(containerId, animeList) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
 
-loadProducts();
-loadBanners();
-loadPopup();
+            if(!animeList || animeList.length === 0) {
+                container.innerHTML = '<div class="empty-state">No anime available right now.</div>';
+                return;
+            }
 
-</script>
+            animeList.forEach(anime => {
+                // Mock premium flag since Jikan doesn't have it natively
+                const isPremium = Math.random() > 0.7; 
+                
+                const card = document.createElement('div');
+                card.className = 'anime-card';
+                card.onclick = () => isPremium ? showPremium() : openDetails(anime.mal_id);
+                
+                card.innerHTML = `
+                    <div class="card-img-container">
+                        <img loading="lazy" src="${anime.images.webp.large_image_url}" class="card-img" alt="${anime.title}">
+                        <div class="card-overlay">
+                            <svg class="play-icon"><use href="#icon-play"/></svg>
+                        </div>
+                        ${isPremium ? `<div class="premium-badge"><svg><use href="#icon-lock"/></svg> PREMIUM</div>` : ''}
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">${anime.title_english || anime.title}</h3>
+                        <div class="card-meta">
+                            <span>${anime.episodes ? 'Ep ' + anime.episodes : 'Ongoing'}</span>
+                            <span>★ ${anime.score || 'N/A'}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
+        function renderSkeletons(containerId, count) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            for(let i=0; i<count; i++) {
+                container.innerHTML += `
+                    <div class="anime-card">
+                        <div class="card-img-container skeleton"></div>
+                        <div class="card-info">
+                            <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="height: 12px; width: 50%;"></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showError(containerId) {
+            document.getElementById(containerId).innerHTML = `
+                <div class="empty-state">
+                    <p>Unable to load anime right now.</p>
+                    <button class="btn-secondary" style="margin-top:12px;" onclick="location.reload()">Retry</button>
+                </div>
+            `;
+        }
+
+        /* ==================== DETAILS & EPISODES ==================== */
+        let currentAnimeData = null;
+
+        async function openDetails(id) {
+            document.getElementById('details-modal').classList.add('active');
+            
+            // Loading state in modal
+            document.getElementById('modal-title').textContent = 'Loading...';
+            document.getElementById('modal-ep-list').innerHTML = '<div class="skeleton" style="height:60px; margin-bottom:10px;"></div>';
+
+            const anime = await fetchAPI(`/anime/${id}/full`);
+            if(!anime) return;
+            currentAnimeData = anime;
+
+            const bgImg = anime.trailer?.images?.maximum_image_url || anime.images.webp.large_image_url;
+            document.getElementById('modal-hero').style.backgroundImage = `url('${bgImg}')`;
+            document.getElementById('modal-poster').src = anime.images.webp.large_image_url;
+            document.getElementById('modal-title').textContent = anime.title_english || anime.title;
+            document.getElementById('modal-score').textContent = `★ ${anime.score || 'N/A'}`;
+            document.getElementById('modal-year').textContent = anime.year || 'Unknown';
+            document.getElementById('modal-episodes').textContent = anime.episodes ? `${anime.episodes} Episodes` : 'Ongoing';
+            document.getElementById('modal-desc').textContent = anime.synopsis;
+
+            const genresDiv = document.getElementById('modal-genres');
+            genresDiv.innerHTML = anime.genres.map(g => `<span class="tag">${g.name}</span>`).join('');
+
+            // Fetch episodes
+            const eps = await fetchAPI(`/anime/${id}/episodes`);
+            const epContainer = document.getElementById('modal-ep-list');
+            epContainer.innerHTML = '';
+            
+            if(eps && eps.length > 0) {
+                eps.slice(0, 10).forEach(ep => { // limit to 10 for demo speed
+                    epContainer.innerHTML += `
+                        <div class="episode-card" onclick="playEpisode(${id}, ${ep.mal_id})">
+                            <div class="ep-thumb"><svg style="width:24px;height:24px;fill:var(--text-muted);margin:22px auto;display:block;"><use href="#icon-play"/></svg></div>
+                            <div class="ep-info">
+                                <div class="ep-title">${ep.mal_id}. ${ep.title}</div>
+                                <div class="text-muted">Sub | Dub</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                epContainer.innerHTML = `<p class="text-muted">Episodes not mapped for this entry, or it is a movie.</p>`;
+            }
+        }
+
+        function playEpisode(animeId, epId) {
+            // Save to Watch History
+            let history = JSON.parse(localStorage.getItem('watchHistory') || '[]');
+            history.push({ id: animeId, ep: epId, time: Date.now() });
+            localStorage.setItem('watchHistory', JSON.stringify(history));
+            
+            alert(`Player Placeholder: Loading stream for Episode ${epId}`);
+        }
+
+        /* ==================== SEARCH ==================== */
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            if(query.length < 3) return;
+            
+            searchTimeout = setTimeout(async () => {
+                const resultsContainer = document.getElementById('search-results');
+                resultsContainer.innerHTML = '<div class="empty-state">Searching...</div>';
+                
+                const results = await fetchAPI(`/anime?q=${query}&limit=12`);
+                resultsContainer.innerHTML = '';
+                
+                if(!results || results.length === 0) {
+                    resultsContainer.innerHTML = '<div class="empty-state">No results found.</div>';
+                    return;
+                }
+                
+                results.forEach(anime => {
+                    const card = document.createElement('div');
+                    card.className = 'anime-card';
+                    card.style.width = '100%';
+                    card.onclick = () => { closeSearch(); openDetails(anime.mal_id); };
+                    card.innerHTML = `
+                        <div class="card-img-container">
+                            <img src="${anime.images.webp.large_image_url}" class="card-img">
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title">${anime.title_english || anime.title}</h3>
+                            <div class="card-meta">
+                                <span>${anime.year || ''}</span>
+                                <span>★ ${anime.score || 'N/A'}</span>
+                            </div>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(card);
+                });
+            }, 600);
+        });
+
+        /* ==================== MODAL & STATE CONTROLS ==================== */
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        }
+
+        function showPremium() {
+            closeModals();
+            document.getElementById('premium-modal').classList.add('active');
+        }
+
+        function openSearch() {
+            document.getElementById('search-overlay').classList.add('active');
+            document.getElementById('search-input').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('search-overlay').classList.remove('active');
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-results').innerHTML = '';
+        }
+
+        function addToMyList(id) {
+            const list = JSON.parse(localStorage.getItem('myAnimeList') || '[]');
+            if(!list.includes(id)) {
+                list.push(id);
+                localStorage.setItem('myAnimeList', JSON.stringify(list));
+                alert('Added to My List!');
+            } else {
+                alert('Already in My List.');
+            }
+        }
+
+        // Close modals on overlay click or Escape key
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if(e.target === overlay) closeModals();
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                closeModals();
+                closeSearch();
+            }
+        });
+
+    </script>
 </body>
       </html>
