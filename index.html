@@ -144,7 +144,7 @@
             </p>
             
             <div id="stats-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="text-gray-500 text-sm col-span-full">Loading stats from Sheet...</div>
+                <div class="text-center text-primary w-full col-span-full py-10"><i class="fa-solid fa-spinner fa-spin text-2xl"></i> Loading stats...</div>
             </div>
         </section>
 
@@ -354,46 +354,49 @@
         }
 
         /* =========================================================
-           Google Sheet Fetch Logic (2 Alada Sheet)
+           Google Sheet Fetch Logic (FIXED CSV LINKS)
            ========================================================= */
-        const STATS_CSV_URL = "https://docs.google.com/spreadsheets/d/1Wx2zxoZHX4s-A4-cBrdoLpoNFAjxNwumzhf4b6VSLaM/edit?usp=drivesdk";       // Apnar 1st Sheet link (Stats)
-        const PROJECTS_CSV_URL = "https://docs.google.com/spreadsheets/d/1-98oCDS4fgHyDfFiS6ALMeNiznRK2hlaj_vV6BmG9gg/edit?usp=drivesdk"; // Apnar 2nd Sheet link (Projects)
+        
+        // এখানে ভিউ লিংকের পরিবর্তে সরাসরি CSV Export লিংক বসানো হয়েছে
+        const STATS_CSV_URL = "https://docs.google.com/spreadsheets/d/1Wx2zxoZHX4s-A4-cBrdoLpoNFAjxNwumzhf4b6VSLaM/export?format=csv";
+        const PROJECTS_CSV_URL = "https://docs.google.com/spreadsheets/d/1-98oCDS4fgHyDfFiS6ALMeNiznRK2hlaj_vV6BmG9gg/export?format=csv";
         
         let projectsData = [];
 
         // 1. Fetch Stats Sheet
-        if(STATS_CSV_URL !== "YOUR_STATS_SHEET_CSV_LINK_HERE") {
+        if(STATS_CSV_URL) {
             Papa.parse(STATS_CSV_URL, {
                 download: true,
                 header: true,
                 complete: function(results) {
+                    // console.log("Stats Loaded:", results.data); // ডেটা লোড হচ্ছে কিনা চেক করতে পারেন
                     renderStats(results.data.filter(row => row.title));
                     setTimeout(() => { AOS.refresh(); }, 500);
                 }
             });
-        } else {
-            document.getElementById('stats-container').innerHTML = `<div class="col-span-full text-primary text-sm">Please insert Stats CSV link.</div>`;
         }
 
         // 2. Fetch Projects Sheet
-        if(PROJECTS_CSV_URL !== "YOUR_PROJECTS_SHEET_CSV_LINK_HERE") {
+        if(PROJECTS_CSV_URL) {
             Papa.parse(PROJECTS_CSV_URL, {
                 download: true,
                 header: true,
                 complete: function(results) {
+                    // console.log("Projects Loaded:", results.data);
                     projectsData = results.data.filter(row => row.title);
                     renderPortfolio(projectsData);
                     setTimeout(() => { AOS.refresh(); }, 500);
                 }
             });
-        } else {
-            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-primary border border-primary/20 p-6 rounded-2xl">Please insert Projects CSV Link.</div>`;
         }
 
         // Render Functions
         function renderStats(stats) {
             const container = document.getElementById('stats-container');
-            if(stats.length === 0) return;
+            if(stats.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center text-gray-500">No stats found. Make sure Sheet is public.</div>';
+                return;
+            }
             container.innerHTML = ''; 
             stats.forEach(stat => {
                 container.innerHTML += `
@@ -406,16 +409,15 @@
 
         function renderPortfolio(data) {
             const container = document.getElementById('portfolio-container');
-            container.innerHTML = ''; 
             if(data.length === 0) {
-                container.innerHTML = '<div class="text-gray-500">No projects found.</div>';
+                container.innerHTML = '<div class="col-span-full text-center text-gray-500">No projects found. Make sure Sheet is public.</div>';
                 return;
             }
+            container.innerHTML = ''; 
 
             data.forEach((project, index) => {
                 const parsedDesc = parseCustomText(project.short_desc);
                 
-                // Photo Fixed: aspect-video (16:9) added to prevent cutting or resizing boxes
                 const cardHtml = `
                 <div class="bg-card border border-gray-800 rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/50 transition-all duration-300" onclick="openModal(${index})" data-aos="fade-up">
                     <div class="w-full aspect-video bg-gray-900 relative overflow-hidden">
@@ -453,12 +455,16 @@
                 document.getElementById('modal-tech-stack').innerHTML = p.tech_stack.split(',').map(t => 
                     `<span class="bg-[#151515] border border-gray-800 px-5 py-2.5 rounded-full text-sm text-gray-200 font-semibold">${t.trim()}</span>`
                 ).join('');
+            } else {
+                document.getElementById('modal-tech-stack').innerHTML = '';
             }
 
             if(p.features) {
                 document.getElementById('modal-features').innerHTML = p.features.split('|').map(f => 
                     `<li class="flex items-start gap-4"><i class="fa-solid fa-circle-check text-primary text-lg mt-1"></i> <span class="leading-relaxed">${parseCustomText(f.trim())}</span></li>`
                 ).join('');
+            } else {
+                document.getElementById('modal-features').innerHTML = '';
             }
 
             const galleryContainer = document.getElementById('modal-gallery');
@@ -491,4 +497,4 @@
     ></script>
 
 </body>
-            </html>
+    </html>
