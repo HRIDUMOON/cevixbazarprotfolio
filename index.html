@@ -1,620 +1,1190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080a0f">
-<meta name="color-scheme" content="dark">
-<meta name="description" content="SocialTrace — discover publicly available web pages and visually similar images from a photo.">
-<title>SocialTrace — Visual Search</title>
 
-<style>
-/* =========================================================
-   RESET & ALL EXISTING CSS (Unchanged for perfect UI)
-========================================================= */
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#080a0f;--bg2:#0d1017;--card:rgba(16,19,27,.78);--card2:#11151e;--border:rgba(255,255,255,.09);--border2:rgba(255,255,255,.15);--text:#f8fafc;--muted:#929aaa;--muted2:#626b7b;--yellow:#f5c542;--yellow2:#ffe28a;--white:#ffffff;--green:#42d392;--red:#ff6874;--radius:20px;}
-html{scroll-behavior:smooth;}
-body{min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -15%,rgba(245,197,66,.10),transparent 35%),radial-gradient(circle at 15% 45%,rgba(99,102,241,.06),transparent 28%),linear-gradient(180deg,#080a0f,#090b11 60%,#07090e);overflow-x:hidden;}
-body::before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,black 0%,transparent 78%);}
-body::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(115deg,transparent 0%,rgba(245,197,66,.025) 50%,transparent 100%);animation:backgroundMove 14s linear infinite;}
-@keyframes backgroundMove{0%{transform:translateX(-10%);}50%{transform:translateX(10%);}100%{transform:translateX(-10%);}}
-.container{width:min(1120px,calc(100% - 32px));margin:auto;}
-.navbar{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.035);}
-.brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;font-size:18px;font-weight:800;letter-spacing:-.5px;}
-.brand-logo{width:38px;height:38px;object-fit:cover;border-radius:11px;display:none;border:1px solid rgba(255,255,255,.12);}
-.brand-default{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;color:#111;background:linear-gradient(135deg,var(--yellow),var(--yellow2));box-shadow:0 10px 35px rgba(245,197,66,.18);}
-.brand-default svg{width:20px;height:20px;}
-.nav-actions{display:flex;align-items:center;gap:7px;}
-.nav-btn{height:38px;display:inline-flex;align-items:center;gap:7px;padding:0 13px;color:#aeb5c3;background:rgba(15,18,26,.65);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s ease;}
-.nav-btn:hover{color:#fff;border-color:rgba(245,197,66,.30);background:rgba(245,197,66,.055);}
-.nav-btn svg{width:15px;height:15px;}
-.hero{text-align:center;padding:86px 0 38px;}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;color:#d8b957;background:rgba(245,197,66,.045);border:1px solid rgba(245,197,66,.14);border-radius:999px;font-size:11px;font-weight:700;}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 12px rgba(245,197,66,.8);animation:pulse 1.8s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:.5;transform:scale(.85);}50%{opacity:1;transform:scale(1);}}
-.hero h1{margin:20px auto 17px;max-width:850px;font-size:clamp(44px,7vw,78px);line-height:.96;letter-spacing:-4px;font-weight:850;}
-.hero-highlight{background:linear-gradient(100deg,#fff,var(--yellow2),var(--yellow));-webkit-background-clip:text;background-clip:text;color:transparent;}
-.hero p{max-width:610px;margin:auto;color:var(--muted);font-size:15px;line-height:1.75;}
-.search-area{width:min(760px,100%);margin:24px auto 80px;}
-.upload-card{padding:8px;background:linear-gradient(145deg,rgba(42,44,48,.72),rgba(13,16,22,.95));border:1px solid rgba(255,255,255,.10);border-radius:25px;box-shadow:0 35px 100px rgba(0,0,0,.35);}
-.upload-zone{min-height:345px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:35px;border:1px dashed rgba(255,255,255,.18);border-radius:18px;cursor:pointer;transition:.25s ease;}
-.upload-zone:hover,.upload-zone.dragging{border-color:rgba(245,197,66,.65);background:rgba(245,197,66,.025);}
-.upload-icon{width:70px;height:70px;display:grid;place-items:center;margin-bottom:19px;color:var(--yellow);background:linear-gradient(145deg,rgba(245,197,66,.11),rgba(255,255,255,.025));border:1px solid rgba(245,197,66,.17);border-radius:19px;position:relative;}
-.upload-icon::after{content:"";position:absolute;inset:-5px;border-radius:23px;border:1px solid rgba(245,197,66,.07);animation:iconRing 2.5s linear infinite;}
-@keyframes iconRing{0%{opacity:.2;transform:scale(.95);}50%{opacity:.7;transform:scale(1.05);}100%{opacity:.2;transform:scale(.95);}}
-.upload-icon svg{width:28px;height:28px;}
-.upload-zone h2{font-size:20px;letter-spacing:-.4px;margin-bottom:8px;}
-.upload-zone p{color:var(--muted2);font-size:12px;margin-bottom:22px;}
-.primary-btn{height:44px;padding:0 19px;display:inline-flex;align-items:center;justify-content:center;gap:8px;color:#111;background:linear-gradient(135deg,var(--yellow),var(--yellow2));border:0;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 12px 35px rgba(245,197,66,.17);transition:.2s ease;}
-.primary-btn:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(245,197,66,.25);}
-.primary-btn svg{width:16px;height:16px;}
-#fileInput{display:none;}
-.preview{display:none;margin-top:12px;padding:14px;background:var(--card2);border:1px solid var(--border);border-radius:17px;}
-.preview img{width:100%;max-height:300px;display:block;object-fit:contain;border-radius:11px;}
-.preview-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:12px;}
-.file-name{color:#aeb6c5;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.remove-btn{flex:none;color:#ff7780;background:transparent;border:0;cursor:pointer;font-size:12px;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 auto 85px;}
-.step{position:relative;padding:19px;background:rgba(14,17,24,.68);border:1px solid var(--border);border-radius:15px;transition:.2s ease;}
-.step:hover{border-color:rgba(245,197,66,.20);transform:translateY(-2px);}
-.step-number{width:28px;height:28px;display:grid;place-items:center;margin-bottom:12px;color:#d9bc61;background:rgba(245,197,66,.065);border:1px solid rgba(245,197,66,.12);border-radius:8px;font-size:11px;font-weight:800;}
-.step h3{font-size:13px;margin-bottom:6px;}
-.step p{color:var(--muted2);font-size:11px;line-height:1.6;}
-.scan-panel{display:none;padding:25px;margin-top:13px;background:rgba(13,17,25,.9);border:1px solid rgba(245,197,66,.12);border-radius:19px;text-align:center;}
-.scan-ring{width:70px;height:70px;margin:0 auto 17px;border-radius:50%;border:2px solid rgba(245,197,66,.12);border-top-color:var(--yellow);animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.scan-title{font-size:15px;font-weight:750;margin-bottom:7px;}
-.scan-status{color:var(--muted);font-size:12px;}
-.progress{height:5px;overflow:hidden;margin-top:17px;background:#1a1e27;border-radius:99px;}
-.progress-bar{width:0%;height:100%;background:linear-gradient(90deg,var(--yellow),#fff);border-radius:99px;transition:width .3s ease;}
-.results{display:none;margin:25px auto 85px;}
-.result-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:15px;}
-.result-heading h2{font-size:22px;letter-spacing:-.7px;}
-.result-heading span{color:var(--muted2);font-size:11px;}
-.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-.result-card{display:flex;align-items:center;gap:14px;padding:16px;background:rgba(14,18,26,.78);border:1px solid var(--border);border-radius:16px;animation:resultIn .45s ease both;}
-@keyframes resultIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.platform-icon{width:45px;height:45px;flex:none;display:grid;place-items:center;color:#fff;background:#181d28;border:1px solid rgba(255,255,255,.09);border-radius:13px;}
-.platform-icon svg{width:21px;height:21px;}
-.result-info{min-width:0;flex:1;}
-.result-info h3{font-size:13px;margin-bottom:4px;text-transform: capitalize;}
-.result-info p{color:var(--muted2);font-size:10px;}
-.open-result{height:34px;padding:0 11px;display:flex;align-items:center;gap:6px;color:#cbd5e1;background:#171c26;border:1px solid rgba(255,255,255,.08);border-radius:9px;font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;}
-.open-result:hover{color:#111;background:var(--yellow);border-color:var(--yellow);}
-.premium-section{margin-bottom:85px;}
-.premium-header{text-align:center;margin-bottom:20px;}
-.premium-header small{color:#d5b758;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;}
-.premium-header h2{font-size:29px;letter-spacing:-1px;margin-top:7px;}
-.premium-header p{max-width:540px;margin:8px auto 0;color:var(--muted);font-size:12px;line-height:1.7;}
-.premium-toggle{display:flex;justify-content:center;margin-bottom:18px;}
-.toggle{display:flex;padding:4px;background:#10141d;border:1px solid var(--border);border-radius:11px;}
-.toggle button{height:34px;padding:0 15px;color:#778093;background:transparent;border:0;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;}
-.toggle button.active{color:#111;background:var(--yellow);}
-.premium-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;}
-.price-card{position:relative;padding:25px;background:linear-gradient(145deg,rgba(25,28,35,.9),rgba(13,16,22,.95));border:1px solid rgba(255,255,255,.09);border-radius:19px;transition:.25s ease;}
-.price-card:hover{transform:translateY(-3px);border-color:rgba(245,197,66,.27);}
-.price-card.featured{border-color:rgba(245,197,66,.35);box-shadow:0 25px 70px rgba(245,197,66,.06);}
-.popular{position:absolute;top:15px;right:15px;padding:5px 8px;color:#151515;background:var(--yellow);border-radius:6px;font-size:8px;font-weight:900;letter-spacing:.5px;}
-.price-card h3{font-size:15px;margin-bottom:10px;}
-.price{display:flex;align-items:end;gap:4px;margin-bottom:18px;}
-.price strong{font-size:38px;line-height:1;letter-spacing:-2px;}
-.price span{color:var(--muted2);font-size:11px;padding-bottom:4px;}
-.benefits{list-style:none;margin-bottom:21px;}
-.benefits li{position:relative;padding-left:19px;margin:9px 0;color:#a8b0bd;font-size:11px;}
-.benefits li::before{content:"";position:absolute;left:0;top:4px;width:7px;height:7px;border-radius:50%;background:var(--yellow);}
-.buy-btn{width:100%;height:42px;border-radius:10px;border:1px solid rgba(245,197,66,.25);color:#111;background:linear-gradient(135deg,var(--yellow),var(--yellow2));font-size:12px;font-weight:850;cursor:pointer;transition:.2s ease;}
-.buy-btn:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(245,197,66,.18);}
-.premium-content{display:none;animation:premiumIn .45s ease;}
-.premium-content.show{display:block;}
-@keyframes premiumIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-.unlock-button-wrap{text-align:center;margin-top:20px;}
-.providers{overflow:hidden;margin:0 calc(50% - 50vw) 55px;padding:20px 0;border-top:1px solid rgba(255,255,255,.045);border-bottom:1px solid rgba(255,255,255,.045);background:rgba(255,255,255,.012);}
-.provider-track{width:max-content;display:flex;align-items:center;gap:45px;animation:marquee 28s linear infinite;will-change:transform;}
-.provider-track:hover{animation-play-state:running;}
-@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.provider{display:flex;align-items:center;gap:10px;color:#737d90;white-space:nowrap;font-size:11px;font-weight:700;}
-.provider-mark{width:30px;height:30px;display:grid;place-items:center;color:#cbd5e1;background:#141923;border:1px solid rgba(255,255,255,.08);border-radius:9px;}
-.provider-mark svg{width:16px;height:16px;}
-footer{border-top:1px solid rgba(255,255,255,.055);padding:28px 0 32px;}
-.footer{display:flex;align-items:center;justify-content:space-between;gap:20px;}
-.footer-copy{color:#4e5768;font-size:10px;}
-.developer{color:#8b94a5;text-decoration:none;font-size:11px;font-weight:700;transition:.2s;}
-.developer:hover{color:var(--yellow);}
-.footer-links{display:flex;gap:15px;}
-.footer-links button{color:#687286;background:transparent;border:0;font-size:10px;cursor:pointer;}
-.footer-links button:hover{color:#fff;}
-.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,4,8,.76);backdrop-filter:blur(12px);z-index:1000;}
-.modal.active{display:flex;animation:modalBg .2s ease;}
-@keyframes modalBg{from{opacity:0;}to{opacity:1;}}
-.modal-box{width:min(560px,100%);max-height:82vh;overflow:auto;padding:25px;background:#0e121a;border:1px solid rgba(255,255,255,.11);border-radius:20px;box-shadow:0 35px 100px rgba(0,0,0,.55);animation:modalIn .25s ease;}
-@keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
-.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.modal-header h2{font-size:18px;}
-.close{width:32px;height:32px;display:grid;place-items:center;color:#8b95a7;background:#171b25;border:1px solid rgba(255,255,255,.08);border-radius:9px;cursor:pointer;font-size:19px;}
-.modal-body{color:#818b9d;font-size:12px;line-height:1.85;}
-.modal-body strong{color:#d7dde7;}
-.modal-body h3{color:#e8ecf2;font-size:13px;margin:17px 0 6px;}
-.purchase-icon{width:52px;height:52px;display:grid;place-items:center;margin:0 auto 14px;color:#111;background:var(--yellow);border-radius:15px;}
-.purchase-icon svg{width:25px;height:25px;}
-.purchase-modal{text-align:center;}
-.purchase-modal h2{font-size:20px;margin-bottom:7px;}
-.purchase-modal p{color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:20px;}
-.whatsapp-button{width:100%;height:46px;display:flex;align-items:center;justify-content:center;gap:9px;color:#fff;background:#171c25;border:1px solid rgba(255,255,255,.1);border-radius:11px;text-decoration:none;font-size:12px;font-weight:800;transition:.2s ease;}
-.whatsapp-button:hover{background:#202632;border-color:rgba(245,197,66,.25);}
-.whatsapp-button svg{width:17px;height:17px;}
-@media(max-width:760px){.container{width:calc(100% - 24px);}.navbar{height:68px;}.nav-btn{width:35px;padding:0;justify-content:center;}.nav-btn span{display:none;}.hero{padding:62px 0 32px;}.hero h1{letter-spacing:-2.7px;}.hero p{font-size:13px;}.upload-zone{min-height:300px;padding:25px;}.steps{grid-template-columns:repeat(2,1fr);}.premium-cards{grid-template-columns:1fr;}.result-grid{grid-template-columns:1fr;}.footer{flex-direction:column;text-align:center;}}
-@media(max-width:420px){.hero h1{font-size:42px;}.steps{grid-template-columns:1fr;}.nav-actions{gap:3px;}}
-</style>
+  <!-- =========================
+       META TAGS
+  ========================== -->
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color"
+        content="#ffd400">
+
+  <meta name="robots"
+        content="index, follow">
+
+  <meta name="author"
+        content="Your Name">
+
+  <meta name="description"
+        content="Web Development and OTT Development skills including React, Next.js, Node.js, Laravel, HLS, DASH, CDN, DRM, Payment Gateway and more.">
+
+  <meta name="keywords"
+        content="Web Developer, OTT Developer, React, Next.js, Node.js, Laravel, HLS, DASH, CDN, DRM, JavaScript">
+
+  <title>Skills | Web & OTT Development</title>
+
+
+  <!-- =========================
+       OPEN GRAPH
+  ========================== -->
+
+  <meta property="og:type"
+        content="website">
+
+  <meta property="og:title"
+        content="Web & OTT Development Skills">
+
+  <meta property="og:description"
+        content="Modern Web Development & OTT Streaming Development Skills.">
+
+  <meta property="og:image"
+        content="https://dummyimage.com/1200x630/ffd400/000000&text=WEB+%26+OTT">
+
+
+  <!-- =========================
+       FAVICON / LOGO
+  ========================== -->
+
+  <link rel="icon"
+        href="data:image/svg+xml,
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+        <rect width='100' height='100' rx='20' fill='%23ffd400'/>
+        <text x='50' y='67'
+        text-anchor='middle'
+        font-size='48'
+        font-family='Arial'
+        font-weight='bold'
+        fill='%23000'>&lt;/&gt;</text>
+        </svg>">
+
+
+  <!-- =========================
+       FONT
+  ========================== -->
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+  <!-- =========================
+       FONT AWESOME ICONS
+  ========================== -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+  <style>
+
+    /* =========================
+       RESET
+    ========================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    /* =========================
+       VARIABLES
+    ========================== */
+
+    :root {
+      --yellow: #ffd400;
+      --yellow-dark: #e5bd00;
+
+      --black: #050505;
+      --black-2: #0b0b0b;
+      --card: #111111;
+
+      --border: #242424;
+
+      --white: #ffffff;
+      --gray: #999999;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+
+    /* =========================
+       BACKGROUND GLOW
+    ========================== */
+
+    body::before {
+      content: "";
+
+      position: fixed;
+
+      width: 500px;
+      height: 500px;
+
+      top: -250px;
+      left: -250px;
+
+      background: var(--yellow);
+
+      filter: blur(180px);
+
+      opacity: 0.06;
+
+      pointer-events: none;
+
+      z-index: -1;
+    }
+
+
+    body::after {
+      content: "";
+
+      position: fixed;
+
+      width: 400px;
+      height: 400px;
+
+      right: -250px;
+      bottom: -200px;
+
+      background: var(--yellow);
+
+      filter: blur(180px);
+
+      opacity: 0.04;
+
+      pointer-events: none;
+
+      z-index: -1;
+    }
+
+
+    /* =========================
+       MAIN SECTION
+    ========================== */
+
+    .skills-section {
+      min-height: 100vh;
+
+      padding: 110px 20px;
+    }
+
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+
+      margin: auto;
+    }
+
+
+    /* =========================
+       HEADING
+    ========================== */
+
+    .heading {
+      text-align: center;
+
+      margin-bottom: 70px;
+    }
+
+
+    .small-title {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      color: var(--yellow);
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 20px;
+    }
+
+
+    .small-title span {
+      width: 30px;
+      height: 2px;
+
+      background: var(--yellow);
+    }
+
+
+    .heading h1 {
+      font-size: clamp(45px, 7vw, 85px);
+
+      font-weight: 900;
+
+      line-height: 0.95;
+
+      letter-spacing: -5px;
+
+      margin-bottom: 25px;
+    }
+
+
+    .heading h1 span {
+      color: var(--yellow);
+    }
+
+
+    .heading p {
+      max-width: 650px;
+
+      margin: auto;
+
+      color: var(--gray);
+
+      font-size: 15px;
+
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       SKILL GRID
+    ========================== */
+
+    .skills-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 25px;
+    }
+
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .skill-card {
+      position: relative;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0a0a0a
+        );
+
+      border: 1px solid var(--border);
+
+      border-radius: 24px;
+
+      padding: 35px;
+
+      overflow: hidden;
+
+      transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+    }
+
+
+    .skill-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+      height: 180px;
+
+      right: -100px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      background: var(--yellow);
+
+      filter: blur(80px);
+
+      opacity: 0;
+
+      transition: .4s;
+    }
+
+
+    .skill-card:hover {
+      transform: translateY(-8px);
+
+      border-color: var(--yellow);
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.5);
+    }
+
+
+    .skill-card:hover::before {
+      opacity: .10;
+    }
+
+
+    /* =========================
+       CARD HEADER
+    ========================== */
+
+    .card-header {
+      display: flex;
+
+      align-items: center;
+
+      gap: 17px;
+
+      margin-bottom: 30px;
+    }
+
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      background: var(--yellow);
+
+      color: #000;
+
+      border-radius: 16px;
+
+      font-size: 25px;
+
+      transition: .35s;
+    }
+
+
+    .skill-card:hover .card-icon {
+      transform:
+        rotate(-7deg)
+        scale(1.08);
+    }
+
+
+    .card-header h2 {
+      font-size: 25px;
+
+      font-weight: 800;
+    }
+
+
+    .card-header p {
+      color: var(--gray);
+
+      font-size: 12px;
+
+      margin-top: 5px;
+    }
+
+
+    /* =========================
+       SKILL ITEMS
+    ========================== */
+
+    .skill-list {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 12px;
+    }
+
+
+    .skill {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      min-height: 58px;
+
+      padding: 14px;
+
+      background: #090909;
+
+      border: 1px solid #202020;
+
+      border-radius: 14px;
+
+      transition: .3s;
+
+      cursor: default;
+    }
+
+
+    .skill:hover {
+      background: #181818;
+
+      border-color: var(--yellow);
+
+      transform: translateX(5px);
+    }
+
+
+    .skill i {
+      width: 25px;
+
+      text-align: center;
+
+      color: var(--yellow);
+
+      font-size: 19px;
+
+      flex-shrink: 0;
+    }
+
+
+    .skill-name {
+      font-size: 13px;
+
+      font-weight: 600;
+
+      line-height: 1.3;
+
+      color: #dddddd;
+    }
+
+
+    .skill:hover .skill-name {
+      color: white;
+    }
+
+
+    /* =========================
+       REAL BRAND ICON COLORS
+    ========================== */
+
+    .html {
+      color: #e34f26 !important;
+    }
+
+    .css {
+      color: #1572b6 !important;
+    }
+
+    .js {
+      color: #f7df1e !important;
+    }
+
+    .react {
+      color: #61dafb !important;
+    }
+
+    .node {
+      color: #68a063 !important;
+    }
+
+    .laravel {
+      color: #ff2d20 !important;
+    }
+
+    .mysql {
+      color: #00758f !important;
+    }
+
+    .mongo {
+      color: #47a248 !important;
+    }
+
+    .git {
+      color: #f05032 !important;
+    }
+
+    .github {
+      color: white !important;
+    }
+
+    .android {
+      color: #3ddc84 !important;
+    }
+
+
+    /* =========================
+       STATS
+    ========================== */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 15px;
+
+      margin-top: 25px;
+    }
+
+
+    .stat {
+      padding: 25px;
+
+      text-align: center;
+
+      background: var(--card);
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      transition: .3s;
+    }
+
+
+    .stat:hover {
+      border-color: var(--yellow);
+
+      transform: translateY(-5px);
+    }
+
+
+    .stat strong {
+      display: block;
+
+      color: var(--yellow);
+
+      font-size: 30px;
+
+      font-weight: 900;
+
+      margin-bottom: 6px;
+    }
+
+
+    .stat span {
+      color: var(--gray);
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+    }
+
+
+    /* =========================
+       SCROLL REVEAL
+    ========================== */
+
+    .reveal {
+      opacity: 0;
+
+      transform: translateY(35px);
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+
+    .reveal.active {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+
+
+    /* =========================
+       TABLET
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+
+      .skills-section {
+        padding: 75px 15px;
+      }
+
+
+      .heading {
+        margin-bottom: 45px;
+      }
+
+
+      .heading h1 {
+        letter-spacing: -3px;
+      }
+
+
+      .skill-card {
+        padding: 22px;
+
+        border-radius: 19px;
+      }
+
+
+      .card-header h2 {
+        font-size: 21px;
+      }
+
+
+      .skill-list {
+        grid-template-columns: 1fr;
+      }
+
+
+      .skill {
+        min-height: 55px;
+      }
+
+
+      .stats {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+
+      .stat {
+        padding: 20px 10px;
+      }
+
+
+      .stat strong {
+        font-size: 24px;
+      }
+
+    }
+
+
+    /* =========================
+       VERY SMALL MOBILE
+    ========================== */
+
+    @media (max-width: 360px) {
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .heading h1 {
+        font-size: 42px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
 
-<div class="container">
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <a href="#" class="brand">
-        <img id="customLogo" class="brand-logo" alt="SocialTrace logo">
-        <span id="defaultLogo" class="brand-default">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/><path d="M8.5 11h5"/>
-            </svg>
-        </span>
-        SocialTrace
-    </a>
-    <div class="nav-actions">
-        <button class="nav-btn" onclick="openModal('about')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg>
-            <span>About</span>
-        </button>
-        <button class="nav-btn" onclick="openModal('how')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 8 5 4-5 4z"/></svg>
-            <span>How it works</span>
-        </button>
-        <button class="nav-btn" onclick="openModal('terms')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12"/><path d="M6 8h12"/><path d="M6 12h8"/><path d="M6 16h8"/><path d="M6 20h12"/></svg>
-            <span>Terms</span>
-        </button>
-    </div>
-</nav>
+  <!-- =================================
+       SKILLS SECTION
+  ================================== -->
 
-<!-- HERO -->
-<section class="hero">
-    <div class="badge"><span class="badge-dot"></span>Public web visual search</div>
-    <h1>Search the web.<br><span class="hero-highlight">Trace the image.</span></h1>
-    <p>Upload a photo and explore visually similar public images and webpages from supported search services.</p>
-</section>
+  <section class="skills-section">
 
-<!-- UPLOAD AREA -->
-<section class="search-area">
-    <div class="upload-card">
-        <label class="upload-zone" id="uploadZone" for="fileInput">
-            <div class="upload-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/>
-                </svg>
+    <div class="container">
+
+
+      <!-- HEADER -->
+
+      <div class="heading reveal">
+
+        <div class="small-title">
+
+          <span></span>
+
+          What I Do
+
+          <span></span>
+
+        </div>
+
+
+        <h1>
+          My <span>Skills</span>
+        </h1>
+
+
+        <p>
+          Building modern, scalable web applications
+          and high-performance OTT streaming platforms
+          with clean architecture and modern technologies.
+        </p>
+
+      </div>
+
+
+
+      <!-- =================================
+           SKILL CARDS
+      ================================== -->
+
+      <div class="skills-grid">
+
+
+        <!-- ==============================
+             WEB DEVELOPMENT
+        =============================== -->
+
+        <div class="skill-card reveal">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+
+              <i class="fa-solid fa-code"></i>
+
             </div>
-            <h2>Upload an image</h2>
-            <p>JPG, PNG or WEBP · Maximum 10MB</p>
-            <span class="primary-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-                Choose image
-            </span>
-        </label>
-        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
-    </div>
 
-    <!-- PREVIEW -->
-    <div class="preview" id="preview">
-        <img id="previewImage" alt="Selected image">
-        <div class="preview-bottom">
-            <span class="file-name" id="fileName"></span>
-            <button class="remove-btn" id="removeButton">Remove</button>
-        </div>
-    </div>
+            <div>
 
-    <!-- SCAN PANEL -->
-    <div class="scan-panel" id="scanPanel">
-        <div class="scan-ring"></div>
-        <div class="scan-title">Analyzing image</div>
-        <div class="scan-status" id="scanStatus">Preparing visual search...</div>
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-    </div>
-</section>
+              <h2>
+                Web Development
+              </h2>
 
-<!-- STEPS -->
-<section class="steps">
-    <div class="step"><div class="step-number">01</div><h3>Upload</h3><p>Select a photo from your device.</p></div>
-    <div class="step"><div class="step-number">02</div><h3>Scan</h3><p>Your connected search service processes the image.</p></div>
-    <div class="step"><div class="step-number">03</div><h3>Analyze</h3><p>Potentially relevant public sources are organized.</p></div>
-    <div class="step"><div class="step-number">04</div><h3>Explore</h3><p>Open available source pages and review results.</p></div>
-</section>
+              <p>
+                Modern web technologies
+              </p>
 
-<!-- RESULTS -->
-<section class="results" id="results">
-    <div class="result-heading">
-        <div><h2>Potential public matches</h2></div>
-        <span>Live Results</span>
-    </div>
-    
-    <!-- Changed ID here so JS can inject dynamic results -->
-    <div class="result-grid" id="resultGrid">
-       <!-- Cards will be generated via API here -->
-    </div>
-</section>
-
-<!-- PREMIUM (Skipped html lines for brevity, kept exactly as your code) -->
-<section class="premium-section">
-    <!-- Everything remains same as your HTML -->
-    <div class="premium-header">
-        <small>SocialTrace Premium</small>
-        <h2>Go beyond the basic search.</h2>
-        <p>Unlock additional search capacity and premium features for more extensive public-web discovery.</p>
-    </div>
-    <div class="unlock-button-wrap" id="unlockWrap">
-        <button class="primary-btn" onclick="showPremium()">Unlock Premium Plans</button>
-    </div>
-    <div class="premium-content" id="premiumContent">
-        <div class="premium-toggle">
-            <div class="toggle">
-                <button id="monthlyBtn" class="active" onclick="setBilling('monthly')">Monthly</button>
-                <button id="yearlyBtn" onclick="setBilling('yearly')">Yearly</button>
             </div>
-        </div>
-        <div class="premium-cards">
-            <div class="price-card">
-                <h3>Premium</h3>
-                <div class="price"><strong id="priceValue">$9.99</strong><span id="pricePeriod">/ month</span></div>
-                <ul class="benefits">
-                    <li>Higher search limits</li><li>Extended result exploration</li><li>Faster scan priority</li><li>Advanced result filtering</li><li>Premium search history</li>
-                </ul>
-                <button class="buy-btn" onclick="openPurchase('Premium')">Buy Premium</button>
+
+          </div>
+
+
+          <div class="skill-list">
+
+
+            <div class="skill">
+
+              <i class="fa-brands fa-html5 html"></i>
+
+              <span class="skill-name">
+                HTML, CSS, JavaScript
+              </span>
+
             </div>
-            <div class="price-card featured">
-                <div class="popular">BEST VALUE</div>
-                <h3>Premium Yearly</h3>
-                <div class="price"><strong>$79.99</strong><span>/ year</span></div>
-                <ul class="benefits">
-                    <li>Everything in Premium</li><li>Best value for regular users</li><li>Priority processing</li><li>Extended search access</li><li>Early access to new features</li>
-                </ul>
-                <button class="buy-btn" onclick="openPurchase('Premium Yearly')">Buy Yearly</button>
+
+
+            <div class="skill">
+
+              <i class="fa-brands fa-react react"></i>
+
+              <span class="skill-name">
+                React / Next.js
+              </span>
+
             </div>
+
+
+            <div class="skill">
+
+              <i class="fa-brands fa-node-js node"></i>
+
+              <span class="skill-name">
+                Node.js / Laravel
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-database"></i>
+
+              <span class="skill-name">
+                MySQL / MongoDB
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-plug"></i>
+
+              <span class="skill-name">
+                REST API
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-brands fa-github github"></i>
+
+              <span class="skill-name">
+                Git & GitHub
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-mobile-screen-button"></i>
+
+              <span class="skill-name">
+                Responsive Design
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-pen-ruler"></i>
+
+              <span class="skill-name">
+                UI/UX
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-gauge-high"></i>
+
+              <span class="skill-name">
+                SEO & Performance
+              </span>
+
+            </div>
+
+
+          </div>
+
         </div>
-    </div>
-</section>
 
-<!-- PROVIDERS -->
-<section class="providers">
-    <div class="provider-track">
-        <div class="provider"><span class="provider-mark">G</span>Google Lens</div>
-        <div class="provider"><span class="provider-mark">B</span>Bing Visual Search</div>
-        <div class="provider"><span class="provider-mark">T</span>TinEye</div>
-        <div class="provider"><span class="provider-mark">Y</span>Yandex Images</div>
-        <div class="provider"><span class="provider-mark">F</span>FaceCheck.ID</div>
-        <div class="provider"><span class="provider-mark">P</span>PimEyes</div>
-        <div class="provider"><span class="provider-mark">G</span>Google Lens</div>
-        <div class="provider"><span class="provider-mark">B</span>Bing Visual Search</div>
-        <div class="provider"><span class="provider-mark">T</span>TinEye</div>
-        <div class="provider"><span class="provider-mark">Y</span>Yandex Images</div>
-        <div class="provider"><span class="provider-mark">F</span>FaceCheck.ID</div>
-        <div class="provider"><span class="provider-mark">P</span>PimEyes</div>
-    </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-    <div class="footer">
-        <div class="footer-copy">© 2026 SocialTrace. All rights reserved.</div>
-        <div class="footer-links">
-            <button onclick="openModal('privacy')">Privacy</button>
-            <button onclick="openModal('terms')">Terms</button>
+
+        <!-- ==============================
+             OTT DEVELOPMENT
+        =============================== -->
+
+        <div class="skill-card reveal">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+
+              <i class="fa-solid fa-tv"></i>
+
+            </div>
+
+            <div>
+
+              <h2>
+                OTT Development
+              </h2>
+
+              <p>
+                Streaming & entertainment platforms
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="skill-list">
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-play"></i>
+
+              <span class="skill-name">
+                Video Streaming (HLS/DASH)
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-cloud"></i>
+
+              <span class="skill-name">
+                CDN Integration
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-file-video"></i>
+
+              <span class="skill-name">
+                Video Transcoding
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-shield-halved"></i>
+
+              <span class="skill-name">
+                DRM & Security
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-repeat"></i>
+
+              <span class="skill-name">
+                Subscription System
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-credit-card"></i>
+
+              <span class="skill-name">
+                Payment Gateway
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-folder-open"></i>
+
+              <span class="skill-name">
+                Content Management
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-users"></i>
+
+              <span class="skill-name">
+                User Management
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-brands fa-android android"></i>
+
+              <span class="skill-name">
+                Android / iOS / Smart TV
+              </span>
+
+            </div>
+
+
+            <div class="skill">
+
+              <i class="fa-solid fa-chart-line"></i>
+
+              <span class="skill-name">
+                Analytics & Monitoring
+              </span>
+
+            </div>
+
+
+          </div>
+
         </div>
-        <a class="developer" id="developerLink" href="#" target="_blank" rel="noopener">Developer · HASAN HRIDOY</a>
-    </div>
-</footer>
 
-</div>
 
-<!-- GENERAL MODAL -->
-<div class="modal" id="generalModal">
-    <div class="modal-box">
-        <div class="modal-header">
-            <h2 id="modalTitle">SocialTrace</h2>
-            <button class="close" onclick="closeModal()">×</button>
+      </div>
+
+
+
+      <!-- =================================
+           STATS
+      ================================== -->
+
+      <div class="stats">
+
+
+        <div class="stat reveal">
+
+          <strong>09+</strong>
+
+          <span>
+            Web Skills
+          </span>
+
         </div>
-        <div class="modal-body" id="modalBody"></div>
-    </div>
-</div>
 
-<!-- PURCHASE MODAL -->
-<div class="modal" id="purchaseModal">
-    <div class="modal-box purchase-modal">
-        <div class="purchase-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18"/><path d="M17 7H9.5a3.5 3.5 0 0 0 0 7H15a3.5 3.5 0 0 1 0 7H7"/></svg>
+
+        <div class="stat reveal">
+
+          <strong>10+</strong>
+
+          <span>
+            OTT Skills
+          </span>
+
         </div>
-        <h2>Continue with WhatsApp</h2>
-        <p>To purchase <strong id="selectedPlan">Premium</strong>, contact SocialTrace on WhatsApp. Your plan and payment details can be confirmed there.</p>
-        <a id="whatsappButton" class="whatsapp-button" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4zM12.2 21.6c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.7 9.7 0 1 1 8.4 4.6zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.9-1-3.1-1.8-4.3-4-.3-.5.3-.5.8-1.6.1-.2.1-.4 0-.6 0-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.7 2 .9 2.8.9 3.8.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.5-.3z"/></svg>
-            Open WhatsApp
-        </a>
+
+
+        <div class="stat reveal">
+
+          <strong>100%</strong>
+
+          <span>
+            Responsive
+          </span>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+          <strong>24/7</strong>
+
+          <span>
+            Performance
+          </span>
+
+        </div>
+
+
+      </div>
+
     </div>
-</div>
 
-<script>
-/* =========================================================
-   CONFIGURATION
-========================================================= */
-const CONFIG = {
-    logo: "",
-    whatsapp: "8801XXXXXXXXX",
-    developerUrl: "https://example.com",
-    monthlyPrice: "9.99",
-    yearlyPrice: "79.99",
+  </section>
 
-    // ✅ নতুন API Configuration যুক্ত করা হলো
-    apiUrl: "https://your-api-endpoint.com/v1/search", 
-    apiToken: "YOUR_API_TOKEN_HERE" // যদি টোকেন লাগে
-};
 
-/* =========================================================
-   PLATFORM ICONS (API থেকে পাওয়া নামের উপর ভিত্তি করে)
-========================================================= */
-const PLATFORM_ICONS = {
-    "facebook": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v6h4v-6h3l1-4h-4V9c0-.7.3-1 1-1z"/></svg>`,
-    "instagram": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>`,
-    "linkedin": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 8h4v13H3zM9 8h4v2c.8-1.3 2.1-2.3 4.2-2.3 3.7 0 4.8 2.4 4.8 6v7.3h-4v-6.5c0-1.6 0-3.7-2.2-3.7s-2.5 1.7-2.5 3.6v6.6H9z"/></svg>`,
-    "x": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.2L6.7 22H3.6l7.2-8.3L3 2h6.2l4.3 5.7L18.9 2zm-1.1 17.7h1.7L8.3 4.2H6.5z"/></svg>`,
-    "default": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>`
-};
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-if(CONFIG.logo){
-    const logo = document.getElementById("customLogo");
-    const defaultLogo = document.getElementById("defaultLogo");
-    logo.src = CONFIG.logo;
-    logo.style.display = "block";
-    defaultLogo.style.display = "none";
-}
-document.getElementById("developerLink").href = CONFIG.developerUrl;
+  <!-- =================================
+       JAVASCRIPT
+  ================================== -->
 
-/* =========================================================
-   IMAGE UPLOAD & DOM ELEMENTS
-========================================================= */
-const fileInput = document.getElementById("fileInput");
-const uploadZone = document.getElementById("uploadZone");
-const preview = document.getElementById("preview");
-const previewImage = document.getElementById("previewImage");
-const fileName = document.getElementById("fileName");
-const removeButton = document.getElementById("removeButton");
-const scanPanel = document.getElementById("scanPanel");
-const progressBar = document.getElementById("progressBar");
-const scanStatus = document.getElementById("scanStatus");
-const results = document.getElementById("results");
-const resultGrid = document.getElementById("resultGrid");
+  <script>
 
-fileInput.addEventListener("change", handleFile);
+    /* Scroll Reveal */
 
-function handleFile(){
-    const file = fileInput.files[0];
-    if(!file) return;
+    const elements =
+      document.querySelectorAll(".reveal");
 
-    if(!file.type.startsWith("image/")){
-        alert("Please select a valid image.");
-        fileInput.value = "";
-        return;
-    }
-    if(file.size > 10 * 1024 * 1024){
-        alert("Maximum image size is 10MB.");
-        fileInput.value = "";
-        return;
-    }
 
-    const reader = new FileReader();
-    reader.onload = function(event){
-        previewImage.src = event.target.result;
-        fileName.textContent = file.name;
-        preview.style.display = "block";
-        results.style.display = "none";
-        
-        // কল করা হলো রিয়েল API স্ক্যান ফাংশন
-        startRealApiScan(file); 
-    };
-    reader.readAsDataURL(file);
-}
+    const observer =
+      new IntersectionObserver(
 
-/* =========================================================
-   DRAG DROP & REMOVE IMAGE
-========================================================= */
-uploadZone.addEventListener("dragover", event => {
-    event.preventDefault();
-    uploadZone.classList.add("dragging");
-});
-uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("dragging"));
-uploadZone.addEventListener("drop", event => {
-    event.preventDefault();
-    uploadZone.classList.remove("dragging");
-    if(event.dataTransfer.files.length){
-        fileInput.files = event.dataTransfer.files;
-        fileInput.dispatchEvent(new Event("change"));
-    }
-});
+        (entries) => {
 
-removeButton.addEventListener("click", () => {
-    fileInput.value = "";
-    previewImage.src = "";
-    fileName.textContent = "";
-    preview.style.display = "none";
-    scanPanel.style.display = "none";
-    results.style.display = "none";
-    progressBar.style.width = "0%";
-});
+          entries.forEach((entry) => {
 
-/* =========================================================
-   ✅ REAL API INTEGRATION
-========================================================= */
-async function startRealApiScan(file) {
-    scanPanel.style.display = "block";
-    progressBar.style.width = "10%";
-    scanStatus.textContent = "Uploading image to server...";
-    
-    const formData = new FormData();
-    formData.append("image", file);
+            if (entry.isIntersecting) {
 
-    try {
-        // লোডিং দেখানোর জন্য ফেক প্রগ্রেসবার (যতক্ষণ API রেসপন্স না দেয়)
-        let progress = 10;
-        const fakeProgress = setInterval(() => {
-            if(progress < 85) {
-                progress += 5;
-                progressBar.style.width = progress + "%";
-                scanStatus.textContent = "Analyzing structure & checking sources...";
+              entry.target.classList.add("active");
+
+              observer.unobserve(
+                entry.target
+              );
+
             }
-        }, 800);
 
-        // API Fetch Request
-        const response = await fetch(CONFIG.apiUrl, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${CONFIG.apiToken}`
-                // "Content-Type" FormData এর ক্ষেত্রে নিজে থেকেই তৈরি হয়
-            },
-            body: formData
-        });
+          });
 
-        clearInterval(fakeProgress);
+        },
 
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
+        {
+          threshold: 0.12
         }
 
-        const data = await response.json();
-        // ধরে নিচ্ছি API থেকে { success: true, matches: [...] } আসবে
+      );
 
-        progressBar.style.width = "100%";
-        scanStatus.textContent = "Analysis complete!";
 
-        setTimeout(() => {
-            scanPanel.style.display = "none";
-            renderDynamicResults(data.matches || data.results || []); // API Structure এর উপর নির্ভর করবে
-        }, 800);
+    elements.forEach((element) => {
 
-    } catch (error) {
-        console.error("API Error:", error);
-        scanStatus.textContent = "Error scanning image. Please try again.";
-        scanStatus.style.color = "var(--red)";
-        progressBar.style.background = "var(--red)";
-        
-        // Fallback for Demo purpose (যদি API error দেয়, তবে আপনি চাইলে ফেইক ডেটা দেখাতে পারেন)
-        // setTimeout(() => renderDynamicResults(getDemoData()), 2000);
-    }
-}
+      observer.observe(element);
 
-/* =========================================================
-   ✅ RENDER DYNAMIC CARDS FROM API DATA
-========================================================= */
-function renderDynamicResults(matchesArray) {
-    resultGrid.innerHTML = ""; // আগের রেজাল্ট ক্লিয়ার
+    });
 
-    if (!matchesArray || matchesArray.length === 0) {
-        resultGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align:center; color:var(--muted);">No public sources found for this image.</p>`;
-    } else {
-        matchesArray.forEach(match => {
-            const platformName = match.platform ? match.platform.toLowerCase() : "default";
-            const iconSvg = PLATFORM_ICONS[platformName] || PLATFORM_ICONS["default"];
-            
-            const cardHTML = `
-                <article class="result-card">
-                    <div class="platform-icon">
-                        ${iconSvg}
-                    </div>
-                    <div class="result-info">
-                        <h3>${match.platform || "Web Source"}</h3>
-                        <p>${match.description || "Public source detected"}</p>
-                    </div>
-                    <a class="open-result" href="${match.url || "#"}" target="_blank" rel="noopener">
-                        Open
-                    </a>
-                </article>
-            `;
-            resultGrid.insertAdjacentHTML('beforeend', cardHTML);
+
+    /* Skill hover animation delay */
+
+    document
+      .querySelectorAll(".skill-list")
+      .forEach((list) => {
+
+        const skills =
+          list.querySelectorAll(".skill");
+
+
+        skills.forEach((skill, index) => {
+
+          skill.style.transitionDelay =
+            `${index * 30}ms`;
+
         });
-    }
 
-    results.style.display = "block";
-    results.scrollIntoView({ behavior:"smooth", block:"start" });
-}
+      });
 
-/* =========================================================
-   PREMIUM & MODALS (Unchanged logic)
-========================================================= */
-function showPremium(){
-    document.getElementById("premiumContent").classList.add("show");
-    document.getElementById("unlockWrap").style.display = "none";
-}
+  </script>
 
-function setBilling(type){
-    const monthlyBtn = document.getElementById("monthlyBtn");
-    const yearlyBtn = document.getElementById("yearlyBtn");
-    const price = document.getElementById("priceValue");
-    const period = document.getElementById("pricePeriod");
-
-    if(type === "monthly"){
-        monthlyBtn.classList.add("active"); yearlyBtn.classList.remove("active");
-        price.textContent = "$" + CONFIG.monthlyPrice; period.textContent = "/ month";
-    } else {
-        yearlyBtn.classList.add("active"); monthlyBtn.classList.remove("active");
-        price.textContent = "$" + CONFIG.yearlyPrice; period.textContent = "/ year";
-    }
-}
-
-function openPurchase(plan){
-    document.getElementById("selectedPlan").textContent = plan;
-    const message = encodeURIComponent("Hello SocialTrace, I want to purchase the " + plan + " plan.");
-    const phone = CONFIG.whatsapp.replace(/[^0-9]/g, "");
-    document.getElementById("whatsappButton").href = "https://wa.me/" + phone + "?text=" + message;
-    document.getElementById("purchaseModal").classList.add("active");
-}
-
-/* =========================================================
-   GENERAL MODALS
-========================================================= */
-const generalModal = document.getElementById("generalModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalBody = document.getElementById("modalBody");
-
-function openModal(type){
-    if(type === "about"){
-        modalTitle.textContent = "About SocialTrace";
-        modalBody.innerHTML = `<p><strong>SocialTrace</strong> is a visual-search interface...</p>`;
-    } else if(type === "how"){
-        modalTitle.textContent = "How SocialTrace works";
-        modalBody.innerHTML = `<h3>01 — Upload</h3><p>Choose a supported image...</p>`;
-    } else if(type === "terms"){
-        modalTitle.textContent = "Terms of Use";
-        modalBody.innerHTML = `<p>SocialTrace is intended for lawful, responsible use...</p>`;
-    } else if(type === "privacy"){
-        modalTitle.textContent = "Privacy";
-        modalBody.innerHTML = `<p>SocialTrace should only process images...</p>`;
-    }
-    generalModal.classList.add("active");
-}
-
-function closeModal(){ generalModal.classList.remove("active"); }
-
-generalModal.addEventListener("click", event => { if(event.target === generalModal) closeModal(); });
-document.getElementById("purchaseModal").addEventListener("click", function(event){ if(event.target === this) this.classList.remove("active"); });
-document.addEventListener("keydown", event => {
-    if(event.key === "Escape"){
-        generalModal.classList.remove("active");
-        document.getElementById("purchaseModal").classList.remove("active");
-    }
-});
-</script>
 
 </body>
-                                                     </html>
+</html>
