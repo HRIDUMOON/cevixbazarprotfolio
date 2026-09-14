@@ -21,7 +21,6 @@
 
     <meta name="theme-color" content="#000000">
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -39,7 +38,6 @@
         }
     </script>
     
-    <!-- External CSS & Libraries -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -125,7 +123,7 @@
             </p>
             
             <div id="stats-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="text-center text-primary w-full col-span-full py-10"><i class="fa-solid fa-spinner fa-spin text-2xl"></i> Loading stats...</div>
+                <div class="text-center text-primary w-full col-span-full py-10"><i class="fa-solid fa-spinner fa-spin text-2xl mb-4 block"></i> Loading stats...</div>
             </div>
         </section>
 
@@ -137,7 +135,6 @@
             <h3 class="text-5xl font-extrabold mb-10">My expertise</h3>
 
             <div class="space-y-4">
-                
                 <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('api-skills', 'api-icon')">
                     <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
@@ -158,10 +155,6 @@
                             <div>
                                 <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">GraphQL</span><span class="text-primary">85%</span></div>
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">WebSockets</span><span class="text-primary">80%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 80%"></div></div>
                             </div>
                         </div>
                     </div>
@@ -188,72 +181,9 @@
                                 <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Express.js</span><span class="text-primary">90%</span></div>
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">NestJS</span><span class="text-primary">70%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 70%"></div></div>
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('db-skills', 'db-icon')">
-                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-database text-xl"></i></div>
-                            <h4 class="text-xl font-bold">NoSQL & Caching</h4>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-primary font-bold text-xl">75%</span>
-                            <i id="db-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                    <div id="db-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
-                        <div class="py-6 space-y-5">
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Redis</span><span class="text-primary">80%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 80%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">MongoDB</span><span class="text-primary">75%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Firebase</span><span class="text-primary">65%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('ott-skills', 'ott-icon')">
-                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-play text-xl"></i></div>
-                            <h4 class="text-xl font-bold">OTT & Streaming</h4>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-primary font-bold text-xl">85%</span>
-                            <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                    <div id="ott-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
-                        <div class="py-6 space-y-5">
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">HLS / DASH</span><span class="text-primary">90%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">CDN Integration</span><span class="text-primary">85%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">DRM Security</span><span class="text-primary">75%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
@@ -295,7 +225,7 @@
             <p class="text-gray-400 text-lg mb-12">A collection of projects I've built - from full-stack applications to backend systems and everything in between.</p>
             
             <div id="portfolio-container" class="grid grid-cols-1 gap-8">
-                <div class="text-center text-primary w-full py-10"><i class="fa-solid fa-spinner fa-spin text-3xl"></i> Loading projects...</div>
+                <div class="text-center text-primary w-full py-10"><i class="fa-solid fa-spinner fa-spin text-3xl mb-4 block"></i> Loading projects...</div>
             </div>
         </section>
 
@@ -324,7 +254,6 @@
 
     </main>
 
-    <!-- Full Screen Project Modal -->
     <div id="project-modal" class="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md hidden flex-col">
         <div class="w-full bg-card border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-10">
             <button onclick="closeModal()" class="text-white hover:text-primary transition-colors flex items-center gap-2 font-medium">
@@ -340,7 +269,7 @@
             
             <p id="modal-desc" class="text-gray-400 text-lg mb-8 leading-relaxed"></p>
             
-            <a id="modal-demo-btn" href="#" target="_blank" class="inline-flex items-center gap-2 bg-primary text-black font-bold px-6 py-3 rounded-xl hover:bg-white transition-colors mb-12">
+            <a id="modal-demo-btn" href="#" target="_blank" class="hidden items-center gap-2 bg-primary text-black font-bold px-6 py-3 rounded-xl hover:bg-white transition-colors mb-12">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
             </a>
 
@@ -385,9 +314,8 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- External Script JS -->
     <script src="script.js"></script>
-    
+
     <script
       src="https://www.supportkori.com/widget.js"
       data-id="hasanhridoy"
@@ -397,4 +325,4 @@
     ></script>
 
 </body>
-    </html>
+                    </html>
