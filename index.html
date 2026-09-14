@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Hasan Hridoy</title>
+    <title>Hasan Hridoy | Portfolio</title>
     <meta name="description" content="Portfolio of Hasan Hridoy, specializing in Full-Stack Web Development and OTT Platforms.">
-    <meta property="og:title" content="Hasan Hridoy">
-    <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps.">
-    <meta property="og:image" content="YOUR_META_PHOTO_LINK_HERE"> 
-    <meta property="og:url" content="https://yourwebsite.pages.dev">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="Hasan Hridoy | Portfolio">
+    <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps and scalable backends.">
+    <meta property="og:image" content="https://yourwebsite.com/large-banner.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yourwebsite.com/">
+    <meta name="twitter:title" content="Hasan Hridoy | Portfolio">
+    <meta name="twitter:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps.">
+    <meta name="twitter:image" content="https://yourwebsite.com/large-banner.jpg">
+
     <meta name="theme-color" content="#000000">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
@@ -43,11 +53,21 @@
         .skill-content.open { max-height: 1000px; }
         .rotate-180 { transform: rotate(180deg); }
         .modal-body::-webkit-scrollbar { display: none; }
+        
+        /* Modal Custom Box Styles for :tags: */
+        .custom-box-tag {
+            background-color: #262626;
+            color: #d1d5db;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.85em;
+            font-family: monospace;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-primary selection:text-black">
+<body class="antialiased selection:bg-primary selection:text-black relative">
 
-    <nav class="fixed w-full top-0 bg-bg/90 backdrop-blur-md z-40 border-b border-gray-900">
+    <nav class="fixed w-full top-0 bg-bg/90 backdrop-blur-md z-40 border-b border-gray-900 transition-all duration-300">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center relative">
             
             <a href="#" class="flex items-center gap-2">
@@ -60,12 +80,10 @@
                 <a href="#experience" class="hover:text-primary transition-colors">Experience</a>
                 <a href="#portfolio" class="hover:text-primary transition-colors">Work</a>
                 <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
-                <a href="#" class="bg-white text-black hover:bg-gray-200 transition-colors px-5 py-2 rounded-full ml-4">Resume</a>
             </div>
 
             <div class="flex items-center gap-4 md:hidden">
-                <a href="#" class="bg-white text-black px-4 py-1.5 rounded-full text-sm font-bold">Resume</a>
-                <button id="mobile-menu-btn" class="text-2xl text-white hover:text-primary transition-colors">
+                <button id="mobile-menu-btn" class="text-2xl text-white hover:text-primary transition-colors focus:outline-none">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -82,8 +100,8 @@
 
     <main class="max-w-4xl mx-auto px-6 pt-32 pb-10">
         
-        <section class="min-h-[75vh] flex flex-col justify-center items-start">
-            <div class="inline-flex items-center gap-2 border border-primary/50 text-primary px-4 py-1.5 rounded-full text-xs font-semibold mb-6">
+        <section class="min-h-[75vh] flex flex-col justify-center items-start" data-aos="fade-up" data-aos-duration="1000">
+            <div class="inline-flex items-center gap-2 border border-primary/50 text-primary bg-primary/10 px-4 py-1.5 rounded-full text-xs font-semibold mb-6">
                 <i class="fa-solid fa-sparkles"></i> Open to new opportunities
             </div>
             
@@ -103,7 +121,7 @@
                     <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
                     <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-brands fa-discord text-xl"></i></a>
                     <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+                    <a href="mailto:your-email@gmail.com" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
                 </div>
             </div>
             
@@ -113,7 +131,7 @@
             </div>
         </section>
 
-        <section class="py-20 border-t border-gray-900" id="about">
+        <section class="py-20 border-t border-gray-900" id="about" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
                 <h2 class="text-sm tracking-widest text-primary uppercase font-bold">About Me</h2>
@@ -130,7 +148,7 @@
             </div>
         </section>
 
-        <section class="py-20 border-t border-gray-900" id="skills">
+        <section class="py-20 border-t border-gray-900" id="skills" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
                 <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Skills</h2>
@@ -162,39 +180,10 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('ott-skills', 'ott-icon')">
-                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-terminal text-xl"></i></div>
-                            <h4 class="text-xl font-bold">Node.js Development</h4>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-primary font-bold text-xl">85%</span>
-                            <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                    <div id="ott-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
-                        <div class="py-6 space-y-5">
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Express.js</span><span class="text-primary">90%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">TypeScript</span><span class="text-primary">90%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">NestJS</span><span class="text-primary">70%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 70%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <section class="py-20 border-t border-gray-900" id="experience">
+        <section class="py-20 border-t border-gray-900" id="experience" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
                 <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Experience</h2>
@@ -202,7 +191,7 @@
             <h3 class="text-5xl font-extrabold mb-12">Work history</h3>
 
             <div class="relative pl-6 sm:pl-8 border-l border-primary/30 space-y-12">
-                <div class="relative">
+                <div class="relative" data-aos="fade-up">
                     <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-primary rounded-full mt-1.5"></div>
                     <div class="text-primary font-bold text-sm tracking-wider mb-2">JAN '24 - APR '25</div>
                     <h4 class="text-2xl font-bold mb-1">Backend Developer & DevOps</h4>
@@ -214,7 +203,7 @@
             </div>
         </section>
 
-        <section class="py-20 border-t border-gray-900" id="portfolio">
+        <section class="py-20 border-t border-gray-900" id="portfolio" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
                 <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Portfolio</h2>
@@ -227,12 +216,12 @@
             </div>
         </section>
 
-        <section class="py-20 border-t border-gray-900" id="contact">
-            <div class="text-center bg-card border border-gray-800 rounded-3xl p-10 sm:p-16 mb-12">
+        <section class="py-20 border-t border-gray-900" id="contact" data-aos="fade-up">
+            <div class="text-center bg-card border border-gray-800 rounded-3xl p-10 sm:p-16 mb-12 hover:border-primary/50 transition-colors">
                 <h3 class="text-3xl font-extrabold mb-4">Let's build something great.</h3>
                 <p class="mb-8 font-medium text-gray-400">Have a project in mind? Looking for a developer? Feel free to reach out directly.</p>
                 
-                <a href="#" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white transition-colors">
+                <a href="mailto:your-email@gmail.com" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300">
                     <i class="fa-regular fa-paper-plane"></i> Send Message
                 </a>
             </div>
@@ -287,17 +276,19 @@
             </div>
 
             <div class="space-y-12 mb-12">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">About This Project</h3>
-                    <p id="modal-about" class="text-gray-400 leading-relaxed"></p>
+                <div class="bg-[#111111] border border-gray-800 p-6 sm:p-8 rounded-2xl">
+                    <h3 class="text-primary font-bold text-sm tracking-widest uppercase mb-4">The Outcome</h3>
+                    <p id="modal-about" class="text-gray-300 leading-relaxed text-base sm:text-lg"></p>
                 </div>
+
                 <div>
                     <h3 class="text-2xl font-bold mb-6">Tech Stack</h3>
                     <div id="modal-tech-stack" class="flex flex-wrap gap-3"></div>
                 </div>
+
                 <div>
                     <h3 class="text-2xl font-bold mb-6">Key Features</h3>
-                    <ul id="modal-features" class="space-y-4 text-gray-300"></ul>
+                    <ul id="modal-features" class="space-y-4 text-gray-400"></ul>
                 </div>
             </div>
 
@@ -308,8 +299,12 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Hamburger Menu Logic (Card Dropdown instead of Fullscreen)
+        // Init Scroll Animation
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // Mobile Menu
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -337,7 +332,6 @@
             });
         });
 
-        // Skill Accordion
         function toggleSkill(contentId, iconId) {
             const content = document.getElementById(contentId);
             const icon = document.getElementById(iconId);
@@ -350,38 +344,60 @@
             }
         }
 
-        /* Google Sheet Fetch Logic */
-        const GOOGLE_SHEET_CSV_URL = "YOUR_GOOGLE_SHEET_CSV_LINK_HERE"; // Apnar sheet link ekhane diben
+        /* --- KUSTOM MARKDOWN SYSTEM --- */
+        function parseCustomText(text) {
+            if (!text) return '';
+            return text
+                .replace(/\*(.*?)\*/g, '<b>$1</b>') // *bold*
+                .replace(/#(.*?)#/g, '<span class="text-primary font-bold">$1</span>') // #yellow#
+                .replace(/:(.*?):/g, '<span class="custom-box-tag">$1</span>'); // :box:
+        }
+
+        /* =========================================================
+           Google Sheet Fetch Logic (2 Alada Sheet)
+           ========================================================= */
+        const STATS_CSV_URL = "YOUR_STATS_SHEET_CSV_LINK_HERE";       // Apnar 1st Sheet link (Stats)
+        const PROJECTS_CSV_URL = "YOUR_PROJECTS_SHEET_CSV_LINK_HERE"; // Apnar 2nd Sheet link (Projects)
+        
         let projectsData = [];
 
-        if(GOOGLE_SHEET_CSV_URL !== "YOUR_GOOGLE_SHEET_CSV_LINK_HERE") {
-            Papa.parse(GOOGLE_SHEET_CSV_URL, {
+        // 1. Fetch Stats Sheet
+        if(STATS_CSV_URL !== "YOUR_STATS_SHEET_CSV_LINK_HERE") {
+            Papa.parse(STATS_CSV_URL, {
                 download: true,
                 header: true,
                 complete: function(results) {
-                    const allData = results.data;
-                    
-                    // Separate Stats and Projects based on 'row_type' column
-                    const statsData = allData.filter(row => row.row_type === 'STAT');
-                    projectsData = allData.filter(row => row.row_type === 'PROJECT');
-                    
-                    renderStats(statsData);
-                    renderPortfolio(projectsData);
+                    renderStats(results.data.filter(row => row.title));
+                    setTimeout(() => { AOS.refresh(); }, 500);
                 }
             });
         } else {
-            document.getElementById('stats-container').innerHTML = `<div class="col-span-full text-yellow-500 text-sm">Please insert CSV link to load stats.</div>`;
-            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-primary border border-primary/20 p-6 rounded-2xl">Please insert your Google Sheet CSV Link.</div>`;
+            document.getElementById('stats-container').innerHTML = `<div class="col-span-full text-primary text-sm">Please insert Stats CSV link.</div>`;
         }
 
+        // 2. Fetch Projects Sheet
+        if(PROJECTS_CSV_URL !== "YOUR_PROJECTS_SHEET_CSV_LINK_HERE") {
+            Papa.parse(PROJECTS_CSV_URL, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    projectsData = results.data.filter(row => row.title);
+                    renderPortfolio(projectsData);
+                    setTimeout(() => { AOS.refresh(); }, 500);
+                }
+            });
+        } else {
+            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-primary border border-primary/20 p-6 rounded-2xl">Please insert Projects CSV Link.</div>`;
+        }
+
+        // Render Functions
         function renderStats(stats) {
             const container = document.getElementById('stats-container');
             if(stats.length === 0) return;
             container.innerHTML = ''; 
             stats.forEach(stat => {
-                // stat.title = value (4+), stat.category = label (Years Experience)
                 container.innerHTML += `
-                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
+                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors" data-aos="fade-up">
                     <h4 class="text-4xl font-black text-primary mb-2">${stat.title}</h4>
                     <p class="text-sm text-gray-500 font-medium">${stat.category}</p>
                 </div>`;
@@ -397,15 +413,18 @@
             }
 
             data.forEach((project, index) => {
+                const parsedDesc = parseCustomText(project.short_desc);
+                
+                // Photo Fixed: aspect-video (16:9) added to prevent cutting or resizing boxes
                 const cardHtml = `
-                <div class="bg-card border border-gray-800 rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/50 transition-all duration-300" onclick="openModal(${index})">
-                    <div class="h-64 sm:h-96 bg-gray-900 relative overflow-hidden">
+                <div class="bg-card border border-gray-800 rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/50 transition-all duration-300" onclick="openModal(${index})" data-aos="fade-up">
+                    <div class="w-full aspect-video bg-gray-900 relative overflow-hidden">
                         <img src="${project.thumbnail}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6 sm:p-8 relative">
                         <div class="text-xs text-primary font-bold tracking-widest mb-3 uppercase">${project.category}</div>
                         <h4 class="text-3xl font-bold mb-3">${project.title}</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">${project.short_desc}</p>
+                        <p class="text-gray-400 text-sm line-clamp-2">${parsedDesc}</p>
                         <div class="absolute top-8 right-8 w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-colors">
                             <i class="fa-solid fa-arrow-right -rotate-45 text-xl"></i>
                         </div>
@@ -422,9 +441,8 @@
             document.getElementById('modal-category').innerText = p.category;
             document.getElementById('modal-title').innerText = p.title;
             
-            // innerHTML used so Google Sheet bold/colors work!
-            document.getElementById('modal-desc').innerHTML = p.short_desc; 
-            document.getElementById('modal-about').innerHTML = p.about;     
+            document.getElementById('modal-desc').innerHTML = parseCustomText(p.short_desc); 
+            document.getElementById('modal-about').innerHTML = parseCustomText(p.about);     
             
             document.getElementById('modal-demo-btn').href = p.demo_link;
             document.getElementById('modal-role').innerText = p.role;
@@ -433,13 +451,13 @@
             
             if(p.tech_stack) {
                 document.getElementById('modal-tech-stack').innerHTML = p.tech_stack.split(',').map(t => 
-                    `<span class="bg-[#1a1a1a] border border-gray-800 px-4 py-2 rounded-full text-sm text-gray-300 font-medium">${t.trim()}</span>`
+                    `<span class="bg-[#151515] border border-gray-800 px-5 py-2.5 rounded-full text-sm text-gray-200 font-semibold">${t.trim()}</span>`
                 ).join('');
             }
 
             if(p.features) {
                 document.getElementById('modal-features').innerHTML = p.features.split('|').map(f => 
-                    `<li class="flex items-start gap-3"><i class="fa-solid fa-check text-primary mt-1"></i> <span>${f.trim()}</span></li>`
+                    `<li class="flex items-start gap-4"><i class="fa-solid fa-circle-check text-primary text-lg mt-1"></i> <span class="leading-relaxed">${parseCustomText(f.trim())}</span></li>`
                 ).join('');
             }
 
@@ -473,4 +491,4 @@
     ></script>
 
 </body>
-                    </html>
+            </html>
