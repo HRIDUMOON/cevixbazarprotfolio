@@ -66,8 +66,8 @@ function getVal(row, keyName) {
 
 // NOTE TO USER: "Publish to Web" link is REQUIRED. Do not use "/export?format=csv" directly as browsers block it (CORS error).
 // How to get it: Google Sheet -> File -> Share -> Publish to Web -> Select "Comma-separated values (.csv)" -> Publish.
-const STATS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIf62O7E-vE_Dblz60zX-zXm-sM1_xU1uD0_8B6s2Z2e1z_1m4X1n1_Z0mD1zZ1_0m4X1n1_Z0mD1zZ1/pub?output=csv"; // Ekhane apnar PUBLISHED Stats csv link diben
-const PROJECTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIf62O7E-vE_Dblz60zX-zXm-sM1_xU1uD0_8B6s2Z2e1z_1m4X1n1_Z0mD1zZ1_0m4X1n1_Z0mD1zZ1/pub?output=csv"; // Ekhane apnar PUBLISHED Projects csv link diben
+const STATS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJR8vPU4Q1UHH4Ek3RmZMOs7O3Y5YFBDlOocXHEcOraWZ6hPTjAMVKnjYc44HW9k1hLfvSGbqkg-x0/pub?output=csv"; // Ekhane apnar PUBLISHED Stats csv link diben
+const PROJECTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSP_FdeW7joDxXXWnfhIVqTTphjJyTfi1Z5Gd9AZjFJubYcSIq_n6rcBijmO41k2BxR38Qij62yMyCR/pub?gid=0&single=true&output=csv"; // Ekhane apnar PUBLISHED Projects csv link diben
 
 let projectsData = [];
 
