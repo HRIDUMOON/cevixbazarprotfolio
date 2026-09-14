@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Hasan Hridoy | Portfolio</title>
+    <title>Hasan Hridoy</title>
     <meta name="description" content="Portfolio of Hasan Hridoy, specializing in Full-Stack Web Development and OTT Platforms.">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourwebsite.com/">
-    <meta property="og:title" content="Hasan Hridoy | Portfolio">
+    <meta property="og:url" content="https://hasandev.pages.dev/">
+    <meta property="og:title" content="Hasan Hridoy">
     <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps and scalable backends.">
     <meta property="og:image" content="https://yourwebsite.com/large-banner.jpg">
     
@@ -22,18 +22,13 @@
     <meta name="theme-color" content="#000000">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FFDD00', /* Strict Yellow */
-                        bg: '#000000',      /* Strict Black */
+                        primary: '#FFDD00', 
+                        bg: '#000000',      
                         card: '#111111',    
                         cardHover: '#1a1a1a'
                     },
@@ -42,28 +37,12 @@
             }
         }
     </script>
-    <style>
-        body { background-color: #000000; color: #ffffff; overflow-x: hidden; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FFDD00; }
-        
-        .skill-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
-        .skill-content.open { max-height: 1000px; }
-        .rotate-180 { transform: rotate(180deg); }
-        .modal-body::-webkit-scrollbar { display: none; }
-        
-        /* Modal Custom Box Styles for :tags: */
-        .custom-box-tag {
-            background-color: #262626;
-            color: #d1d5db;
-            padding: 0.15rem 0.5rem;
-            border-radius: 0.375rem;
-            font-size: 0.85em;
-            font-family: monospace;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body class="antialiased selection:bg-primary selection:text-black relative">
 
@@ -71,7 +50,7 @@
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center relative">
             
             <a href="#" class="flex items-center gap-2">
-                <span class="text-2xl font-bold tracking-tighter">hridoy<span class="text-primary">.</span></span>
+                <span class="text-2xl font-bold tracking-tighter">Hridoy<span class="text-primary">.</span></span>
             </a>
 
             <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
@@ -155,19 +134,20 @@
             </div>
             <h3 class="text-5xl font-extrabold mb-10">My expertise</h3>
 
-            <div class="space-y-4">
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('web-skills', 'web-icon')">
+            <div class="space-y-1.5">
+                
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('api-skills', 'api-icon')">
                     <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
-                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-code text-xl"></i></div>
+                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-server text-xl"></i></div>
                             <h4 class="text-xl font-bold">API Design & Development</h4>
                         </div>
                         <div class="flex items-center gap-4">
                             <span class="text-primary font-bold text-xl">90%</span>
-                            <i id="web-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                            <i id="api-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
                         </div>
                     </div>
-                    <div id="web-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                    <div id="api-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
                         <div class="py-6 space-y-5">
                             <div>
                                 <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">REST APIs</span><span class="text-primary">95%</span></div>
@@ -177,9 +157,101 @@
                                 <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">GraphQL</span><span class="text-primary">85%</span></div>
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
                             </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">WebSockets</span><span class="text-primary">80%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('node-skills', 'node-icon')">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-terminal text-xl"></i></div>
+                            <h4 class="text-xl font-bold">Node.js Development</h4>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-primary font-bold text-xl">85%</span>
+                            <i id="node-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="node-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                        <div class="py-6 space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">TypeScript</span><span class="text-primary">90%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Express.js</span><span class="text-primary">90%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">NestJS</span><span class="text-primary">70%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 70%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('db-skills', 'db-icon')">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-database text-xl"></i></div>
+                            <h4 class="text-xl font-bold">NoSQL & Caching</h4>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-primary font-bold text-xl">75%</span>
+                            <i id="db-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="db-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                        <div class="py-6 space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Redis</span><span class="text-primary">80%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">MongoDB</span><span class="text-primary">75%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Firebase</span><span class="text-primary">65%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('ott-skills', 'ott-icon')">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-[#1a1a1a] p-3 rounded-xl text-primary"><i class="fa-solid fa-play text-xl"></i></div>
+                            <h4 class="text-xl font-bold">OTT & Streaming</h4>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-primary font-bold text-xl">85%</span>
+                            <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="ott-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                        <div class="py-6 space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">HLS / DASH</span><span class="text-primary">90%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">CDN Integration</span><span class="text-primary">85%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">DRM Security</span><span class="text-primary">75%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -198,6 +270,15 @@
                     <p class="text-gray-500 font-medium mb-4">RentYard Inc.</p>
                     <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
                         Built the backend and AWS infrastructure from scratch (EC2, CloudFront, Nginx reverse proxy), shipping zero-downtime deploys through GitHub Actions CI/CD with Nginx upstream switching.
+                    </p>
+                </div>
+                <div class="relative" data-aos="fade-up">
+                    <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-gray-700 rounded-full mt-1.5"></div>
+                    <div class="text-primary font-bold text-sm tracking-wider mb-2">AUG '22 - FEB '24</div>
+                    <h4 class="text-2xl font-bold mb-1">Backend Developer (Freelance)</h4>
+                    <p class="text-gray-500 font-medium mb-4">Fiverr</p>
+                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Shipped backend systems across international client engagements using Node.js, Express, and MySQL, owning each build end to end.
                     </p>
                 </div>
             </div>
@@ -221,7 +302,7 @@
                 <h3 class="text-3xl font-extrabold mb-4">Let's build something great.</h3>
                 <p class="mb-8 font-medium text-gray-400">Have a project in mind? Looking for a developer? Feel free to reach out directly.</p>
                 
-                <a href="mailto:your-email@gmail.com" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300">
+                <a href="mailto:hasanhriroycollab@gmail.com" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300">
                     <i class="fa-regular fa-paper-plane"></i> Send Message
                 </a>
             </div>
@@ -230,7 +311,7 @@
                 <h4 class="text-xl font-bold mb-4">Prefer email?</h4>
                 <a href="mailto:your-email@gmail.com" class="inline-flex items-center gap-3 bg-card border border-gray-800 px-6 py-4 rounded-2xl text-lg font-medium hover:border-primary transition-colors">
                     <i class="fa-regular fa-envelope text-primary"></i>
-                    your-email@gmail.com
+                    hasanhriroycollab@gmail.com
                 </a>
             </div>
         </section>
@@ -246,7 +327,7 @@
             <button onclick="closeModal()" class="text-white hover:text-primary transition-colors flex items-center gap-2 font-medium">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
-            <div class="font-bold text-lg tracking-tighter">hridoy<span class="text-primary">.</span></div>
+            <div class="font-bold text-lg tracking-tighter">Hridoy<span class="text-primary">.</span></div>
             <div class="w-16"></div>
         </div>
 
@@ -299,194 +380,7 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Init Scroll Animation
-        AOS.init({ duration: 800, once: true, offset: 50 });
-
-        // Mobile Menu
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        let menuOpen = false;
-
-        mobileBtn.addEventListener('click', () => {
-            menuOpen = !menuOpen;
-            if(menuOpen) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                mobileBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-            }
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-                menuOpen = false;
-            });
-        });
-
-        function toggleSkill(contentId, iconId) {
-            const content = document.getElementById(contentId);
-            const icon = document.getElementById(iconId);
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-                icon.classList.remove('rotate-180');
-            } else {
-                content.classList.add('open');
-                icon.classList.add('rotate-180');
-            }
-        }
-
-        /* --- KUSTOM MARKDOWN SYSTEM --- */
-        function parseCustomText(text) {
-            if (!text) return '';
-            return text
-                .replace(/\*(.*?)\*/g, '<b>$1</b>') // *bold*
-                .replace(/#(.*?)#/g, '<span class="text-primary font-bold">$1</span>') // #yellow#
-                .replace(/:(.*?):/g, '<span class="custom-box-tag">$1</span>'); // :box:
-        }
-
-        /* =========================================================
-           Google Sheet Fetch Logic (FIXED CSV LINKS)
-           ========================================================= */
-        
-        // এখানে ভিউ লিংকের পরিবর্তে সরাসরি CSV Export লিংক বসানো হয়েছে
-        const STATS_CSV_URL = "https://docs.google.com/spreadsheets/d/1Wx2zxoZHX4s-A4-cBrdoLpoNFAjxNwumzhf4b6VSLaM/export?format=csv";
-        const PROJECTS_CSV_URL = "https://docs.google.com/spreadsheets/d/1-98oCDS4fgHyDfFiS6ALMeNiznRK2hlaj_vV6BmG9gg/export?format=csv";
-        
-        let projectsData = [];
-
-        // 1. Fetch Stats Sheet
-        if(STATS_CSV_URL) {
-            Papa.parse(STATS_CSV_URL, {
-                download: true,
-                header: true,
-                complete: function(results) {
-                    // console.log("Stats Loaded:", results.data); // ডেটা লোড হচ্ছে কিনা চেক করতে পারেন
-                    renderStats(results.data.filter(row => row.title));
-                    setTimeout(() => { AOS.refresh(); }, 500);
-                }
-            });
-        }
-
-        // 2. Fetch Projects Sheet
-        if(PROJECTS_CSV_URL) {
-            Papa.parse(PROJECTS_CSV_URL, {
-                download: true,
-                header: true,
-                complete: function(results) {
-                    // console.log("Projects Loaded:", results.data);
-                    projectsData = results.data.filter(row => row.title);
-                    renderPortfolio(projectsData);
-                    setTimeout(() => { AOS.refresh(); }, 500);
-                }
-            });
-        }
-
-        // Render Functions
-        function renderStats(stats) {
-            const container = document.getElementById('stats-container');
-            if(stats.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center text-gray-500">No stats found. Make sure Sheet is public.</div>';
-                return;
-            }
-            container.innerHTML = ''; 
-            stats.forEach(stat => {
-                container.innerHTML += `
-                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors" data-aos="fade-up">
-                    <h4 class="text-4xl font-black text-primary mb-2">${stat.title}</h4>
-                    <p class="text-sm text-gray-500 font-medium">${stat.category}</p>
-                </div>`;
-            });
-        }
-
-        function renderPortfolio(data) {
-            const container = document.getElementById('portfolio-container');
-            if(data.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center text-gray-500">No projects found. Make sure Sheet is public.</div>';
-                return;
-            }
-            container.innerHTML = ''; 
-
-            data.forEach((project, index) => {
-                const parsedDesc = parseCustomText(project.short_desc);
-                
-                const cardHtml = `
-                <div class="bg-card border border-gray-800 rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/50 transition-all duration-300" onclick="openModal(${index})" data-aos="fade-up">
-                    <div class="w-full aspect-video bg-gray-900 relative overflow-hidden">
-                        <img src="${project.thumbnail}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6 sm:p-8 relative">
-                        <div class="text-xs text-primary font-bold tracking-widest mb-3 uppercase">${project.category}</div>
-                        <h4 class="text-3xl font-bold mb-3">${project.title}</h4>
-                        <p class="text-gray-400 text-sm line-clamp-2">${parsedDesc}</p>
-                        <div class="absolute top-8 right-8 w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition-colors">
-                            <i class="fa-solid fa-arrow-right -rotate-45 text-xl"></i>
-                        </div>
-                    </div>
-                </div>`;
-                container.innerHTML += cardHtml;
-            });
-        }
-
-        /* Modal Logic */
-        const modal = document.getElementById('project-modal');
-        function openModal(index) {
-            const p = projectsData[index];
-            document.getElementById('modal-category').innerText = p.category;
-            document.getElementById('modal-title').innerText = p.title;
-            
-            document.getElementById('modal-desc').innerHTML = parseCustomText(p.short_desc); 
-            document.getElementById('modal-about').innerHTML = parseCustomText(p.about);     
-            
-            document.getElementById('modal-demo-btn').href = p.demo_link;
-            document.getElementById('modal-role').innerText = p.role;
-            document.getElementById('modal-timeline').innerText = p.timeline;
-            document.getElementById('modal-total-tech').innerText = p.total_tech;
-            
-            if(p.tech_stack) {
-                document.getElementById('modal-tech-stack').innerHTML = p.tech_stack.split(',').map(t => 
-                    `<span class="bg-[#151515] border border-gray-800 px-5 py-2.5 rounded-full text-sm text-gray-200 font-semibold">${t.trim()}</span>`
-                ).join('');
-            } else {
-                document.getElementById('modal-tech-stack').innerHTML = '';
-            }
-
-            if(p.features) {
-                document.getElementById('modal-features').innerHTML = p.features.split('|').map(f => 
-                    `<li class="flex items-start gap-4"><i class="fa-solid fa-circle-check text-primary text-lg mt-1"></i> <span class="leading-relaxed">${parseCustomText(f.trim())}</span></li>`
-                ).join('');
-            } else {
-                document.getElementById('modal-features').innerHTML = '';
-            }
-
-            const galleryContainer = document.getElementById('modal-gallery');
-            if(p.gallery) {
-                galleryContainer.innerHTML = p.gallery.split(',').map(img => 
-                    `<img src="${img.trim()}" class="w-full rounded-2xl border border-gray-800 shadow-lg">`
-                ).join('');
-            } else {
-                galleryContainer.innerHTML = '';
-            }
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
-    </script>
+    <script src="script.js"></script>
 
     <script
       src="https://www.supportkori.com/widget.js"
@@ -497,4 +391,4 @@
     ></script>
 
 </body>
-    </html>
+                </html>
