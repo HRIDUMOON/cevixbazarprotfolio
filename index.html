@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Meta Tags for SEO & Social Media -->
     <title>Hasan Hridoy | Full-Stack & OTT Developer</title>
     <meta name="description" content="Portfolio of Hasan Hridoy, specializing in Full-Stack Web Development, OTT Platforms, and Scalable Backend Systems.">
     <meta property="og:title" content="Hasan Hridoy | Portfolio">
     <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps and scalable backends.">
-    <meta property="og:image" content="YOUR_META_PHOTO_LINK_HERE"> <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Hasan+Hridoy+Portfolio"> <!-- আপনার আসল ছবির লিংক দিন -->
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="theme-color" content="#0a0a0a">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Scroll Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- PapaParse for Google Sheet CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
@@ -21,7 +29,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#D4FF00', /* Neon Yellow/Lime from Screenshot */
+                        primary: '#D4FF00', /* Neon Yellow/Lime */
                         bg: '#0a0a0a',      
                         card: '#111111',    
                         cardHover: '#1a1a1a'
@@ -50,26 +58,37 @@
 </head>
 <body class="antialiased selection:bg-primary selection:text-black relative">
 
-    <a href="YOUR_SUPPORT_LINK_HERE" target="_blank" class="fixed bottom-6 right-6 bg-primary text-black px-5 py-3 rounded-full font-bold shadow-[0_4px_20px_rgba(212,255,0,0.3)] z-40 flex items-center gap-2 hover:scale-105 transition-transform">
-        <i class="fa-solid fa-mug-hot"></i> Support Me
-    </a>
-
-    <nav class="fixed w-full top-0 bg-bg/80 backdrop-blur-md z-30 border-b border-gray-900">
+    <!-- Navbar -->
+    <nav class="fixed w-full top-0 bg-bg/80 backdrop-blur-md z-50 border-b border-gray-900">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             
-            <a href="#" class="flex items-center gap-2">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 relative z-50">
                 <span class="text-2xl font-bold tracking-tighter">hridoy<span class="text-primary">.</span></span>
             </a>
 
-            <div class="flex items-center gap-4">
+            <!-- Desktop & Mobile Menu Button -->
+            <div class="flex items-center gap-4 relative z-50">
                 <a href="#" class="bg-white text-black hover:bg-gray-200 transition-colors px-5 py-2 rounded-full text-sm font-semibold hidden sm:block">Resume</a>
-                <button id="mobile-menu-btn" class="text-2xl text-white hover:text-primary transition-colors"><i class="fa-solid fa-bars"></i></button>
+                <button id="mobile-menu-btn" class="text-2xl text-white hover:text-primary transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-6 pt-32 pb-20">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-bg/95 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300">
+        <a href="#about" class="text-3xl font-bold hover:text-primary mobile-link">About</a>
+        <a href="#skills" class="text-3xl font-bold hover:text-primary mobile-link">Skills</a>
+        <a href="#experience" class="text-3xl font-bold hover:text-primary mobile-link">Experience</a>
+        <a href="#portfolio" class="text-3xl font-bold hover:text-primary mobile-link">Work</a>
+        <a href="#" class="border border-white hover:border-primary hover:text-primary transition-colors px-8 py-3 rounded-full text-xl font-semibold mt-4 mobile-link">Resume</a>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-10">
         
+        <!-- Hero Section -->
         <section class="min-h-[75vh] flex flex-col justify-center items-start" data-aos="fade-up" data-aos-duration="1000">
             <div class="inline-flex items-center gap-2 border border-primary/50 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-semibold mb-6">
                 <i class="fa-solid fa-sparkles"></i> Open to new opportunities
@@ -94,6 +113,7 @@
             </div>
         </section>
 
+        <!-- About Section -->
         <section class="py-20 border-t border-gray-900" id="about" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
@@ -103,9 +123,10 @@
             
             <p class="text-gray-400 leading-relaxed mb-10 text-lg sm:text-xl">
                 I'm <span class="text-white font-semibold">Hasan Hridoy</span>, a Full-Stack Developer & OTT Engineer based in Bogura, Bangladesh. I specialize in building high-performance web applications and highly scalable video streaming systems.<br><br>
-                With deep expertise in modern tech stacks, I've worked on everything from complex real-time dashboards to full-fledged VOD/Live streaming architectures. I love turning visionary ideas into reality through clean code, secure DRM integrations, and thoughtful UI/UX.
+                With 4+ years of experience, I've worked on everything from complex real-time dashboards to full-fledged VOD/Live streaming architectures. I love turning visionary ideas into reality through clean code and thoughtful architecture.
             </p>
             
+            <!-- Stats -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
                     <h4 class="text-4xl font-black text-primary mb-2">4+</h4>
@@ -126,6 +147,7 @@
             </div>
         </section>
 
+        <!-- Skills Section -->
         <section class="py-20 border-t border-gray-900" id="skills" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
@@ -135,6 +157,7 @@
 
             <div class="space-y-4">
                 
+                <!-- Skill 1 -->
                 <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('web-skills', 'web-icon')">
                     <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
@@ -146,7 +169,6 @@
                             <i id="web-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
                         </div>
                     </div>
-                    
                     <div id="web-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
                         <div class="py-6 space-y-5">
                             <div>
@@ -157,18 +179,11 @@
                                 <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Node.js / Express</span><span class="text-primary">90%</span></div>
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">MySQL / MongoDB</span><span class="text-primary">85%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Tailwind CSS / UI/UX</span><span class="text-primary">95%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 95%"></div></div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Skill 2 -->
                 <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('ott-skills', 'ott-icon')">
                     <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
@@ -180,7 +195,6 @@
                             <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
                         </div>
                     </div>
-                    
                     <div id="ott-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
                         <div class="py-6 space-y-5">
                             <div>
@@ -188,11 +202,7 @@
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 95%"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">DRM & Security</span><span class="text-primary">85%</span></div>
-                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">CDN & Video Transcoding</span><span class="text-primary">90%</span></div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">CDN & Transcoding</span><span class="text-primary">90%</span></div>
                                 <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
                             </div>
                         </div>
@@ -202,6 +212,7 @@
             </div>
         </section>
 
+        <!-- Experience Section -->
         <section class="py-20 border-t border-gray-900" id="experience" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
@@ -210,7 +221,6 @@
             <h3 class="text-5xl font-extrabold mb-12">Work history</h3>
 
             <div class="relative pl-6 sm:pl-8 border-l border-primary/30 space-y-12">
-                
                 <div class="relative" data-aos="fade-up">
                     <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-primary rounded-full mt-1.5"></div>
                     <div class="text-primary font-bold text-sm tracking-wider mb-2">JAN '24 - PRESENT</div>
@@ -220,20 +230,10 @@
                         Architected the entire video delivery infrastructure processing over 10K concurrent streams. Implemented DRM solutions, automated transcoder pipelines, and built a highly scalable API backend reducing buffering by 40%.
                     </p>
                 </div>
-
-                <div class="relative" data-aos="fade-up">
-                    <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-primary/50 rounded-full mt-1.5"></div>
-                    <div class="text-primary font-bold text-sm tracking-wider mb-2">AUG '22 - DEC '23</div>
-                    <h4 class="text-2xl font-bold mb-1">Full-Stack Developer</h4>
-                    <p class="text-gray-500 font-medium mb-4">Freelance</p>
-                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
-                        Shipped full-stack applications across international clients using React, Express, and MongoDB. Handled end-to-end development from UI/UX design to CI/CD deployment on AWS.
-                    </p>
-                </div>
-
             </div>
         </section>
 
+        <!-- Portfolio Section -->
         <section class="py-20 border-t border-gray-900" id="portfolio" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
@@ -246,23 +246,28 @@
                 <div class="text-center text-primary w-full col-span-full py-10"><i class="fa-solid fa-spinner fa-spin text-3xl"></i> Loading projects...</div>
             </div>
         </section>
+        
+        <!-- Footer -->
+        <footer class="text-center py-10 border-t border-gray-900 text-gray-500 text-sm mt-10">
+            <p>&copy; 2026 Hasan Hridoy. Crafted with code and coffee.</p>
+        </footer>
 
     </main>
 
-    <div id="project-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden flex-col">
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md hidden flex-col">
         <div class="w-full bg-card border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-10">
             <button onclick="closeModal()" class="text-white hover:text-primary transition-colors flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
             <div class="font-bold text-lg tracking-tighter">hridoy<span class="text-primary">.</span></div>
-            <div class="w-16"></div> </div>
+            <div class="w-16"></div>
+        </div>
 
         <div class="modal-body flex-1 overflow-y-auto px-6 py-10 w-full max-w-4xl mx-auto">
-            
             <p id="modal-category" class="text-primary font-bold text-xs tracking-widest uppercase mb-3"></p>
             <h2 id="modal-title" class="text-4xl sm:text-6xl font-extrabold mb-6"></h2>
             <p id="modal-desc" class="text-gray-400 text-lg mb-8 leading-relaxed"></p>
-
             <a id="modal-demo-btn" href="#" target="_blank" class="inline-flex items-center gap-2 bg-primary text-black font-bold px-6 py-3 rounded-xl hover:bg-white transition-colors mb-12">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
             </a>
@@ -287,12 +292,10 @@
                     <h3 class="text-2xl font-bold mb-6">About This Project</h3>
                     <p id="modal-about" class="text-gray-400 leading-relaxed"></p>
                 </div>
-
                 <div>
                     <h3 class="text-2xl font-bold mb-6">Tech Stack</h3>
                     <div id="modal-tech-stack" class="flex flex-wrap gap-3"></div>
                 </div>
-
                 <div>
                     <h3 class="text-2xl font-bold mb-6">Key Features</h3>
                     <ul id="modal-features" class="space-y-4 text-gray-300"></ul>
@@ -306,10 +309,36 @@
         </div>
     </div>
 
+    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize Scroll Animation
-        AOS.init({ once: true, offset: 100 });
+        AOS.init({ once: true, offset: 50 });
+
+        // Hamburger Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let menuOpen = false;
+
+        mobileBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                menuOpen = false;
+            });
+        });
 
         // Skill Accordion Logic
         function toggleSkill(contentId, iconId) {
@@ -324,32 +353,26 @@
             }
         }
 
-        /* ====================================================
-           Google Sheet Fetch & Portfolio Render Logic
-           ==================================================== */
-        
-        // এখানে আপনার Google Sheet এর CSV লিংকটি দিন
-        const GOOGLE_SHEET_CSV_URL = "YOUR_GOOGLE_SHEET_CSV_LINK_HERE"; 
-        
+        // Google Sheet Fetch & Portfolio Render Logic
+        const GOOGLE_SHEET_CSV_URL = "YOUR_GOOGLE_SHEET_CSV_LINK_HERE"; // এখানে শিট লিংক দিন
         let projectsData = [];
 
-        // Fetch Data using PapaParse
         if(GOOGLE_SHEET_CSV_URL !== "YOUR_GOOGLE_SHEET_CSV_LINK_HERE") {
             Papa.parse(GOOGLE_SHEET_CSV_URL, {
                 download: true,
                 header: true,
                 complete: function(results) {
-                    projectsData = results.data.filter(row => row.title); // Filter empty rows
+                    projectsData = results.data.filter(row => row.title);
                     renderPortfolio(projectsData);
                 }
             });
         } else {
-            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-red-500 p-10 border border-red-500/30 rounded-2xl bg-red-500/10">Please insert your Google Sheet CSV Link in the code.</div>`;
+            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-primary/80 p-6 border border-primary/20 rounded-2xl bg-primary/5 text-sm">Please insert your Google Sheet CSV Link in the code to load projects.</div>`;
         }
 
         function renderPortfolio(data) {
             const container = document.getElementById('portfolio-container');
-            container.innerHTML = ''; // Clear loading text
+            container.innerHTML = ''; 
 
             data.forEach((project, index) => {
                 const cardHtml = `
@@ -372,35 +395,25 @@
 
         /* Modal Logic */
         const modal = document.getElementById('project-modal');
-        
         function openModal(index) {
             const p = projectsData[index];
-            
-            // Populate Data
             document.getElementById('modal-category').innerText = p.category;
             document.getElementById('modal-title').innerText = p.title;
             document.getElementById('modal-desc').innerText = p.short_desc;
             document.getElementById('modal-demo-btn').href = p.demo_link;
-            
             document.getElementById('modal-role').innerText = p.role;
             document.getElementById('modal-timeline').innerText = p.timeline;
             document.getElementById('modal-total-tech').innerText = p.total_tech;
-            
             document.getElementById('modal-about').innerText = p.about;
             
-            // Tech Stack Pills
-            const techContainer = document.getElementById('modal-tech-stack');
-            techContainer.innerHTML = p.tech_stack.split(',').map(t => 
+            document.getElementById('modal-tech-stack').innerHTML = p.tech_stack.split(',').map(t => 
                 `<span class="bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg text-sm text-gray-300">${t.trim()}</span>`
             ).join('');
 
-            // Features List
-            const featureContainer = document.getElementById('modal-features');
-            featureContainer.innerHTML = p.features.split('|').map(f => 
+            document.getElementById('modal-features').innerHTML = p.features.split('|').map(f => 
                 `<li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-primary mt-1"></i> <span>${f.trim()}</span></li>`
             ).join('');
 
-            // Gallery Images
             const galleryContainer = document.getElementById('modal-gallery');
             if(p.gallery) {
                 galleryContainer.innerHTML = p.gallery.split(',').map(img => 
@@ -410,7 +423,6 @@
                 galleryContainer.innerHTML = '';
             }
 
-            // Show Modal & Prevent Body Scroll
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
@@ -419,8 +431,18 @@
         function closeModal() {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            document.body.style.overflow = 'auto'; // Restore scroll
+            document.body.style.overflow = 'auto';
         }
     </script>
+
+    <!-- SupportKori Widget -->
+    <script
+      src="https://www.supportkori.com/widget.js"
+      data-id="hasanhridoy"
+      data-message="Support Me"
+      data-color="#FFDD00"
+      data-position="right"
+    ></script>
+
 </body>
     </html>
