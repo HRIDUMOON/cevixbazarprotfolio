@@ -3,185 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasan Hridoy | Full-Stack & OTT Developer</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
+    <title>Hasan Hridoy | Full-Stack & OTT Developer</title>
+    <meta name="description" content="Portfolio of Hasan Hridoy, specializing in Full-Stack Web Development, OTT Platforms, and Scalable Backend Systems.">
+    <meta property="og:title" content="Hasan Hridoy | Portfolio">
+    <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps and scalable backends.">
+    <meta property="og:image" content="YOUR_META_PHOTO_LINK_HERE"> <meta property="og:url" content="https://yourwebsite.com">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FACC15', /* Yellow Accent */
-                        bg: '#000000',      /* Deep Black */
-                        card: '#111111',    /* Dark Gray for Cards */
+                        primary: '#D4FF00', /* Neon Yellow/Lime from Screenshot */
+                        bg: '#0a0a0a',      
+                        card: '#111111',    
                         cardHover: '#1a1a1a'
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #000000; color: #ffffff; overflow-x: hidden; }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FACC15; }
+        body { background-color: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4FF00; }
         
-        .skill-content { display: none; transition: all 0.3s ease; }
-        .skill-content.open { display: block; }
+        .skill-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .skill-content.open { max-height: 1000px; }
         .rotate-180 { transform: rotate(180deg); }
+        
+        /* Modal Styles */
+        #project-modal { transition: opacity 0.3s ease; }
+        .modal-body { scrollbar-width: none; }
+        .modal-body::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-primary selection:text-black relative">
 
-    <!-- Floating Support Button -->
-    <a href="#" class="fixed bottom-6 right-6 bg-primary text-black px-5 py-3 rounded-full font-bold shadow-[0_4px_20px_rgba(250,204,21,0.4)] z-50 flex items-center gap-2 hover:scale-105 transition-transform">
+    <a href="YOUR_SUPPORT_LINK_HERE" target="_blank" class="fixed bottom-6 right-6 bg-primary text-black px-5 py-3 rounded-full font-bold shadow-[0_4px_20px_rgba(212,255,0,0.3)] z-40 flex items-center gap-2 hover:scale-105 transition-transform">
         <i class="fa-solid fa-mug-hot"></i> Support Me
     </a>
 
-    <!-- Navbar -->
-    <nav class="fixed w-full top-0 bg-black/80 backdrop-blur-md z-40 border-b border-gray-900">
+    <nav class="fixed w-full top-0 bg-bg/80 backdrop-blur-md z-30 border-b border-gray-900">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter">hridoy<span class="text-primary">.</span></a>
+            
+            <a href="#" class="flex items-center gap-2">
+                <span class="text-2xl font-bold tracking-tighter">hridoy<span class="text-primary">.</span></span>
+            </a>
+
             <div class="flex items-center gap-4">
-                <a href="#" class="border border-white hover:border-primary hover:text-primary transition-colors px-4 py-1.5 rounded-full text-sm font-semibold hidden sm:block">Resume</a>
-                <button class="text-2xl"><i class="fa-solid fa-bars"></i></button>
+                <a href="#" class="bg-white text-black hover:bg-gray-200 transition-colors px-5 py-2 rounded-full text-sm font-semibold hidden sm:block">Resume</a>
+                <button id="mobile-menu-btn" class="text-2xl text-white hover:text-primary transition-colors"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-3xl mx-auto px-6 pt-32 pb-20">
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-20">
         
-        <!-- Hero Section -->
-        <section class="min-h-[70vh] flex flex-col justify-center items-start">
-            <div class="inline-flex items-center gap-2 border border-primary text-primary px-3 py-1 rounded-full text-xs font-semibold mb-6">
-                <i class="fa-solid fa-bolt"></i> Open to new opportunities
+        <section class="min-h-[75vh] flex flex-col justify-center items-start" data-aos="fade-up" data-aos-duration="1000">
+            <div class="inline-flex items-center gap-2 border border-primary/50 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-semibold mb-6">
+                <i class="fa-solid fa-sparkles"></i> Open to new opportunities
             </div>
             
-            <h1 class="text-6xl sm:text-7xl font-extrabold leading-tight mb-4 tracking-tight">
+            <h1 class="text-6xl sm:text-8xl font-extrabold leading-none mb-6 tracking-tight">
                 Hi, I'm <br><span class="text-primary">Hasan</span>
             </h1>
             
-            <p class="text-gray-400 text-lg sm:text-xl mb-8 leading-relaxed max-w-xl">
-                I architect <span class="text-white font-semibold">scalable backends</span>, build <span class="text-white font-semibold">robust OTT platforms</span>, and ship <span class="text-primary font-semibold">full-stack</span> products that perform.
+            <p class="text-gray-400 text-lg sm:text-xl mb-10 leading-relaxed max-w-2xl">
+                I architect <span class="text-white font-semibold">scalable backends</span>, build <span class="text-white font-semibold">robust OTT infrastructures</span>, and ship <span class="text-primary font-semibold">full-stack</span> products that perform beautifully.
             </p>
             
             <div class="flex flex-wrap items-center gap-4">
-                <a href="#portfolio" class="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-gray-200 transition-colors">
+                <a href="#portfolio" class="bg-white text-black px-6 py-3.5 rounded-full font-bold flex items-center gap-2 hover:bg-gray-200 transition-colors">
                     View My Work <i class="fa-solid fa-arrow-down"></i>
                 </a>
                 <div class="flex gap-3">
                     <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
                     <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-brands fa-linkedin-in text-xl"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
                 </div>
-            </div>
-            
-            <div class="mt-20 flex flex-col items-center self-center text-gray-600 text-xs tracking-widest uppercase">
-                Scroll to explore
-                <i class="fa-solid fa-arrow-down mt-2 animate-bounce"></i>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section class="py-16 border-t border-gray-900" id="about">
-            <div class="flex items-center gap-4 mb-8">
+        <section class="py-20 border-t border-gray-900" id="about" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
-                <h2 class="text-sm tracking-widest text-gray-400 uppercase font-bold">About Me</h2>
+                <h2 class="text-sm tracking-widest text-primary uppercase font-bold">About Me</h2>
             </div>
-            <h3 class="text-4xl font-bold mb-6">Get to know me</h3>
+            <h3 class="text-5xl font-extrabold mb-8">Get to know me</h3>
             
-            <p class="text-gray-400 leading-relaxed mb-8 text-lg">
-                I'm <span class="text-white font-semibold">Hasan Hridoy</span>, a Full-Stack Developer & OTT Engineer based in Bogura, Bangladesh. I specialize in building high-performance web applications, scalable backend systems, and custom automated platforms. From developing interactive digital storefronts to robust video streaming architectures, I love turning ideas into reality through clean code and thoughtful architecture.
+            <p class="text-gray-400 leading-relaxed mb-10 text-lg sm:text-xl">
+                I'm <span class="text-white font-semibold">Hasan Hridoy</span>, a Full-Stack Developer & OTT Engineer based in Bogura, Bangladesh. I specialize in building high-performance web applications and highly scalable video streaming systems.<br><br>
+                With deep expertise in modern tech stacks, I've worked on everything from complex real-time dashboards to full-fledged VOD/Live streaming architectures. I love turning visionary ideas into reality through clean code, secure DRM integrations, and thoughtful UI/UX.
             </p>
             
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                <div class="bg-card p-6 rounded-2xl border border-gray-800">
-                    <h4 class="text-4xl font-black text-primary mb-1">4+</h4>
-                    <p class="text-sm text-gray-500">Years Experience</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
+                    <h4 class="text-4xl font-black text-primary mb-2">4+</h4>
+                    <p class="text-sm text-gray-500 font-medium">Years Experience</p>
                 </div>
-                <div class="bg-card p-6 rounded-2xl border border-gray-800">
-                    <h4 class="text-4xl font-black text-primary mb-1">30+</h4>
-                    <p class="text-sm text-gray-500">Projects Completed</p>
+                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
+                    <h4 class="text-4xl font-black text-primary mb-2">30+</h4>
+                    <p class="text-sm text-gray-500 font-medium">Projects Completed</p>
                 </div>
-                <div class="bg-card p-6 rounded-2xl border border-gray-800">
-                    <h4 class="text-4xl font-black text-primary mb-1">20+</h4>
-                    <p class="text-sm text-gray-500">Happy Clients</p>
+                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
+                    <h4 class="text-4xl font-black text-primary mb-2">25+</h4>
+                    <p class="text-sm text-gray-500 font-medium">Happy Clients</p>
                 </div>
-                <div class="bg-card p-6 rounded-2xl border border-gray-800">
-                    <h4 class="text-4xl font-black text-primary mb-1">5</h4>
-                    <p class="text-sm text-gray-500">Open Source</p>
+                <div class="bg-card p-6 rounded-2xl border border-gray-800 text-center hover:border-primary/50 transition-colors">
+                    <h4 class="text-4xl font-black text-primary mb-2">2</h4>
+                    <p class="text-sm text-gray-500 font-medium">Awards Won</p>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section class="py-16 border-t border-gray-900" id="skills">
-            <div class="flex items-center gap-4 mb-8">
+        <section class="py-20 border-t border-gray-900" id="skills" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
-                <h2 class="text-sm tracking-widest text-gray-400 uppercase font-bold">Skills</h2>
+                <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Skills</h2>
             </div>
-            <h3 class="text-4xl font-bold mb-8">My expertise</h3>
+            <h3 class="text-5xl font-extrabold mb-10">My expertise</h3>
 
             <div class="space-y-4">
                 
-                <!-- Web Development Accordion -->
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer" onclick="toggleSkill('web-skills', 'web-icon')">
-                    <div class="p-6 flex justify-between items-center hover:bg-cardHover transition-colors">
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('web-skills', 'web-icon')">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
-                            <div class="bg-gray-800/50 p-3 rounded-xl text-primary"><i class="fa-solid fa-code"></i></div>
-                            <h4 class="text-xl font-bold">Web Development</h4>
+                            <div class="bg-primary/10 p-3 rounded-xl text-primary"><i class="fa-solid fa-code text-xl"></i></div>
+                            <h4 class="text-xl font-bold">Full-Stack Web Development</h4>
                         </div>
-                        <i id="web-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        <div class="flex items-center gap-4">
+                            <span class="text-primary font-bold text-xl">95%</span>
+                            <i id="web-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </div>
                     </div>
                     
-                    <div id="web-skills" class="skill-content px-6 pb-6 pt-2 border-t border-gray-800/50">
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">HTML, CSS, JavaScript</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">React / Next.js</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Node.js / Laravel</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">MySQL / MongoDB</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">REST API</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Git & GitHub</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Responsive Design</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">UI/UX</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">SEO & Performance</span>
+                    <div id="web-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                        <div class="py-6 space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">React.js / Next.js</span><span class="text-primary">95%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 95%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Node.js / Express</span><span class="text-primary">90%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">MySQL / MongoDB</span><span class="text-primary">85%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Tailwind CSS / UI/UX</span><span class="text-primary">95%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 95%"></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- OTT Development Accordion -->
-                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer" onclick="toggleSkill('ott-skills', 'ott-icon')">
-                    <div class="p-6 flex justify-between items-center hover:bg-cardHover transition-colors">
+                <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('ott-skills', 'ott-icon')">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
                         <div class="flex items-center gap-4">
-                            <div class="bg-gray-800/50 p-3 rounded-xl text-primary"><i class="fa-solid fa-tv"></i></div>
-                            <h4 class="text-xl font-bold">OTT Development</h4>
+                            <div class="bg-primary/10 p-3 rounded-xl text-primary"><i class="fa-solid fa-tv text-xl"></i></div>
+                            <h4 class="text-xl font-bold">OTT & Streaming Architecture</h4>
                         </div>
-                        <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        <div class="flex items-center gap-4">
+                            <span class="text-primary font-bold text-xl">90%</span>
+                            <i id="ott-icon" class="fa-solid fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </div>
                     </div>
                     
-                    <div id="ott-skills" class="skill-content px-6 pb-6 pt-2 border-t border-gray-800/50">
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Video Streaming (HLS/DASH)</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">CDN Integration</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Video Transcoding</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">DRM & Security</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Subscription System</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Payment Gateway</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Content Management</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">User Management</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Android / iOS / Smart TV</span>
-                            <span class="bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-lg text-sm text-gray-300">Analytics & Monitoring</span>
+                    <div id="ott-skills" class="skill-content px-6 bg-cardHover border-t border-gray-800">
+                        <div class="py-6 space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">Video Streaming (HLS/DASH)</span><span class="text-primary">95%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 95%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">DRM & Security</span><span class="text-primary">85%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2"><span class="text-gray-300">CDN & Video Transcoding</span><span class="text-primary">90%</span></div>
+                                <div class="w-full bg-gray-800 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,74 +202,119 @@
             </div>
         </section>
 
-        <!-- Portfolio Section (Demo) -->
-        <section class="py-16 border-t border-gray-900" id="portfolio">
-            <div class="flex items-center gap-4 mb-8">
+        <section class="py-20 border-t border-gray-900" id="experience" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-10">
                 <div class="h-[2px] w-8 bg-primary"></div>
-                <h2 class="text-sm tracking-widest text-gray-400 uppercase font-bold">Portfolio</h2>
+                <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Experience</h2>
             </div>
-            <h3 class="text-4xl font-bold mb-8">Selected Work</h3>
-            
-            <div class="grid grid-cols-1 gap-6">
-                <!-- Project 1 -->
-                <div class="bg-card border border-gray-800 rounded-2xl overflow-hidden group">
-                    <div class="h-48 bg-gray-900 relative">
-                        <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-4xl font-bold opacity-50">NOBOGOTO Dashboard</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-primary font-bold tracking-widest mb-2">FULL-STACK WEB APP</div>
-                        <h4 class="text-2xl font-bold mb-2">NOBOGOTO Server Web Dashboard</h4>
-                        <p class="text-gray-400 text-sm mb-4">A complete community management dashboard built with real-time REST API integration.</p>
-                    </div>
-                </div>
+            <h3 class="text-5xl font-extrabold mb-12">Work history</h3>
+
+            <div class="relative pl-6 sm:pl-8 border-l border-primary/30 space-y-12">
                 
-                 <!-- Project 2 -->
-                <div class="bg-card border border-gray-800 rounded-2xl overflow-hidden group">
-                    <div class="h-48 bg-gray-900 relative">
-                        <div class="absolute inset-0 flex items-center justify-center text-gray-700 text-4xl font-bold opacity-50">NOBO SHOP</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-primary font-bold tracking-widest mb-2">DIGITAL STOREFRONT</div>
-                        <h4 class="text-2xl font-bold mb-2">NOBO SHOP Platform</h4>
-                        <p class="text-gray-400 text-sm mb-4">An online digital storefront offering structured packages, memberships, and automated delivery.</p>
-                    </div>
+                <div class="relative" data-aos="fade-up">
+                    <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-primary rounded-full mt-1.5"></div>
+                    <div class="text-primary font-bold text-sm tracking-wider mb-2">JAN '24 - PRESENT</div>
+                    <h4 class="text-2xl font-bold mb-1">Lead OTT Engineer</h4>
+                    <p class="text-gray-500 font-medium mb-4">StreamTech Solutions</p>
+                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Architected the entire video delivery infrastructure processing over 10K concurrent streams. Implemented DRM solutions, automated transcoder pipelines, and built a highly scalable API backend reducing buffering by 40%.
+                    </p>
                 </div>
+
+                <div class="relative" data-aos="fade-up">
+                    <div class="absolute -left-[31px] sm:-left-[39px] w-4 h-4 bg-bg border-2 border-primary/50 rounded-full mt-1.5"></div>
+                    <div class="text-primary font-bold text-sm tracking-wider mb-2">AUG '22 - DEC '23</div>
+                    <h4 class="text-2xl font-bold mb-1">Full-Stack Developer</h4>
+                    <p class="text-gray-500 font-medium mb-4">Freelance</p>
+                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Shipped full-stack applications across international clients using React, Express, and MongoDB. Handled end-to-end development from UI/UX design to CI/CD deployment on AWS.
+                    </p>
+                </div>
+
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="py-16 border-t border-gray-900">
-            <div class="bg-primary text-black rounded-3xl p-8 sm:p-12 text-center">
-                <h3 class="text-3xl font-extrabold mb-4">Let's build something great.</h3>
-                <p class="mb-8 font-medium">Have a project in mind? Looking for a developer? Feel free to reach out directly.</p>
-                
-                <a href="#" class="inline-block bg-black text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors w-full sm:w-auto">
-                    <i class="fa-regular fa-paper-plane mr-2"></i> Send Message
-                </a>
+        <section class="py-20 border-t border-gray-900" id="portfolio" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="h-[2px] w-8 bg-primary"></div>
+                <h2 class="text-sm tracking-widest text-primary uppercase font-bold">Portfolio</h2>
             </div>
+            <h3 class="text-5xl font-extrabold mb-4">Selected Work</h3>
+            <p class="text-gray-400 text-lg mb-12">A collection of projects I've built - from full-stack applications to streaming platforms.</p>
             
-            <div class="mt-12 text-center">
-                <h4 class="text-xl font-bold mb-4">Prefer email?</h4>
-                <a href="mailto:contact@example.com" class="inline-flex items-center gap-3 bg-card border border-gray-800 px-6 py-4 rounded-2xl text-lg font-medium hover:border-primary transition-colors">
-                    <i class="fa-regular fa-envelope text-primary"></i>
-                    your-email@gmail.com
-                </a>
+            <div id="portfolio-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="text-center text-primary w-full col-span-full py-10"><i class="fa-solid fa-spinner fa-spin text-3xl"></i> Loading projects...</div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="text-center py-8 border-t border-gray-900 text-gray-500 text-sm">
-        <p>&copy; 2026 Hasan Hridoy. Built with Tailwind CSS.</p>
-    </footer>
+    <div id="project-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden flex-col">
+        <div class="w-full bg-card border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-10">
+            <button onclick="closeModal()" class="text-white hover:text-primary transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <div class="font-bold text-lg tracking-tighter">hridoy<span class="text-primary">.</span></div>
+            <div class="w-16"></div> </div>
 
-    <!-- JavaScript for Accordion Toggle -->
+        <div class="modal-body flex-1 overflow-y-auto px-6 py-10 w-full max-w-4xl mx-auto">
+            
+            <p id="modal-category" class="text-primary font-bold text-xs tracking-widest uppercase mb-3"></p>
+            <h2 id="modal-title" class="text-4xl sm:text-6xl font-extrabold mb-6"></h2>
+            <p id="modal-desc" class="text-gray-400 text-lg mb-8 leading-relaxed"></p>
+
+            <a id="modal-demo-btn" href="#" target="_blank" class="inline-flex items-center gap-2 bg-primary text-black font-bold px-6 py-3 rounded-xl hover:bg-white transition-colors mb-12">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+                <div class="bg-card border border-gray-800 p-6 rounded-2xl text-center text-sm">
+                    <div class="text-primary mb-2"><i class="fa-regular fa-user"></i> ROLE</div>
+                    <div id="modal-role" class="font-bold text-white"></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-2xl text-center text-sm">
+                    <div class="text-primary mb-2"><i class="fa-regular fa-calendar"></i> TIMELINE</div>
+                    <div id="modal-timeline" class="font-bold text-white"></div>
+                </div>
+                <div class="bg-card border border-gray-800 p-6 rounded-2xl text-center text-sm">
+                    <div class="text-primary mb-2"><i class="fa-solid fa-code"></i> TECH</div>
+                    <div id="modal-total-tech" class="font-bold text-white"></div>
+                </div>
+            </div>
+
+            <div class="space-y-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">About This Project</h3>
+                    <p id="modal-about" class="text-gray-400 leading-relaxed"></p>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Tech Stack</h3>
+                    <div id="modal-tech-stack" class="flex flex-wrap gap-3"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Key Features</h3>
+                    <ul id="modal-features" class="space-y-4 text-gray-300"></ul>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-3xl font-bold mb-8">Gallery</h3>
+                <div id="modal-gallery" class="space-y-6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize Scroll Animation
+        AOS.init({ once: true, offset: 100 });
+
+        // Skill Accordion Logic
         function toggleSkill(contentId, iconId) {
             const content = document.getElementById(contentId);
             const icon = document.getElementById(iconId);
-            
             if (content.classList.contains('open')) {
                 content.classList.remove('open');
                 icon.classList.remove('rotate-180');
@@ -265,6 +323,104 @@
                 icon.classList.add('rotate-180');
             }
         }
+
+        /* ====================================================
+           Google Sheet Fetch & Portfolio Render Logic
+           ==================================================== */
+        
+        // এখানে আপনার Google Sheet এর CSV লিংকটি দিন
+        const GOOGLE_SHEET_CSV_URL = "YOUR_GOOGLE_SHEET_CSV_LINK_HERE"; 
+        
+        let projectsData = [];
+
+        // Fetch Data using PapaParse
+        if(GOOGLE_SHEET_CSV_URL !== "YOUR_GOOGLE_SHEET_CSV_LINK_HERE") {
+            Papa.parse(GOOGLE_SHEET_CSV_URL, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    projectsData = results.data.filter(row => row.title); // Filter empty rows
+                    renderPortfolio(projectsData);
+                }
+            });
+        } else {
+            document.getElementById('portfolio-container').innerHTML = `<div class="col-span-full text-center text-red-500 p-10 border border-red-500/30 rounded-2xl bg-red-500/10">Please insert your Google Sheet CSV Link in the code.</div>`;
+        }
+
+        function renderPortfolio(data) {
+            const container = document.getElementById('portfolio-container');
+            container.innerHTML = ''; // Clear loading text
+
+            data.forEach((project, index) => {
+                const cardHtml = `
+                <div class="bg-card border border-gray-800 rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/50 transition-all duration-300" onclick="openModal(${index})" data-aos="fade-up">
+                    <div class="h-56 sm:h-64 bg-gray-900 relative overflow-hidden">
+                        <img src="${project.thumbnail}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <div class="text-xs text-primary font-bold tracking-widest mb-3 uppercase">${project.category}</div>
+                        <h4 class="text-2xl font-bold mb-3">${project.title}</h4>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">${project.short_desc}</p>
+                        <div class="inline-flex w-10 h-10 rounded-full bg-gray-900 items-center justify-center group-hover:bg-primary group-hover:text-black transition-colors">
+                            <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                        </div>
+                    </div>
+                </div>`;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        /* Modal Logic */
+        const modal = document.getElementById('project-modal');
+        
+        function openModal(index) {
+            const p = projectsData[index];
+            
+            // Populate Data
+            document.getElementById('modal-category').innerText = p.category;
+            document.getElementById('modal-title').innerText = p.title;
+            document.getElementById('modal-desc').innerText = p.short_desc;
+            document.getElementById('modal-demo-btn').href = p.demo_link;
+            
+            document.getElementById('modal-role').innerText = p.role;
+            document.getElementById('modal-timeline').innerText = p.timeline;
+            document.getElementById('modal-total-tech').innerText = p.total_tech;
+            
+            document.getElementById('modal-about').innerText = p.about;
+            
+            // Tech Stack Pills
+            const techContainer = document.getElementById('modal-tech-stack');
+            techContainer.innerHTML = p.tech_stack.split(',').map(t => 
+                `<span class="bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg text-sm text-gray-300">${t.trim()}</span>`
+            ).join('');
+
+            // Features List
+            const featureContainer = document.getElementById('modal-features');
+            featureContainer.innerHTML = p.features.split('|').map(f => 
+                `<li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-primary mt-1"></i> <span>${f.trim()}</span></li>`
+            ).join('');
+
+            // Gallery Images
+            const galleryContainer = document.getElementById('modal-gallery');
+            if(p.gallery) {
+                galleryContainer.innerHTML = p.gallery.split(',').map(img => 
+                    `<img src="${img.trim()}" class="w-full rounded-2xl border border-gray-800 shadow-lg">`
+                ).join('');
+            } else {
+                galleryContainer.innerHTML = '';
+            }
+
+            // Show Modal & Prevent Body Scroll
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Restore scroll
+        }
     </script>
 </body>
-                  </html>
+    </html>
