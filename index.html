@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Hasan Hridoy</title>
+    <title>Hasan Hridoy | Portfolio</title>
     <meta name="description" content="Portfolio of Hasan Hridoy, specializing in Full-Stack Web Development and OTT Platforms.">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hasandev.pages.dev/">
-    <meta property="og:title" content="Hasan Hridoy">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="Hasan Hridoy | Portfolio">
     <meta property="og:description" content="Full-Stack Developer & DevOps Engineer building high-performance web apps and scalable backends.">
     <meta property="og:image" content="https://yourwebsite.com/large-banner.jpg">
     
@@ -21,6 +21,7 @@
 
     <meta name="theme-color" content="#000000">
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -38,6 +39,7 @@
         }
     </script>
     
+    <!-- External CSS & Libraries -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -50,7 +52,7 @@
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center relative">
             
             <a href="#" class="flex items-center gap-2">
-                <span class="text-2xl font-bold tracking-tighter">Hridoy<span class="text-primary">.</span></span>
+                <span class="text-2xl font-bold tracking-tighter">hridoy<span class="text-primary">.</span></span>
             </a>
 
             <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
@@ -134,7 +136,7 @@
             </div>
             <h3 class="text-5xl font-extrabold mb-10">My expertise</h3>
 
-            <div class="space-y-1.5">
+            <div class="space-y-4">
                 
                 <div class="bg-card rounded-2xl border border-gray-800 overflow-hidden cursor-pointer group" onclick="toggleSkill('api-skills', 'api-icon')">
                     <div class="p-6 flex justify-between items-center group-hover:bg-cardHover transition-colors">
@@ -302,7 +304,7 @@
                 <h3 class="text-3xl font-extrabold mb-4">Let's build something great.</h3>
                 <p class="mb-8 font-medium text-gray-400">Have a project in mind? Looking for a developer? Feel free to reach out directly.</p>
                 
-                <a href="mailto:hasanhriroycollab@gmail.com" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300">
+                <a href="mailto:your-email@gmail.com" class="inline-flex items-center gap-2 bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300">
                     <i class="fa-regular fa-paper-plane"></i> Send Message
                 </a>
             </div>
@@ -311,7 +313,7 @@
                 <h4 class="text-xl font-bold mb-4">Prefer email?</h4>
                 <a href="mailto:your-email@gmail.com" class="inline-flex items-center gap-3 bg-card border border-gray-800 px-6 py-4 rounded-2xl text-lg font-medium hover:border-primary transition-colors">
                     <i class="fa-regular fa-envelope text-primary"></i>
-                    hasanhriroycollab@gmail.com
+                    your-email@gmail.com
                 </a>
             </div>
         </section>
@@ -322,12 +324,13 @@
 
     </main>
 
+    <!-- Full Screen Project Modal -->
     <div id="project-modal" class="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-md hidden flex-col">
         <div class="w-full bg-card border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-10">
             <button onclick="closeModal()" class="text-white hover:text-primary transition-colors flex items-center gap-2 font-medium">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
-            <div class="font-bold text-lg tracking-tighter">Hridoy<span class="text-primary">.</span></div>
+            <div class="font-bold text-lg tracking-tighter">hridoy<span class="text-primary">.</span></div>
             <div class="w-16"></div>
         </div>
 
@@ -380,8 +383,11 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <!-- External Script JS -->
+    <script src="script.js"></script>
+    
     <script
       src="https://www.supportkori.com/widget.js"
       data-id="hasanhridoy"
@@ -391,4 +397,4 @@
     ></script>
 
 </body>
-                </html>
+    </html>
