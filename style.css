@@ -1,0 +1,50 @@
+body {
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FFDD00;
+}
+
+.skill-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.skill-content.open {
+    max-height: 1000px;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.modal-body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Modal Custom Box Styles for :tags: */
+.custom-box-tag {
+    background-color: #262626;
+    color: #d1d5db;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.85em;
+    font-family: monospace;
+}
